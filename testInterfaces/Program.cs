@@ -33,12 +33,15 @@ namespace testInterfaces
 
     interface Ijedan
     {
-        void izJedinice();
+        void IzJedinice();
+
+        void SameName();
     }
 
     interface Idva
     {
-        int izJedinice();
+        int IzJedinice();
+        void SameName();
     }
 
     class Program : absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
@@ -75,9 +78,12 @@ namespace testInterfaces
             Console.WriteLine("Puppy a and b are same? "+b.ToString());
             var c = Dog.CompareNames(comparable, comparable2);
             Console.WriteLine("Puppy a and b are same? " + c.ToString());
-            p.izJedinice();
-            var a1 = ((Idva)p).izJedinice();
+            p.IzJedinice();
+            var a1 = ((Idva)p).IzJedinice();
             Console.WriteLine(a1.ToString());
+
+            ((Ijedan)p).SameName();
+            (p as Idva).SameName();
             Console.Read();
         }
 
@@ -101,12 +107,22 @@ namespace testInterfaces
             Console.WriteLine("implemented");
         }
 
-        public void izJedinice()
+        public void IzJedinice()
         {
             Console.WriteLine("one method from one interface");
         }
 
-        int Idva.izJedinice()
+        void Idva.SameName()
+        {
+            Console.WriteLine("calling samename from idva");
+        }
+
+        void Ijedan.SameName()
+        {
+            Console.WriteLine("calling samename from ijedan");
+        }
+
+        int Idva.IzJedinice()
         {
             Console.WriteLine("one method from two interface");
             return 1;
