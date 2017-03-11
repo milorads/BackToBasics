@@ -1,0 +1,6 @@
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\bin\Debug\testInterfaces.exe.config
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\bin\Debug\testInterfaces.exe
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\bin\Debug\testInterfaces.pdb
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\obj\Debug\testInterfaces.csprojResolveAssemblyReference.cache
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\obj\Debug\testInterfaces.exe
+c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfaces\obj\Debug\testInterfaces.pdb
