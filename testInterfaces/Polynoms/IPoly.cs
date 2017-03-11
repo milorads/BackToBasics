@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace testInterfaces
+﻿//File:IPoly.cs
+namespace PolyInterface
 {
-    class IPoly
+    /// <summary>
+    /// The interface that implementations will implement
+    /// </summary>
+    public interface IPolynomial
     {
+        double Eval(double value);
     }
 }

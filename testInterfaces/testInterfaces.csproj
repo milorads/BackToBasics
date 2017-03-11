@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Polynoms\Counter.cs" />
+    <Compile Include="Polynoms\Driver.cs" />
+    <Compile Include="Polynoms\IPoly.cs" />
+    <Compile Include="Polynoms\Polynomial.cs" />
+    <Compile Include="Polynoms\PolySimple.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
