@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Polynomial;
 
 namespace testInterfaces
 {
@@ -24,30 +25,31 @@ namespace testInterfaces
     {
         static void Main(string[] args)
         {
-            //Program p = new Program();
-            //p.MethodToImplement();
-            //p.ParentInterfaceMethod();
-            //int br = p.wow();
-            //Console.WriteLine(br.ToString());
-            //// call second main from polynomys/driver
-            //// use animal interface
-            //List<Dog> dogs = new List<Dog>();
-            //dogs.Add(new Dog("Somedog"));
-            //Dog puppy = new Dog("littleOne");
-            //dogs.Add(puppy);
-            //dogs.Add(new Dog("aDog"));
-            //dogs.Sort();
-            //foreach (var dog in dogs)
-            //{
-            //    Console.WriteLine(dog.Describe());
-            //}
-            //foreach (var dog in dogs)
-            //{
-            //    Console.WriteLine(dog.Describe());
-            //}
-            //Console.Read();
+            Program p = new Program();
+            p.MethodToImplement();
+            p.ParentInterfaceMethod();
+            int br = p.wow();
+            Console.WriteLine(br.ToString());
+            // call second main from polynomys/driver
+            Driver.MainTwo();
+            // use animal interface
+            List<Dog> dogs = new List<Dog>();
+            dogs.Add(new Dog("Somedog"));
+            Dog puppy = new Dog("littleOne");
+            dogs.Add(puppy);
+            dogs.Add(new Dog("aDog"));
+            dogs.Sort();
+            foreach (var dog in dogs)
+            {
+                Console.WriteLine(dog.Describe());
+            }
+            puppy.Name = "newDog";
+            foreach (var dog in dogs)
+            {
+                Console.WriteLine(dog.Describe());
+            }
             Dog comparable = new Dog("newname");
-            Dog comparable2 = comparable;
+            Dog comparable2 = new Dog("newname");
             var a = comparable2.CompareTo(comparable);
             var b = a == 1 ? true : false;
             Console.WriteLine("Puppy a and b are same? "+b.ToString());
@@ -98,8 +100,6 @@ namespace testInterfaces
         public int CompareTo(object obj)
         {
             if (obj is IAnimal)
-                Console.WriteLine(this.Name);
-            Console.WriteLine((obj as IAnimal).Name);
                 return this.Name.Equals((obj as IAnimal).Name)==true?1:0;
             return 0;
         }
