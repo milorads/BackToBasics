@@ -21,7 +21,27 @@ namespace testInterfaces
         int wow();
     }
 
-    class Program : IMyInterface, IMultipleInheritance
+    internal abstract class absClass
+    {
+        public abstract void AbsMethod();
+
+        public int NonAbsMethod()
+        {
+            return 0;
+        }
+    }
+
+    interface Ijedan
+    {
+        void izJedinice();
+    }
+
+    interface Idva
+    {
+        int izJedinice();
+    }
+
+    class Program : absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
     {
         static void Main(string[] args)
         {
@@ -55,6 +75,9 @@ namespace testInterfaces
             Console.WriteLine("Puppy a and b are same? "+b.ToString());
             var c = Dog.CompareNames(comparable, comparable2);
             Console.WriteLine("Puppy a and b are same? " + c.ToString());
+            p.izJedinice();
+            var a1 = ((Idva)p).izJedinice();
+            Console.WriteLine(a1.ToString());
             Console.Read();
         }
 
@@ -70,6 +93,22 @@ namespace testInterfaces
 
         public int wow()
         {
+            return 1;
+        }
+
+        public override void AbsMethod()
+        {
+            Console.WriteLine("implemented");
+        }
+
+        public void izJedinice()
+        {
+            Console.WriteLine("one method from one interface");
+        }
+
+        int Idva.izJedinice()
+        {
+            Console.WriteLine("one method from two interface");
             return 1;
         }
     }
