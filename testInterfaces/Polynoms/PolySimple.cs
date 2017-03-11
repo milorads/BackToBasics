@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace testInterfaces
 {
-    class PolynomialExample
+    class PolySimple
     {
     }
 }
