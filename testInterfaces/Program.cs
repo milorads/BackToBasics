@@ -44,7 +44,7 @@ namespace testInterfaces
         void SameName();
     }
 
-    class Program : absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
+    class Program : testVirtual, IMyInterface, IMultipleInheritance, Ijedan, Idva //absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
     {
         static void Main(string[] args)
         {
@@ -81,10 +81,20 @@ namespace testInterfaces
             p.IzJedinice();
             var a1 = ((Idva)p).IzJedinice();
             Console.WriteLine(a1.ToString());
-
             ((Ijedan)p).SameName();
             (p as Idva).SameName();
+
+            testVirtual t = new testVirtual();
+            t.Foo();
+            p.Foo();
             Console.Read();
+        }
+
+        public override void Foo()
+        {
+            Console.WriteLine("now it does what you wait it to.");
+            // and maybe the thing that it already did ?
+            base.Foo();
         }
 
         public void MethodToImplement()
@@ -102,10 +112,10 @@ namespace testInterfaces
             return 1;
         }
 
-        public override void AbsMethod()
-        {
-            Console.WriteLine("implemented");
-        }
+        //public override void AbsMethod()
+        //{
+        //    Console.WriteLine("implemented");
+        //}
 
         public void IzJedinice()
         {
@@ -176,6 +186,14 @@ namespace testInterfaces
             {
                 return false;
             }
+        }
+    }
+
+    class testVirtual
+    {
+        public virtual void Foo()
+        {
+            Console.WriteLine("i do something you might not want me to.");
         }
     }
 }
