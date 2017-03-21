@@ -7,3 +7,6 @@ c:\users\milor\documents\visual studio 2015\Projects\testInterfaces\testInterfac
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\bin\Debug\testInterfaces.exe.config
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\testInterfaces.exe
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\testInterfaces.pdb
+C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\bin\Debug\testInterfaces.exe
+C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\bin\Debug\testInterfaces.pdb
+C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\testInterfaces.csprojResolveAssemblyReference.cache

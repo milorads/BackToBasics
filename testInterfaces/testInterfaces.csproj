@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design Patterns\Creational\Factory.cs" />
+    <Compile Include="Design Patterns\Creational\Singleton.cs" />
     <Compile Include="Polynoms\Counter.cs" />
     <Compile Include="Polynoms\Driver.cs" />
     <Compile Include="Polynoms\IPoly.cs" />
@@ -53,6 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Design Patterns\Behavioral\" />
+    <Folder Include="Design Patterns\Structural\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
