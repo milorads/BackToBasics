@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace testInterfaces.Design_Patterns.Creational
 {
-    #region example of factory
+    #region Structure code
     /// <summary>
     /// The 'Product' abstract class
     /// </summary>
@@ -59,7 +59,7 @@ namespace testInterfaces.Design_Patterns.Creational
         }
     #endregion
 
-    #region implementation example
+    #region Implementation code
     /// <summary>
     /// The 'Product' abstract class
     /// </summary>

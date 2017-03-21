@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design Patterns\Creational\AbstractFactory.cs" />
     <Compile Include="Design Patterns\Creational\Factory.cs" />
+    <Compile Include="Design Patterns\Creational\Prototype.cs" />
     <Compile Include="Design Patterns\Creational\Singleton.cs" />
     <Compile Include="Polynoms\Counter.cs" />
     <Compile Include="Polynoms\Driver.cs" />
