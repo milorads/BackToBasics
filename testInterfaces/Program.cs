@@ -109,8 +109,10 @@ namespace testInterfaces
         static void Main(string[] args)
         {
             //InterfacesTester();
-            SingletonTester();
-            FactoryTester();
+            //SingletonTester();
+            //FactoryTester();
+            //AbstractFactoryTester();
+            PrototypeTester();
             Console.Read();
         }
 
@@ -278,8 +280,68 @@ namespace testInterfaces
             #endregion
         }
 
-        
+        static void AbstractFactoryTester()
+        {
+
+            #region sample 1
+            // Abstract factory #1
+            AbstractFactory factory1 = new ConcreteFactory1();
+            Client client1 = new Client(factory1);
+            client1.Run();
+
+            // Abstract factory #2
+            AbstractFactory factory2 = new ConcreteFactory2();
+            Client client2 = new Client(factory2);
+            client2.Run();
+            #endregion
+
+
+            #region sample 2
+            ContinentFactory africa = new AfricaFactory();
+            AnimalWorld world = new AnimalWorld(africa);
+            world.RunFoodChain();
+
+            // Create and run the American animal world
+            ContinentFactory america = new AmericaFactory();
+            world = new AnimalWorld(america);
+            world.RunFoodChain();
+            #endregion
+        }
+
+        static void PrototypeTester() {
+
+            #region sample 1
+            // Create two instances and clone each
+
+            ConcretePrototype1 p1 = new ConcretePrototype1("I");
+            ConcretePrototype1 c1 = (ConcretePrototype1)p1.Clone();
+            Console.WriteLine("Cloned: {0}", c1.Id);
+
+            ConcretePrototype2 p2 = new ConcretePrototype2("II");
+            ConcretePrototype2 c2 = (ConcretePrototype2)p2.Clone();
+            Console.WriteLine("Cloned: {0}", c2.Id);
+            #endregion
+
+            #region sample 2
+            ColorManager colormanager = new ColorManager();
+
+            // Initialize with standard colors
+            colormanager["red"] = new Color(255, 0, 0);
+            colormanager["green"] = new Color(0, 255, 0);
+            colormanager["blue"] = new Color(0, 0, 255);
+
+            // User adds personalized colors
+            colormanager["angry"] = new Color(255, 54, 0);
+            colormanager["peace"] = new Color(128, 211, 128);
+            colormanager["flame"] = new Color(211, 34, 20);
+
+            // User clones selected colors
+            Color color1 = colormanager["red"].Clone() as Color;
+            Color color2 = colormanager["peace"].Clone() as Color;
+            Color color3 = colormanager["flame"].Clone() as Color;
+            #endregion
+        }
+
+        static void BuilderTester() { }
     }
-
-
 }
