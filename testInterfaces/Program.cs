@@ -112,7 +112,8 @@ namespace testInterfaces
             //SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
-            PrototypeTester();
+            //PrototypeTester();
+            BuilderTester();
             Console.Read();
         }
 
@@ -342,6 +343,43 @@ namespace testInterfaces
             #endregion
         }
 
-        static void BuilderTester() { }
+        static void BuilderTester()
+        {
+            #region sample 1
+            Director director = new Director();
+
+            Builder b1 = new ConcreteBuilder1();
+            Builder b2 = new ConcreteBuilder2();
+
+            // Construct two products
+            director.Construct(b1);
+            BuilderProduct p1 = b1.GetResult();
+            p1.Show();
+
+            director.Construct(b2);
+            BuilderProduct p2 = b2.GetResult();
+            p2.Show();
+            #endregion
+
+            #region sample 2
+            VehicleBuilder builder;
+
+            // Create shop with vehicle builders
+            Shop shop = new Shop();
+
+            // Construct and display vehicles
+            builder = new ScooterBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show();
+
+            builder = new CarBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show();
+
+            builder = new MotorCycleBuilder();
+            shop.Construct(builder);
+            builder.Vehicle.Show(); 
+            #endregion
+        }
     }
 }
