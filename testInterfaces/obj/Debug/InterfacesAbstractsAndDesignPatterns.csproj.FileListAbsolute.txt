@@ -3,3 +3,4 @@ C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInter
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\bin\Debug\testInterfaces.pdb
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\testInterfaces.exe
 C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\testInterfaces.pdb
+C:\Users\msekulovic\Documents\Visual Studio 2015\Projects\Interfaces\I\testInterfaces\obj\Debug\InterfacesAbstractsAndDesignPatterns.csprojResolveAssemblyReference.cache

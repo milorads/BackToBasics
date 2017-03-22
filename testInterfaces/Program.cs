@@ -115,7 +115,7 @@ namespace testInterfaces
             //AbstractFactoryTester();
             //PrototypeTester();
             //BuilderTester();
-
+            FacadeTester();
             Console.Read();
         }
 
