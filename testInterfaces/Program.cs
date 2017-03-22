@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Polynomial;
 using testInterfaces.Design_Patterns.Creational;
+using testInterfaces.Design_Patterns.Structural;
 
 namespace testInterfaces
 {
@@ -113,7 +114,8 @@ namespace testInterfaces
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
-            BuilderTester();
+            //BuilderTester();
+
             Console.Read();
         }
 
@@ -378,7 +380,29 @@ namespace testInterfaces
 
             builder = new MotorCycleBuilder();
             shop.Construct(builder);
-            builder.Vehicle.Show(); 
+            builder.Vehicle.Show();
+            #endregion
+        }
+
+        static void FacadeTester()
+        {
+            #region sample 1
+            Facade facade = new Facade();
+
+            facade.MethodA();
+            facade.MethodB();
+            #endregion
+
+            #region sample 2
+            // Facade
+            Mortgage mortgage = new Mortgage();
+
+            // Evaluate mortgage eligibility for customer
+            Customer customer = new Customer("Ann McKinsey");
+            bool eligible = mortgage.IsEligible(customer, 125000);
+
+            Console.WriteLine("\n" + customer.Name +
+                " has been " + (eligible ? "Approved" : "Rejected"));
             #endregion
         }
     }
