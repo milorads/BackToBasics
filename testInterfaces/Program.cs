@@ -15,7 +15,7 @@ namespace testInterfaces
         static void Main(string[] args)
         {
             //InterfacesTester();
-            //SingletonTester();
+            SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
@@ -23,7 +23,7 @@ namespace testInterfaces
             //FacadeTester();
             //ProxyTester();
             //CompositeTester();
-            AdapterTester();
+            //AdapterTester();
 
             Console.Read();
         }
