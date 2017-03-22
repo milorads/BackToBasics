@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace testInterfaces.Interfaces
 {
 
-    class ProgramExtender : testVirtual, IMyInterface, IMultipleInheritance, Ijedan, Idva
+    class ProgramExtender : testVirtual, IMyInterface, IMultipleInheritance, Ijedan, Idva //absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
     {
         public override void Foo()
         {

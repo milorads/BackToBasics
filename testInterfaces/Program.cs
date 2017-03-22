@@ -10,7 +10,7 @@ using testInterfaces.Interfaces;
 
 namespace testInterfaces
 {
-    class Program : ProgramExtender //absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva
+    class Program : ProgramExtender
     {
         static void Main(string[] args)
         {
@@ -22,6 +22,8 @@ namespace testInterfaces
             //BuilderTester();
             //FacadeTester();
             //ProxyTester();
+            //CompositeTester();
+            AdapterTester();
 
             Console.Read();
         }
@@ -33,7 +35,7 @@ namespace testInterfaces
             int br = p.wow();
             Console.WriteLine(br.ToString());
             // call second main from polynomys/driver
-            Driver.MainTwo();
+            Driver.MainPolynoms();
             // use animal interface
             List<Dog> dogs = new List<Dog>();
             dogs.Add(new Dog("Somedog"));
@@ -329,6 +331,29 @@ namespace testInterfaces
 
             // Recursively display nodes
             root.Display(1);
+            #endregion
+        }
+
+        static void AdapterTester()
+        {
+            #region sample 1
+            Target target = new Adapter();
+            target.Request();
+            #endregion
+
+            #region sample 2
+            Compound unknown = new Compound("Unknown");
+            unknown.Display();
+
+            // Adapted chemical compounds
+            Compound water = new RichCompound("Water");
+            water.Display();
+
+            Compound benzene = new RichCompound("Benzene");
+            benzene.Display();
+
+            Compound ethanol = new RichCompound("Ethanol");
+            ethanol.Display();
             #endregion
         }
     }

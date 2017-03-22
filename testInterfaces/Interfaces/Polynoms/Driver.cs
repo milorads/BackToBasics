@@ -75,7 +75,7 @@ namespace Polynomial
         /// <summary>
         /// Maim function.
         /// </summary>
-        public static void MainTwo()
+        public static void MainPolynoms()
         {
             Eval(new Double[] { 5.5 });
 
