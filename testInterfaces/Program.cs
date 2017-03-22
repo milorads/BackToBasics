@@ -282,5 +282,54 @@ namespace testInterfaces
             Console.WriteLine("4 / 2 = " + proxyImplement.Div(4, 2));
             #endregion
         }
+
+        static void CompositeTester()
+        {
+            #region sample 1
+            Composite root = new Composite("root");
+            root.Add(new Leaf("Leaf A"));
+            root.Add(new Leaf("Leaf B"));
+
+            Composite comp = new Composite("Composite X");
+            comp.Add(new Leaf("Leaf XA"));
+            comp.Add(new Leaf("Leaf XB"));
+
+            root.Add(comp);
+            root.Add(new Leaf("Leaf C"));
+
+            // Add and remove a leaf
+            Leaf leaf = new Leaf("Leaf D");
+            root.Add(leaf);
+            root.Remove(leaf);
+
+            // Recursively display tree
+            root.Display(1);
+            #endregion
+
+            #region sample 2
+            // Create a tree structure
+            CompositeElement rootImplementation =
+              new CompositeElement("Picture");
+            rootImplementation.Add(new PrimitiveElement("Red Line"));
+            rootImplementation.Add(new PrimitiveElement("Blue Circle"));
+            rootImplementation.Add(new PrimitiveElement("Green Box"));
+
+            // Create a branch
+            CompositeElement compImplementation =
+              new CompositeElement("Two Circles");
+            compImplementation.Add(new PrimitiveElement("Black Circle"));
+            compImplementation.Add(new PrimitiveElement("White Circle"));
+            root.Add(comp);
+
+            // Add and remove a PrimitiveElement
+            PrimitiveElement pe =
+              new PrimitiveElement("Yellow Line");
+            rootImplementation.Add(pe);
+            rootImplementation.Remove(pe);
+
+            // Recursively display nodes
+            root.Display(1);
+            #endregion
+        }
     }
 }
