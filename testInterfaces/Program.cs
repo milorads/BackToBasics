@@ -405,5 +405,23 @@ namespace testInterfaces
                 " has been " + (eligible ? "Approved" : "Rejected"));
             #endregion
         }
+
+        static void ProxyTester()
+        {
+            #region sample 1
+            Proxy proxy = new Proxy();
+            proxy.Request();
+            #endregion
+
+            #region sample 2
+            MathProxy proxyImplement = new MathProxy();
+
+            // Do the math
+            Console.WriteLine("4 + 2 = " + proxyImplement.Add(4, 2));
+            Console.WriteLine("4 - 2 = " + proxyImplement.Sub(4, 2));
+            Console.WriteLine("4 * 2 = " + proxyImplement.Mul(4, 2));
+            Console.WriteLine("4 / 2 = " + proxyImplement.Div(4, 2));
+            #endregion
+        }
     }
 }
