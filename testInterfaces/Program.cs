@@ -25,7 +25,8 @@ namespace testInterfaces
             //CompositeTester();
             //AdapterTester();
             //BridgeTester();
-            DecoratorTester();
+            //DecoratorTester();
+            FlyweightTester();
 
             Console.Read();
         }
@@ -423,7 +424,50 @@ namespace testInterfaces
             borrowvideo.BorrowItem("Customer #1");
             borrowvideo.BorrowItem("Customer #2");
 
-            borrowvideo.Display(); 
+            borrowvideo.Display();
+            #endregion
+        }
+
+        static void FlyweightTester()
+        {
+            #region sample 1
+            int extrinsicstate = 22;
+
+            FlyweightFactory factory = new FlyweightFactory();
+
+            // Work with different flyweight instances
+            Flyweight fx = factory.GetFlyweight("X");
+            fx.Operation(--extrinsicstate);
+
+            Flyweight fy = factory.GetFlyweight("Y");
+            fy.Operation(--extrinsicstate);
+
+            Flyweight fz = factory.GetFlyweight("Z");
+            fz.Operation(--extrinsicstate);
+
+            UnsharedConcreteFlyweight fu = new
+              UnsharedConcreteFlyweight();
+
+            fu.Operation(--extrinsicstate);
+            #endregion
+
+            #region sample2
+            // Build a document with text
+            string document = "AAZZBBZB";
+            char[] chars = document.ToCharArray();
+
+            CharacterFactory factoryImplementation = new CharacterFactory();
+
+            // extrinsic state
+            int pointSize = 10;
+
+            // For each character use a flyweight object
+            foreach (char c in chars)
+            {
+                pointSize++;
+                Character character = factoryImplementation.GetCharacter(c);
+                character.Display(pointSize);
+            }
             #endregion
         }
     }
