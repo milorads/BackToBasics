@@ -43,17 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design Patterns\Creational\AbstractFactory.cs" />
-    <Compile Include="Design Patterns\Creational\Builder.cs" />
-    <Compile Include="Design Patterns\Creational\Factory.cs" />
-    <Compile Include="Design Patterns\Creational\Prototype.cs" />
-    <Compile Include="Design Patterns\Creational\Singleton.cs" />
+    <Compile Include="Design Patterns\Creational\AbstractFactory\AbstractFactory.cs" />
+    <Compile Include="Design Patterns\Creational\Builder\Builder.cs" />
+    <Compile Include="Design Patterns\Creational\Factory\Factory.cs" />
+    <Compile Include="Design Patterns\Creational\Prototype\Prototype.cs" />
+    <Compile Include="Design Patterns\Creational\Singleton\Singleton.cs" />
     <Compile Include="Design Patterns\Structural\Facade.cs" />
-    <Compile Include="Polynoms\Counter.cs" />
-    <Compile Include="Polynoms\Driver.cs" />
-    <Compile Include="Polynoms\IPoly.cs" />
-    <Compile Include="Polynoms\Polynomial.cs" />
-    <Compile Include="Polynoms\PolySimple.cs" />
+    <Compile Include="Design Patterns\Structural\Proxy.cs" />
+    <Compile Include="Interfaces\InterfaceTests\TestingInterfaces.cs" />
+    <Compile Include="Interfaces\Polynoms\Counter.cs" />
+    <Compile Include="Interfaces\Polynoms\Driver.cs" />
+    <Compile Include="Interfaces\Polynoms\IPoly.cs" />
+    <Compile Include="Interfaces\Polynoms\Polynomial.cs" />
+    <Compile Include="Interfaces\Polynoms\PolySimple.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +64,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Design Patterns\Behavioral\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Design Patterns\Creational\AbstractFactory\AbstractFactoryUML.gif" />
+    <Content Include="Design Patterns\Creational\AbstractFactory\AbstratFactoryAbout.txt" />
+    <Content Include="Design Patterns\Creational\Builder\BuilderAbout.txt" />
+    <Content Include="Design Patterns\Creational\Builder\BuilderUML.gif" />
+    <Content Include="Design Patterns\Creational\Factory\FactoryAbout.txt" />
+    <Content Include="Design Patterns\Creational\Factory\FactoryUML.gif" />
+    <Content Include="Design Patterns\Creational\Prototype\PrototypeAbout.txt" />
+    <Content Include="Design Patterns\Creational\Prototype\PrototypeUML.gif" />
+    <Content Include="Design Patterns\Creational\Singleton\SingletonAbout.txt" />
+    <Content Include="Design Patterns\Creational\Singleton\SingletonUML.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
