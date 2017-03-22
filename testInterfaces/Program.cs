@@ -14,11 +14,13 @@ namespace testInterfaces
     {
         static void Main(string[] args)
         {
+            ///Creational
             //InterfacesTester();
             //SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
+            ///Structural
             //BuilderTester();
             //FacadeTester();
             //ProxyTester();
@@ -26,7 +28,9 @@ namespace testInterfaces
             //AdapterTester();
             //BridgeTester();
             //DecoratorTester();
-            FlyweightTester();
+            //FlyweightTester();
+            ///Behavioral
+            //
 
             Console.Read();
         }
