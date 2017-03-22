@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace testInterfaces.Design_Patterns.Structural
 {
-    class Decorator
-    {
-    }
+
 }

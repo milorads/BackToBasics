@@ -49,8 +49,11 @@
     <Compile Include="Design Patterns\Creational\Prototype\Prototype.cs" />
     <Compile Include="Design Patterns\Creational\Singleton\Singleton.cs" />
     <Compile Include="Design Patterns\Structural\Adapter.cs" />
+    <Compile Include="Design Patterns\Structural\Bridge.cs" />
     <Compile Include="Design Patterns\Structural\Composite.cs" />
+    <Compile Include="Design Patterns\Structural\Decorator.cs" />
     <Compile Include="Design Patterns\Structural\Facade.cs" />
+    <Compile Include="Design Patterns\Structural\Flyweight.cs" />
     <Compile Include="Design Patterns\Structural\Proxy.cs" />
     <Compile Include="Interfaces\InterfaceTests\TestingInterfaces.cs" />
     <Compile Include="Interfaces\Polynoms\Counter.cs" />

@@ -15,7 +15,7 @@ namespace testInterfaces
         static void Main(string[] args)
         {
             //InterfacesTester();
-            SingletonTester();
+            //SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
@@ -24,6 +24,7 @@ namespace testInterfaces
             //ProxyTester();
             //CompositeTester();
             //AdapterTester();
+            BridgeTester();
 
             Console.Read();
         }
@@ -354,6 +355,37 @@ namespace testInterfaces
 
             Compound ethanol = new RichCompound("Ethanol");
             ethanol.Display();
+            #endregion
+        }
+
+        static void BridgeTester()
+        {
+            #region sample 1
+            Abstraction ab = new RefinedAbstraction();
+            // Set implementation and call
+            ab.Implementor = new ConcreteImplementorA();
+            ab.Operation();
+
+            // Change implemention and call
+            ab.Implementor = new ConcreteImplementorB();
+            ab.Operation();
+            #endregion
+
+            #region sample 2
+            Customers customers = new Customers("Chicago");
+
+            // Set ConcreteImplementor
+            customers.Data = new CustomersData();
+
+            // Exercise the bridge
+            customers.Show();
+            customers.Next();
+            customers.Show();
+            customers.Next();
+            customers.Show();
+            customers.Add("Henry Velasquez");
+
+            customers.ShowAll();
             #endregion
         }
     }
