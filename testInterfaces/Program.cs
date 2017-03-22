@@ -25,7 +25,7 @@ namespace testInterfaces
             //CompositeTester();
             //AdapterTester();
             //BridgeTester();
-
+            DecoratorTester();
 
             Console.Read();
         }
@@ -387,6 +387,43 @@ namespace testInterfaces
             customers.Add("Henry Velasquez");
 
             customers.ShowAll();
+            #endregion
+        }
+
+        static void DecoratorTester()
+        {
+            #region sample 1
+            ConcreteComponent c = new ConcreteComponent();
+            ConcreteDecoratorA d1 = new ConcreteDecoratorA();
+            ConcreteDecoratorB d2 = new ConcreteDecoratorB();
+
+            // Link decorators
+            d1.SetComponent(c);
+            d2.SetComponent(d1);
+
+            d2.Operation();
+
+            // Wait for user
+            Console.ReadKey();
+            #endregion
+
+
+            #region sample 2
+            Book book = new Book("Worley", "Inside ASP.NET", 10);
+            book.Display();
+
+            // Create video
+            Video video = new Video("Spielberg", "Jaws", 23, 92);
+            video.Display();
+
+            // Make video borrowable, then borrow and display
+            Console.WriteLine("\nMaking video borrowable:");
+
+            Borrowable borrowvideo = new Borrowable(video);
+            borrowvideo.BorrowItem("Customer #1");
+            borrowvideo.BorrowItem("Customer #2");
+
+            borrowvideo.Display(); 
             #endregion
         }
     }
