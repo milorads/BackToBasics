@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Polynomial;
+using testInterfaces.KeyValuePairs;
 using testInterfaces.Design_Patterns.Creational;
 using testInterfaces.Design_Patterns.Structural;
 using testInterfaces.Interfaces;
@@ -14,14 +15,15 @@ namespace testInterfaces
     {
         static void Main(string[] args)
         {
-            ///Creational
+            KeyValuePairsTester();
             //InterfacesTester();
+            ///Creational
             //SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
-            ///Structural
             //BuilderTester();
+            ///Structural
             //FacadeTester();
             //ProxyTester();
             //CompositeTester();
@@ -31,6 +33,8 @@ namespace testInterfaces
             //FlyweightTester();
             ///Behavioral
             //
+
+
 
             Console.Read();
         }
@@ -473,6 +477,12 @@ namespace testInterfaces
                 character.Display(pointSize);
             }
             #endregion
+        }
+
+        static void KeyValuePairsTester()
+        {
+            HashtableAndDictionary.Dictionary();
+            HashtableAndDictionary.Hashtable();
         }
     }
 }

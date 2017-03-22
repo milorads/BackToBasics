@@ -48,19 +48,20 @@
     <Compile Include="Design Patterns\Creational\Factory\Factory.cs" />
     <Compile Include="Design Patterns\Creational\Prototype\Prototype.cs" />
     <Compile Include="Design Patterns\Creational\Singleton\Singleton.cs" />
-    <Compile Include="Design Patterns\Structural\Adapter.cs" />
-    <Compile Include="Design Patterns\Structural\Bridge.cs" />
-    <Compile Include="Design Patterns\Structural\Composite.cs" />
-    <Compile Include="Design Patterns\Structural\Decorator.cs" />
-    <Compile Include="Design Patterns\Structural\Facade.cs" />
-    <Compile Include="Design Patterns\Structural\Flyweight.cs" />
-    <Compile Include="Design Patterns\Structural\Proxy.cs" />
+    <Compile Include="Design Patterns\Structural\Adapter\Adapter.cs" />
+    <Compile Include="Design Patterns\Structural\Bridge\Bridge.cs" />
+    <Compile Include="Design Patterns\Structural\Composite\Composite.cs" />
+    <Compile Include="Design Patterns\Structural\Decorator\Decorator.cs" />
+    <Compile Include="Design Patterns\Structural\Facade\Facade.cs" />
+    <Compile Include="Design Patterns\Structural\Flyweight\Flyweight.cs" />
+    <Compile Include="Design Patterns\Structural\Proxy\Proxy.cs" />
     <Compile Include="Interfaces\InterfaceTests\TestingInterfaces.cs" />
     <Compile Include="Interfaces\Polynoms\Counter.cs" />
     <Compile Include="Interfaces\Polynoms\Driver.cs" />
     <Compile Include="Interfaces\Polynoms\IPoly.cs" />
     <Compile Include="Interfaces\Polynoms\Polynomial.cs" />
     <Compile Include="Interfaces\Polynoms\PolySimple.cs" />
+    <Compile Include="KeyValuePairs\HashtableAndDictionary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +82,20 @@
     <Content Include="Design Patterns\Creational\Prototype\PrototypeUML.gif" />
     <Content Include="Design Patterns\Creational\Singleton\SingletonAbout.txt" />
     <Content Include="Design Patterns\Creational\Singleton\SingletonUML.gif" />
+    <Content Include="Design Patterns\Structural\Adapter\AdapterAbout.txt" />
+    <Content Include="Design Patterns\Structural\Adapter\AdapterUML.gif" />
+    <Content Include="Design Patterns\Structural\Bridge\BridgeAbout.txt" />
+    <Content Include="Design Patterns\Structural\Bridge\BridgeUML.gif" />
+    <Content Include="Design Patterns\Structural\Composite\CompositeAbout.txt" />
+    <Content Include="Design Patterns\Structural\Composite\CompositeUML.gif" />
+    <Content Include="Design Patterns\Structural\Decorator\DecoratorAbout.txt" />
+    <Content Include="Design Patterns\Structural\Decorator\DecoratorUML.gif" />
+    <Content Include="Design Patterns\Structural\Facade\FacadeAbout.txt" />
+    <Content Include="Design Patterns\Structural\Facade\FacadeUML.gif" />
+    <Content Include="Design Patterns\Structural\Flyweight\FlyweightAbout.txt" />
+    <Content Include="Design Patterns\Structural\Flyweight\FlyweightUML.gif" />
+    <Content Include="Design Patterns\Structural\Proxy\ProxyAbout.txt" />
+    <Content Include="Design Patterns\Structural\Proxy\ProxyUML.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
