@@ -10,3 +10,5 @@ http://shop.oreilly.com/product/9780596007126.do
 http://www.dofactory.com/
 
 http://csharpindepth.com/Articles.aspx
+
+https://www.amazon.com/Ivor-Hortons-Beginning-Java-Guides/dp/0764568744
