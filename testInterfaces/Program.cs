@@ -33,9 +33,8 @@ namespace testInterfaces
             //DecoratorTester();
             //FlyweightTester();
             ///Behavioral
-            //
-
-
+            //IteratorTester();
+            //ObserverTester();
 
             Console.Read();
         }
@@ -533,6 +532,35 @@ namespace testInterfaces
             {
                 Console.WriteLine(implementedItem.Name);
             }
+            #endregion
+        }
+
+        static void ObserverTester()
+        {
+            #region sample 1
+            // Configure Observer pattern
+            ConcreteSubject s = new ConcreteSubject();
+
+            s.Attach(new ConcreteObserver(s, "X"));
+            s.Attach(new ConcreteObserver(s, "Y"));
+            s.Attach(new ConcreteObserver(s, "Z"));
+
+            // Change subject and notify observers
+            s.SubjectState = "ABC";
+            s.Notify();
+            #endregion
+
+            #region sample 2
+            // Create IBM stock and attach investors
+            IBM ibm = new IBM("IBM", 120.00);
+            ibm.Attach(new Investor("Sorros"));
+            ibm.Attach(new Investor("Berkshire"));
+
+            // Fluctuating prices will notify investors
+            ibm.Price = 120.10;
+            ibm.Price = 121.00;
+            ibm.Price = 120.50;
+            ibm.Price = 120.75;
             #endregion
         }
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace testInterfaces.Design_Patterns.Behavioral.Iterator
+namespace testInterfaces.Design_Patterns.Behavioral
 {
     #region Structure Code
     /// <summary>
