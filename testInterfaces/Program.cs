@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IADP.Design_Patterns.Behavioral;
+using IADP.Design_Patterns.Creational;
+using IADP.Design_Patterns.Structural;
+using IADP.Interfaces;
+using IADP.KeyValuePairs;
 using Polynomial;
-using testInterfaces.KeyValuePairs;
-using testInterfaces.Design_Patterns.Creational;
-using testInterfaces.Design_Patterns.Structural;
-using testInterfaces.Design_Patterns.Behavioral;
-using testInterfaces.Interfaces;
 
-namespace testInterfaces
+namespace IADP
 {
     class Program : ProgramExtender
     {
         static void Main(string[] args)
         {
-            ///
             //KeyValuePairsTester();
             //InterfacesTester();
 
-            ///Design patterns
-            ///Creational
+            //-Design patterns
+            //--Creational
             //SingletonTester();
             //FactoryTester();
             //AbstractFactoryTester();
             //PrototypeTester();
             //BuilderTester();
-            ///Structural
+            //--Structural
             //FacadeTester();
             //ProxyTester();
             //CompositeTester();
@@ -35,7 +34,7 @@ namespace testInterfaces
             //BridgeTester();
             //DecoratorTester();
             //FlyweightTester();
-            ///Behavioral
+            //--Behavioral
             //IteratorTester();
             //ObserverTester();
 
