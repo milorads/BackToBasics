@@ -206,7 +206,7 @@ namespace testInterfaces.Design_Patterns.Structural
 
         public override void ShowAllRecords()
         {
-            foreach (string customer in _customers)
+            foreach (var customer in _customers)
             {
                 Console.WriteLine(" " + customer);
             }

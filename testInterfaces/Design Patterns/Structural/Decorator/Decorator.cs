@@ -197,7 +197,7 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             base.Display();
 
-            foreach (string borrower in borrowers)
+            foreach (var borrower in borrowers)
             {
                 Console.WriteLine(" borrower: " + borrower);
             }

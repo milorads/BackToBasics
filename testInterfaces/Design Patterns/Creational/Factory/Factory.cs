@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IADP.Design_Patterns.Creational
+namespace testInterfaces.Design_Patterns.Creational
 {
     #region Structure code
     /// <summary>

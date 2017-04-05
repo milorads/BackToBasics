@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace testInterfaces.KeyValuePairs
 {
@@ -11,18 +8,11 @@ namespace testInterfaces.KeyValuePairs
     {
         public static void Dictionary()
         {
-            Dictionary<object, object> testObj = new Dictionary<object, object>();
-            testObj.Add(1, 1);
-            testObj.Add("", "");
-            testObj.Add(new object(), "");
-            DictionaryTester testObject = new DictionaryTester(1, "a");
+            var testObj = new Dictionary<object, object> {{1, 1}, {"", ""}, {new object(), ""}};
+            var testObject = new DictionaryTester(1, "a");
             testObj.Add(testObject, 1);
 
-            Dictionary<dynamic, dynamic> testObj2 = new Dictionary<dynamic, dynamic>();
-            testObj2.Add(1, 1);
-            testObj2.Add("", "");
-            testObj2.Add(new object(), "");
-            testObj2.Add(testObject, 1);
+            var testObj2 = new Dictionary<dynamic, dynamic> {{1, 1}, {"", ""}, {new object(), ""}, {testObject, 1}};
 
             foreach (var item in testObj)
             {
@@ -37,11 +27,11 @@ namespace testInterfaces.KeyValuePairs
         }
         public static void Hashtable()
         {
-            Hashtable testHash = new Hashtable();
+            var testHash = new Hashtable();
             testHash.Add(1, 1);
             testHash.Add("", "");
             testHash.Add(new object(), "");
-            DictionaryTester testObject = new DictionaryTester(1, "a");
+            var testObject = new DictionaryTester(1, "a");
             testHash.Add(testObject, 1);
             foreach (var item in testHash.Keys)
             {

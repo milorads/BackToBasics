@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IADP.Design_Patterns.Behavioral;
-using IADP.Design_Patterns.Creational;
-using IADP.Design_Patterns.Structural;
-using IADP.Interfaces;
-using IADP.KeyValuePairs;
 using Polynomial;
+using testInterfaces.Design_Patterns.Behavioral;
+using testInterfaces.Design_Patterns.Creational;
+using testInterfaces.Design_Patterns.Structural;
+using testInterfaces.Interfaces;
+using testInterfaces.KeyValuePairs;
 
-namespace IADP
+namespace testInterfaces
 {
     class Program : ProgramExtender
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //KeyValuePairsTester();
             //InterfacesTester();
@@ -42,17 +42,17 @@ namespace IADP
         }
 
         static void InterfacesTester() {
-            Program p = new Program();
+            var p = new Program();
             p.MethodToImplement();
             p.ParentInterfaceMethod();
-            int br = p.wow();
+            var br = p.wow();
             Console.WriteLine(br.ToString());
             // call second main from polynomys/driver
             Driver.MainPolynoms();
             // use animal interface
-            List<Dog> dogs = new List<Dog>();
+            var dogs = new List<Dog>();
             dogs.Add(new Dog("Somedog"));
-            Dog puppy = new Dog("littleOne");
+            var puppy = new Dog("littleOne");
             dogs.Add(puppy);
             dogs.Add(new Dog("aDog"));
             dogs.Sort();
@@ -65,8 +65,8 @@ namespace IADP
             {
                 Console.WriteLine(dog.Describe());
             }
-            Dog comparable = new Dog("newname");
-            Dog comparable2 = new Dog("newname");
+            var comparable = new Dog("newname");
+            var comparable2 = new Dog("newname");
             var a = comparable2.CompareTo(comparable);
             var b = a == 1 ? true : false;
             Console.WriteLine("Puppy a and b are same? " + b.ToString());
@@ -78,7 +78,7 @@ namespace IADP
             ((Ijedan)p).SameName();
             (p as Idva).SameName();
 
-            testVirtual t = new testVirtual();
+            var t = new testVirtual();
             t.Foo();
             p.Foo();
         }
@@ -87,8 +87,8 @@ namespace IADP
         {
 
             #region sample 1
-            Singleton s1 = Singleton.Instance();
-            Singleton s2 = Singleton.Instance();
+            var s1 = Singleton.Instance();
+            var s2 = Singleton.Instance();
 
             // Test for same instance
             if (s1 == s2)
@@ -99,10 +99,10 @@ namespace IADP
 
             #region sample 2
             // use of singleton creational pattern
-            LoadBalancer b1 = LoadBalancer.GetLoadBalancer();
-            LoadBalancer b2 = LoadBalancer.GetLoadBalancer();
-            LoadBalancer b3 = LoadBalancer.GetLoadBalancer();
-            LoadBalancer b4 = LoadBalancer.GetLoadBalancer();
+            var b1 = LoadBalancer.GetLoadBalancer();
+            var b2 = LoadBalancer.GetLoadBalancer();
+            var b3 = LoadBalancer.GetLoadBalancer();
+            var b4 = LoadBalancer.GetLoadBalancer();
 
             // Same instance?
             if (b1 == b2 && b2 == b3 && b3 == b4)
@@ -111,10 +111,10 @@ namespace IADP
             }
 
             // Load balance 15 server requests
-            LoadBalancer balancer = LoadBalancer.GetLoadBalancer();
-            for (int i = 0; i < 15; i++)
+            var balancer = LoadBalancer.GetLoadBalancer();
+            for (var i = 0; i < 15; i++)
             {
-                string server = balancer.Server;
+                var server = balancer.Server;
                 Console.WriteLine("Dispatch Request to: " + server);
             }
             #endregion
@@ -125,31 +125,31 @@ namespace IADP
 
             #region sample 1
             // use of factory creational pattern
-            Creator[] creators = new Creator[2];
+            var creators = new Creator[2];
 
             creators[0] = new ConcreteCreatorA();
             creators[1] = new ConcreteCreatorB();
 
             // Iterate over creators and create products
-            foreach (Creator creator in creators)
+            foreach (var creator in creators)
             {
-                Product product = creator.FactoryMethod();
+                var product = creator.FactoryMethod();
                 Console.WriteLine("Created {0}", product.GetType().Name);
             }
             #endregion
 
             #region sample 2
             // Note: constructors call Factory Method
-            Document[] documents = new Document[2];
+            var documents = new Document[2];
 
             documents[0] = new Resume();
             documents[1] = new Report();
 
             // Display document pages
-            foreach (Document document in documents)
+            foreach (var document in documents)
             {
                 Console.WriteLine("\n" + document.GetType().Name + "--");
-                foreach (Page page in document.Pages)
+                foreach (var page in document.Pages)
                 {
                     Console.WriteLine(" " + page.GetType().Name);
                 }
@@ -163,19 +163,19 @@ namespace IADP
             #region sample 1
             // Abstract factory #1
             AbstractFactory factory1 = new ConcreteFactory1();
-            Client client1 = new Client(factory1);
+            var client1 = new Client(factory1);
             client1.Run();
 
             // Abstract factory #2
             AbstractFactory factory2 = new ConcreteFactory2();
-            Client client2 = new Client(factory2);
+            var client2 = new Client(factory2);
             client2.Run();
             #endregion
 
 
             #region sample 2
             ContinentFactory africa = new AfricaFactory();
-            AnimalWorld world = new AnimalWorld(africa);
+            var world = new AnimalWorld(africa);
             world.RunFoodChain();
 
             // Create and run the American animal world
@@ -190,17 +190,17 @@ namespace IADP
             #region sample 1
             // Create two instances and clone each
 
-            ConcretePrototype1 p1 = new ConcretePrototype1("I");
-            ConcretePrototype1 c1 = (ConcretePrototype1)p1.Clone();
+            var p1 = new ConcretePrototype1("I");
+            var c1 = (ConcretePrototype1)p1.Clone();
             Console.WriteLine("Cloned: {0}", c1.Id);
 
-            ConcretePrototype2 p2 = new ConcretePrototype2("II");
-            ConcretePrototype2 c2 = (ConcretePrototype2)p2.Clone();
+            var p2 = new ConcretePrototype2("II");
+            var c2 = (ConcretePrototype2)p2.Clone();
             Console.WriteLine("Cloned: {0}", c2.Id);
             #endregion
 
             #region sample 2
-            ColorManager colormanager = new ColorManager();
+            var colormanager = new ColorManager();
 
             // Initialize with standard colors
             colormanager["red"] = new Color(255, 0, 0);
@@ -213,27 +213,27 @@ namespace IADP
             colormanager["flame"] = new Color(211, 34, 20);
 
             // User clones selected colors
-            Color color1 = colormanager["red"].Clone() as Color;
-            Color color2 = colormanager["peace"].Clone() as Color;
-            Color color3 = colormanager["flame"].Clone() as Color;
+            var color1 = colormanager["red"].Clone() as Color;
+            var color2 = colormanager["peace"].Clone() as Color;
+            var color3 = colormanager["flame"].Clone() as Color;
             #endregion
         }
 
         static void BuilderTester()
         {
             #region sample 1
-            Director director = new Director();
+            var director = new Director();
 
             Builder b1 = new ConcreteBuilder1();
             Builder b2 = new ConcreteBuilder2();
 
             // Construct two products
             director.Construct(b1);
-            BuilderProduct p1 = b1.GetResult();
+            var p1 = b1.GetResult();
             p1.Show();
 
             director.Construct(b2);
-            BuilderProduct p2 = b2.GetResult();
+            var p2 = b2.GetResult();
             p2.Show();
             #endregion
 
@@ -241,7 +241,7 @@ namespace IADP
             VehicleBuilder builder;
 
             // Create shop with vehicle builders
-            Shop shop = new Shop();
+            var shop = new Shop();
 
             // Construct and display vehicles
             builder = new ScooterBuilder();
@@ -261,7 +261,7 @@ namespace IADP
         static void FacadeTester()
         {
             #region sample 1
-            Facade facade = new Facade();
+            var facade = new Facade();
 
             facade.MethodA();
             facade.MethodB();
@@ -269,11 +269,11 @@ namespace IADP
 
             #region sample 2
             // Facade
-            Mortgage mortgage = new Mortgage();
+            var mortgage = new Mortgage();
 
             // Evaluate mortgage eligibility for customer
-            Customer customer = new Customer("Ann McKinsey");
-            bool eligible = mortgage.IsEligible(customer, 125000);
+            var customer = new Customer("Ann McKinsey");
+            var eligible = mortgage.IsEligible(customer, 125000);
 
             Console.WriteLine("\n" + customer.Name +
                 " has been " + (eligible ? "Approved" : "Rejected"));
@@ -283,12 +283,12 @@ namespace IADP
         static void ProxyTester()
         {
             #region sample 1
-            Proxy proxy = new Proxy();
+            var proxy = new Proxy();
             proxy.Request();
             #endregion
 
             #region sample 2
-            MathProxy proxyImplement = new MathProxy();
+            var proxyImplement = new MathProxy();
 
             // Do the math
             Console.WriteLine("4 + 2 = " + proxyImplement.Add(4, 2));
@@ -301,11 +301,11 @@ namespace IADP
         static void CompositeTester()
         {
             #region sample 1
-            Composite root = new Composite("root");
+            var root = new Composite("root");
             root.Add(new Leaf("Leaf A"));
             root.Add(new Leaf("Leaf B"));
 
-            Composite comp = new Composite("Composite X");
+            var comp = new Composite("Composite X");
             comp.Add(new Leaf("Leaf XA"));
             comp.Add(new Leaf("Leaf XB"));
 
@@ -313,7 +313,7 @@ namespace IADP
             root.Add(new Leaf("Leaf C"));
 
             // Add and remove a leaf
-            Leaf leaf = new Leaf("Leaf D");
+            var leaf = new Leaf("Leaf D");
             root.Add(leaf);
             root.Remove(leaf);
 
@@ -323,21 +323,21 @@ namespace IADP
 
             #region sample 2
             // Create a tree structure
-            CompositeElement rootImplementation =
+            var rootImplementation =
               new CompositeElement("Picture");
             rootImplementation.Add(new PrimitiveElement("Red Line"));
             rootImplementation.Add(new PrimitiveElement("Blue Circle"));
             rootImplementation.Add(new PrimitiveElement("Green Box"));
 
             // Create a branch
-            CompositeElement compImplementation =
+            var compImplementation =
               new CompositeElement("Two Circles");
             compImplementation.Add(new PrimitiveElement("Black Circle"));
             compImplementation.Add(new PrimitiveElement("White Circle"));
             root.Add(comp);
 
             // Add and remove a PrimitiveElement
-            PrimitiveElement pe =
+            var pe =
               new PrimitiveElement("Yellow Line");
             rootImplementation.Add(pe);
             rootImplementation.Remove(pe);
@@ -355,7 +355,7 @@ namespace IADP
             #endregion
 
             #region sample 2
-            Compound unknown = new Compound("Unknown");
+            var unknown = new Compound("Unknown");
             unknown.Display();
 
             // Adapted chemical compounds
@@ -384,7 +384,7 @@ namespace IADP
             #endregion
 
             #region sample 2
-            Customers customers = new Customers("Chicago");
+            var customers = new Customers("Chicago");
 
             // Set ConcreteImplementor
             customers.Data = new CustomersData();
@@ -404,9 +404,9 @@ namespace IADP
         static void DecoratorTester()
         {
             #region sample 1
-            ConcreteComponent c = new ConcreteComponent();
-            ConcreteDecoratorA d1 = new ConcreteDecoratorA();
-            ConcreteDecoratorB d2 = new ConcreteDecoratorB();
+            var c = new ConcreteComponent();
+            var d1 = new ConcreteDecoratorA();
+            var d2 = new ConcreteDecoratorB();
 
             // Link decorators
             d1.SetComponent(c);
@@ -420,17 +420,17 @@ namespace IADP
 
 
             #region sample 2
-            Book book = new Book("Worley", "Inside ASP.NET", 10);
+            var book = new Book("Worley", "Inside ASP.NET", 10);
             book.Display();
 
             // Create video
-            Video video = new Video("Spielberg", "Jaws", 23, 92);
+            var video = new Video("Spielberg", "Jaws", 23, 92);
             video.Display();
 
             // Make video borrowable, then borrow and display
             Console.WriteLine("\nMaking video borrowable:");
 
-            Borrowable borrowvideo = new Borrowable(video);
+            var borrowvideo = new Borrowable(video);
             borrowvideo.BorrowItem("Customer #1");
             borrowvideo.BorrowItem("Customer #2");
 
@@ -441,21 +441,21 @@ namespace IADP
         static void FlyweightTester()
         {
             #region sample 1
-            int extrinsicstate = 22;
+            var extrinsicstate = 22;
 
-            FlyweightFactory factory = new FlyweightFactory();
+            var factory = new FlyweightFactory();
 
             // Work with different flyweight instances
-            Flyweight fx = factory.GetFlyweight("X");
+            var fx = factory.GetFlyweight("X");
             fx.Operation(--extrinsicstate);
 
-            Flyweight fy = factory.GetFlyweight("Y");
+            var fy = factory.GetFlyweight("Y");
             fy.Operation(--extrinsicstate);
 
-            Flyweight fz = factory.GetFlyweight("Z");
+            var fz = factory.GetFlyweight("Z");
             fz.Operation(--extrinsicstate);
 
-            UnsharedConcreteFlyweight fu = new
+            var fu = new
               UnsharedConcreteFlyweight();
 
             fu.Operation(--extrinsicstate);
@@ -463,19 +463,19 @@ namespace IADP
 
             #region sample2
             // Build a document with text
-            string document = "AAZZBBZB";
-            char[] chars = document.ToCharArray();
+            var document = "AAZZBBZB";
+            var chars = document.ToCharArray();
 
-            CharacterFactory factoryImplementation = new CharacterFactory();
+            var factoryImplementation = new CharacterFactory();
 
             // extrinsic state
-            int pointSize = 10;
+            var pointSize = 10;
 
             // For each character use a flyweight object
-            foreach (char c in chars)
+            foreach (var c in chars)
             {
                 pointSize++;
-                Character character = factoryImplementation.GetCharacter(c);
+                var character = factoryImplementation.GetCharacter(c);
                 character.Display(pointSize);
             }
             #endregion
@@ -490,18 +490,18 @@ namespace IADP
         static void IteratorTester()
         {
             #region sample 1
-            ConcreteAggregate a = new ConcreteAggregate();
+            var a = new ConcreteAggregate();
             a[0] = "Item A";
             a[1] = "Item B";
             a[2] = "Item C";
             a[3] = "Item D";
 
             // Create Iterator and provide aggregate
-            Iterator i = a.CreateIterator();
+            var i = a.CreateIterator();
 
             Console.WriteLine("Iterating over collection:");
 
-            object item = i.First();
+            var item = i.First();
             while (item != null)
             {
                 Console.WriteLine(item);
@@ -510,7 +510,7 @@ namespace IADP
             #endregion
 
             #region sample 2
-            Collection collection = new Collection();
+            var collection = new Collection();
             collection[0] = new Item("Item 0");
             collection[1] = new Item("Item 1");
             collection[2] = new Item("Item 2");
@@ -522,14 +522,14 @@ namespace IADP
             collection[8] = new Item("Item 8");
 
             // Create iterator
-            ImplementedIterator iterator = collection.CreateIterator();
+            var iterator = collection.CreateIterator();
 
             // Skip every other item
             iterator.Step = 2;
 
             Console.WriteLine("Iterating over collection:");
 
-            for (Item implementedItem = iterator.First();
+            for (var implementedItem = iterator.First();
                 !iterator.IsDone; item = iterator.Next())
             {
                 Console.WriteLine(implementedItem.Name);
@@ -541,7 +541,7 @@ namespace IADP
         {
             #region sample 1
             // Configure Observer pattern
-            ConcreteSubject s = new ConcreteSubject();
+            var s = new ConcreteSubject();
 
             s.Attach(new ConcreteObserver(s, "X"));
             s.Attach(new ConcreteObserver(s, "Y"));
@@ -554,7 +554,7 @@ namespace IADP
 
             #region sample 2
             // Create IBM stock and attach investors
-            IBM ibm = new IBM("IBM", 120.00);
+            var ibm = new IBM("IBM", 120.00);
             ibm.Attach(new Investor("Sorros"));
             ibm.Attach(new Investor("Berkshire"));
 

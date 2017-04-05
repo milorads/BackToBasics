@@ -111,7 +111,7 @@ namespace testInterfaces.Design_Patterns.Creational
         {
             get
             {
-                int r = _random.Next(_servers.Count);
+                var r = _random.Next(_servers.Count);
                 return _servers[r].ToString();
             }
         }

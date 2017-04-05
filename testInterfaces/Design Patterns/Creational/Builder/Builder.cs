@@ -91,7 +91,7 @@ namespace testInterfaces.Design_Patterns.Creational
         public void Show()
         {
             Console.WriteLine("\nProduct Parts -------");
-            foreach (string part in _parts)
+            foreach (var part in _parts)
                 Console.WriteLine(part);
         }
     }

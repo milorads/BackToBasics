@@ -53,7 +53,7 @@ namespace testInterfaces.Design_Patterns.Structural
             Console.WriteLine(new String('-', depth) + name);
 
             // Recursively display child nodes
-            foreach (Component component in _children)
+            foreach (var component in _children)
             {
                 component.Display(depth + 2);
             }
@@ -167,7 +167,7 @@ namespace testInterfaces.Design_Patterns.Structural
               "+ " + _name);
 
             // Display each child element on this node
-            foreach (DrawingElement d in elements)
+            foreach (var d in elements)
             {
                 d.Display(indent + 2);
             }

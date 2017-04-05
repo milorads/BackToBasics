@@ -65,13 +65,14 @@
     <Compile Include="Design Patterns\Structural\Facade\Facade.cs" />
     <Compile Include="Design Patterns\Structural\Flyweight\Flyweight.cs" />
     <Compile Include="Design Patterns\Structural\Proxy\Proxy.cs" />
-    <Compile Include="Interfaces\InterfaceTests\TestingInterfaces.cs" />
+    <Compile Include="Interfaces\InterfaceTry\TryingInterfaces.cs" />
     <Compile Include="Interfaces\Polynoms\Counter.cs" />
     <Compile Include="Interfaces\Polynoms\Driver.cs" />
     <Compile Include="Interfaces\Polynoms\IPoly.cs" />
     <Compile Include="Interfaces\Polynoms\Polynomial.cs" />
     <Compile Include="Interfaces\Polynoms\PolySimple.cs" />
     <Compile Include="KeyValuePairs\HashtableAndDictionary.cs" />
+    <Compile Include="KeyValuePairs\HashtableAndDictionaryTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

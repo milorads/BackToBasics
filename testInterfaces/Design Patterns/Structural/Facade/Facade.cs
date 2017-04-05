@@ -157,7 +157,7 @@ namespace testInterfaces.Design_Patterns.Structural
             Console.WriteLine("{0} applies for {1:C} loan\n",
               cust.Name, amount);
 
-            bool eligible = true;
+            var eligible = true;
 
             // Check creditworthyness of applicant
             if (!_bank.HasSufficientSavings(cust, amount))

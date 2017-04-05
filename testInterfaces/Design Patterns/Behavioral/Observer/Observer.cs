@@ -26,7 +26,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
 
         public void Notify()
         {
-            foreach (Observer o in _observers)
+            foreach (var o in _observers)
             {
                 o.Update();
             }
@@ -118,7 +118,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
 
         public void Notify()
         {
-            foreach (IInvestor investor in _investors)
+            foreach (var investor in _investors)
             {
                 investor.Update(this);
             }

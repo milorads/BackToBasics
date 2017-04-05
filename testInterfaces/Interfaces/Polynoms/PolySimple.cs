@@ -16,11 +16,11 @@
 
         public override double Evaluate(double value)
         {
-            double retval = coefficients[0];
+            var retval = coefficients[0];
 
-            double f = value;
+            var f = value;
 
-            for (int i = 1; i < coefficients.Length; i++)
+            for (var i = 1; i < coefficients.Length; i++)
             {
                 retval += coefficients[i] * f;
                 f *= value;

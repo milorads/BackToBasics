@@ -13,7 +13,7 @@ namespace Polynomial
         {
             this.coefficients = new double[coefficients.Length];
 
-            for (int i = 0; i < coefficients.Length; i++)
+            for (var i = 0; i < coefficients.Length; i++)
                 this.coefficients[i] = coefficients[i];
         }
 
