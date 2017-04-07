@@ -17,7 +17,7 @@ namespace testInterfaces
         private static void Main(string[] args)
         {
             //KeyValuePairsTester();
-            //InterfacesTester();
+            InterfacesTester();
 
             //-Design patterns
             //--Creational
@@ -44,7 +44,7 @@ namespace testInterfaces
             Console.Read();
         }
 
-        static void InterfacesTester() {
+        public static void InterfacesTester() {
             var p = new Program();
             p.MethodToImplement();
             p.ParentInterfaceMethod();

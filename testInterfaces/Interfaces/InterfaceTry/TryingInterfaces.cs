@@ -20,10 +20,19 @@ namespace testInterfaces.Interfaces
         {
             Console.WriteLine("MethodToImplement() called.");
         }
+        public string MethodToImplement(bool test)
+        {
+            return "MethodToImplement() called.";
+        }
 
         public void ParentInterfaceMethod()
         {
             Console.WriteLine("ParentInterfaceMethod() called.");
+        }
+
+        public string ParentInterfaceMethod(bool test)
+        {
+            return "ParentInterfaceMethod() called.";
         }
 
         public int wow()

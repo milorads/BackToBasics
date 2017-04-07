@@ -10,7 +10,7 @@ namespace testInterfaces.KeyValuePairs
         {
             try
             {
-                testInterfaces.KeyValuePairs.HashtableAndDictionary.Dictionary();
+                HashtableAndDictionary.Dictionary();
                 Assert.IsTrue(true);
             }
             catch
@@ -24,7 +24,7 @@ namespace testInterfaces.KeyValuePairs
         {
             try
             {
-                testInterfaces.KeyValuePairs.HashtableAndDictionary.Hashtable();
+                HashtableAndDictionary.Hashtable();
                 Assert.IsTrue(true);
             }
             catch
@@ -32,6 +32,5 @@ namespace testInterfaces.KeyValuePairs
                 Assert.IsTrue(false);
             }
         }
-
     }
 }
