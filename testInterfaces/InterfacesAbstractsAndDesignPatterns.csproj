@@ -54,6 +54,7 @@
     <Compile Include="Design Patterns\Behavioral\Command\Command.cs" />
     <Compile Include="Design Patterns\Behavioral\Iterator\Iterator.cs" />
     <Compile Include="Design Patterns\Behavioral\Observer\Observer.cs" />
+    <Compile Include="Design Patterns\Behavioral\Strategy\Strategy.cs" />
     <Compile Include="Design Patterns\Creational\AbstractFactory\AbstractFactory.cs" />
     <Compile Include="Design Patterns\Creational\Builder\Builder.cs" />
     <Compile Include="Design Patterns\Creational\Factory\Factory.cs" />
@@ -89,6 +90,8 @@
     <Content Include="Design Patterns\Behavioral\Iterator\IteratorAbout.txt" />
     <Content Include="Design Patterns\Behavioral\Observer\ObserverUML.gif" />
     <Content Include="Design Patterns\Behavioral\Observer\ObserverAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Strategy\StrategyAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Strategy\StrategyUML.gif" />
     <Content Include="Design Patterns\Creational\AbstractFactory\AbstractFactoryUML.gif" />
     <Content Include="Design Patterns\Creational\AbstractFactory\AbstratFactoryAbout.txt" />
     <Content Include="Design Patterns\Creational\Builder\BuilderAbout.txt" />

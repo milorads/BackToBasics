@@ -37,7 +37,8 @@ namespace testInterfaces
             //--Behavioral
             //IteratorTester();
             //ObserverTester();
-            CommandTester();
+            //CommandTester();
+            StrategyTester();
 
             Console.Read();
         }
@@ -595,6 +596,43 @@ namespace testInterfaces
 
             // Redo 3 commands
             user.Redo(3);
+            #endregion
+        }
+
+        static void StrategyTester()
+        {
+            #region sample 1
+            Context context;
+
+            // Three contexts following different strategies
+            context = new Context(new ConcreteStrategyA());
+            context.ContextInterface();
+
+            context = new Context(new ConcreteStrategyB());
+            context.ContextInterface();
+
+            context = new Context(new ConcreteStrategyC());
+            context.ContextInterface();
+            #endregion
+
+            #region sample 2
+            // Two contexts following different strategies
+            SortedList studentRecords = new SortedList();
+
+            studentRecords.Add("Samual");
+            studentRecords.Add("Jimmy");
+            studentRecords.Add("Sandra");
+            studentRecords.Add("Vivek");
+            studentRecords.Add("Anna");
+
+            studentRecords.SetSortStrategy(new QuickSort());
+            studentRecords.Sort();
+
+            studentRecords.SetSortStrategy(new ShellSort());
+            studentRecords.Sort();
+
+            studentRecords.SetSortStrategy(new MergeSort());
+            studentRecords.Sort();
             #endregion
         }
 
