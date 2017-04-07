@@ -37,7 +37,7 @@ namespace testInterfaces
             //--Behavioral
             //IteratorTester();
             //ObserverTester();
-            //
+            CommandTester();
 
             Console.Read();
         }
@@ -564,6 +564,37 @@ namespace testInterfaces
             ibm.Price = 121.00;
             ibm.Price = 120.50;
             ibm.Price = 120.75;
+            #endregion
+        }
+
+        static void CommandTester()
+        {
+            #region sample 1
+            // Create receiver, command, and invoker
+            Receiver receiver = new Receiver();
+            SampleCommand command = new SampleConcreteCommand(receiver);
+            Invoker invoker = new Invoker();
+
+            // Set and execute command
+            invoker.SetCommand(command);
+            invoker.ExecuteCommand();
+            #endregion
+
+            #region sample 2
+            // Create user and let her compute
+            User user = new User();
+
+            // User presses calculator buttons
+            user.Compute('+', 100);
+            user.Compute('-', 50);
+            user.Compute('*', 10);
+            user.Compute('/', 2);
+
+            // Undo 4 commands
+            user.Undo(4);
+
+            // Redo 3 commands
+            user.Redo(3);
             #endregion
         }
 
