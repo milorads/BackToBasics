@@ -1,4 +1,8 @@
 ﻿//File:Driver.cs
+
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Polynomial
 {
     using System;
@@ -73,7 +77,43 @@ namespace Polynomial
         }
 
         /// <summary>
-        /// Maim function.
+        /// Testable Eval
+        /// </summary>
+        /// <param name="coeff"></param>
+        public static Hashtable Eval(double[] coeff, bool test)
+        {
+            var imps = new Polynomial[]
+                {
+                    new PolySimple(coeff),
+            };
+
+            var results = new double[imps.Length];
+            for (var index = 0; index < imps.Length; index++)
+            {
+                results[index] = TimeEvaluate(imps[index]);
+            }
+            Hashtable outHash = new Hashtable();
+            List<string> keys = new List<string>();
+            outHash.Add("len", coeff.Length);
+            keys.Add("len");
+            for (var index = 0; index < imps.Length; index++)
+            {
+                outHash.Add("imp"+index.ToString(), imps[index]);
+                keys.Add("imp" + index.ToString());
+                outHash.Add("res" + index.ToString(), results[index]);
+                keys.Add("res" + index.ToString());
+            }
+            outHash.Add("keys", keys);
+            return outHash;
+        }
+
+        public enum EvalKeys
+        {
+            len,
+        }
+
+        /// <summary>
+        /// Main function.
         /// </summary>
         public static void MainPolynoms()
         {
