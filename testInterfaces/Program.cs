@@ -39,7 +39,7 @@ namespace testInterfaces
             //ObserverTester();
             //CommandTester();
             //StrategyTester();
-            StateTester();
+            //StateTester();
 
             Console.Read();
         }
