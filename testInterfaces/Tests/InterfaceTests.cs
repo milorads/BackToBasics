@@ -115,7 +115,7 @@ namespace testInterfaces.Tests
             {
                 var testBool = dog.Describe().Contains("Hello, I'm a dog and my name is") &&
                                dog.Describe().Contains(dog.Name);
-                Assert.AreEqual(true,testBool);
+                Assert.IsTrue(testBool);
             }
             puppy.Name = "newDog";
             foreach (var dog in dogs)
@@ -131,7 +131,21 @@ namespace testInterfaces.Tests
             var a = comparable2.CompareTo(comparable);
             Assert.AreEqual(a, 1);
             var c = Dog.CompareNames(comparable, comparable2);
-            Assert.AreEqual(c, true);
+            Assert.IsTrue(c);
+        }
+
+        [Test]
+        public void TestInterfaceJedanDva()
+        {
+            var p = new Program();
+            var oneInterfaceReturnsString = p.IzJedinice(true);
+            StringAssert.AreEqualIgnoringCase("one method from one interface", oneInterfaceReturnsString);
+            var twoInterfaceReturnsInt = ((Idva)p).IzJedinice();
+            Assert.AreEqual(1,twoInterfaceReturnsInt);
+            var oneInterfaceSameMethodCall = ((Ijedan)p).SameName(true);
+            StringAssert.AreEqualIgnoringCase("calling samename from ijedan", oneInterfaceSameMethodCall);
+            var twoInterfaceSameMethodCall = (p as Idva).SameName(true);
+            StringAssert.AreEqualIgnoringCase("calling samename from idva", twoInterfaceSameMethodCall);
         }
     }
 }

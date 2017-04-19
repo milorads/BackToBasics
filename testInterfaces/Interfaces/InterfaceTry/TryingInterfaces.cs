@@ -49,15 +49,30 @@ namespace testInterfaces.Interfaces
         {
             Console.WriteLine("one method from one interface");
         }
+        public string IzJedinice(bool test)
+        {
+            return "one method from one interface";
+        }
 
         void Idva.SameName()
         {
             Console.WriteLine("calling samename from idva");
         }
 
+        string Idva.SameName(bool test)
+        {
+            return "calling samename from idva";
+        }
+
         void Ijedan.SameName()
         {
             Console.WriteLine("calling samename from ijedan");
+        }
+
+
+        string Ijedan.SameName(bool test)
+        {
+            return "calling samename from ijedan";
         }
 
         int Idva.IzJedinice()
@@ -95,12 +110,15 @@ namespace testInterfaces.Interfaces
         void IzJedinice();
 
         void SameName();
+
+        string SameName(bool test);
     }
 
     interface Idva
     {
         int IzJedinice();
         void SameName();
+        string SameName(bool test);
     }
 
     interface IAnimal
