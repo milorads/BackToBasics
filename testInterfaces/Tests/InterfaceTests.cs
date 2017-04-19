@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using testInterfaces;
 using Polynomial;
+using testInterfaces.Interfaces;
 
 namespace testInterfaces.Tests
 {
@@ -99,6 +100,38 @@ namespace testInterfaces.Tests
                         break;
                 }
             }
+        }
+
+        [Test]
+        public void TestDogs()
+        {
+            var dogs = new List<Dog>();
+            dogs.Add(new Dog("Somedog"));
+            var puppy = new Dog("littleOne");
+            dogs.Add(puppy);
+            dogs.Add(new Dog("aDog"));
+            dogs.Sort();
+            foreach (var dog in dogs)
+            {
+                var testBool = dog.Describe().Contains("Hello, I'm a dog and my name is") &&
+                               dog.Describe().Contains(dog.Name);
+                Assert.AreEqual(true,testBool);
+            }
+            puppy.Name = "newDog";
+            foreach (var dog in dogs)
+            {
+                var testBool2 = dog.Describe().Contains("Hello, I'm a dog and my name is") &&
+                                !dog.Describe().Contains("littleOne");
+                Assert.AreEqual(true, testBool2);
+            }
+            var comparable = new Dog("newname");
+            Assert.AreEqual("newname", comparable.Name);
+            var comparable2 = new Dog("newname");
+            Assert.AreEqual("newname", comparable2.Name);
+            var a = comparable2.CompareTo(comparable);
+            Assert.AreEqual(a, 1);
+            var c = Dog.CompareNames(comparable, comparable2);
+            Assert.AreEqual(c, true);
         }
     }
 }
