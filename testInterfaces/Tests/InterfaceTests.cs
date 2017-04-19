@@ -147,5 +147,18 @@ namespace testInterfaces.Tests
             var twoInterfaceSameMethodCall = (p as Idva).SameName(true);
             StringAssert.AreEqualIgnoringCase("calling samename from idva", twoInterfaceSameMethodCall);
         }
+
+        [Test]
+        public void TestVirtuals()
+        {
+            var t = new testVirtual();
+            var p = new Program();
+            var virtualVar1 = t.Foo(true);
+            StringAssert.AreEqualIgnoringCase("i do something you might not want me to.", virtualVar1);
+            var virtualVar2 = p.Foo(true);
+            StringAssert.AreEqualIgnoringCase("now it does what you wait it to.", virtualVar2);
+            var virtualVar3 = p.Foo(false);
+            StringAssert.AreEqualIgnoringCase("i do something you might not want me to.", virtualVar3);
+        }
     }
 }

@@ -16,6 +16,11 @@ namespace testInterfaces.Interfaces
             base.Foo();
         }
 
+        public override string Foo(bool test)
+        {
+            return test ? "now it does what you wait it to." : base.Foo(true);
+        }
+
         public void MethodToImplement()
         {
             Console.WriteLine("MethodToImplement() called.");
@@ -177,6 +182,11 @@ namespace testInterfaces.Interfaces
         public virtual void Foo()
         {
             Console.WriteLine("i do something you might not want me to.");
+        }
+
+        public virtual string Foo(bool test)
+        {
+            return "i do something you might not want me to.";
         }
     }
 }
