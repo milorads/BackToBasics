@@ -59,24 +59,46 @@ namespace testInterfaces.Tests
                 {
                     case "Int32":
                         //assert
+                        Assert.AreEqual(test, 7);
                         break;
                     case "Double":
                         //assert
+                        Assert.AreEqual(test.GetType(), 24525142.801820118.GetType());
                         break;
                     case "PolySimple":
                         //assert
+                        Assert.AreEqual(test.GetType(), new PolySimple().GetType());
                         break;
                 }
             }
-
-            /// todo: add tests for this part
-            //coeff = new double[50];
-            //for (var index = 0; index < 50; index++)
-            //{
-            //    coeff[index] = index;
-            //}
-            //Driver.Eval(coeff);
-            ///
+            var coeff2 = new double[50];
+            for (var index = 0; index < 50; index++)
+            {
+                coeff2[index] = index;
+            }
+            var testVar = Driver.Eval(coeff2, true);
+            var bbb = 0;
+            var keys2 = (List<string>)testVar["keys"];
+            foreach (var VARIABLE in keys2)
+            {
+                var test = b[VARIABLE];
+                var typeOf = test.GetType();
+                switch (typeOf.Name)
+                {
+                    case "Int32":
+                        //assert
+                        Assert.AreEqual(test, 7);
+                        break;
+                    case "Double":
+                        //assert
+                        Assert.AreEqual(test.GetType(), 24525142.801820118.GetType());
+                        break;
+                    case "PolySimple":
+                        //assert
+                        Assert.AreEqual(test.GetType(), new PolySimple().GetType());
+                        break;
+                }
+            }
         }
     }
 }
