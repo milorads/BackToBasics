@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using testInterfaces;
 using Polynomial;
 using testInterfaces.Interfaces;
 
@@ -78,7 +73,6 @@ namespace testInterfaces.Tests
                 coeff2[index] = index;
             }
             var testVar = Driver.Eval(coeff2, true);
-            var bbb = 0;
             var keys2 = (List<string>)testVar["keys"];
             foreach (var VARIABLE in keys2)
             {

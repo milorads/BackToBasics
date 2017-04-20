@@ -17,7 +17,7 @@ namespace testInterfaces
         private static void Main(string[] args)
         {
             //KeyValuePairsTester();
-            InterfacesTester();
+            //InterfacesTester();
 
             //-Design patterns
             //--Creational
@@ -84,6 +84,12 @@ namespace testInterfaces
             var t = new testVirtual();
             t.Foo();
             p.Foo();
+        }
+
+        static void KeyValuePairsTester()
+        {
+            HashtableAndDictionary.Dictionary();
+            HashtableAndDictionary.Hashtable();
         }
 
         static void SingletonTester()
@@ -482,12 +488,6 @@ namespace testInterfaces
                 character.Display(pointSize);
             }
             #endregion
-        }
-
-        static void KeyValuePairsTester()
-        {
-            HashtableAndDictionary.Dictionary();
-            HashtableAndDictionary.Hashtable();
         }
 
         static void IteratorTester()
