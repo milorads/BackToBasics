@@ -70,6 +70,7 @@ namespace testInterfaces.Design_Patterns.Creational
     {
         private static LoadBalancer _instance;
         private List<string> _servers = new List<string>();
+        private List<Servers> _serversEnumList = new List<Servers>();
         private Random _random = new Random();
 
         // Lock synchronization object
@@ -79,11 +80,25 @@ namespace testInterfaces.Design_Patterns.Creational
         protected LoadBalancer()
         {
             // List of available servers
-            _servers.Add("ServerI");
-            _servers.Add("ServerII");
-            _servers.Add("ServerIII");
-            _servers.Add("ServerIV");
-            _servers.Add("ServerV");
+            //_servers.Add(Servers.ServerI.ToString());
+            //_servers.Add(Servers.ServerII.ToString());
+            //_servers.Add(Servers.ServerIII.ToString());
+            //_servers.Add(Servers.ServerIV.ToString());
+            //_servers.Add(Servers.ServerV.ToString());
+            foreach (Servers server in Enum.GetValues(typeof(Servers)))
+            {
+                _servers.Add(server.ToString());
+                _serversEnumList.Add(server);
+            }
+        }
+
+        public enum Servers
+        {
+            ServerI,
+            ServerII,
+            ServerIII,
+            ServerIV,
+            ServerV
         }
 
         public static LoadBalancer GetLoadBalancer()
@@ -113,6 +128,15 @@ namespace testInterfaces.Design_Patterns.Creational
             {
                 var r = _random.Next(_servers.Count);
                 return _servers[r].ToString();
+            }
+        }
+
+        public Servers ServerEnum
+        {
+            get
+            {
+                var r = _random.Next(_servers.Count);
+                return _serversEnumList[r];
             }
         }
     }
