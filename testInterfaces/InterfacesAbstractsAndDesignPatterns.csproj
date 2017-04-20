@@ -75,6 +75,7 @@
     <Compile Include="Interfaces\Polynoms\Polynomial.cs" />
     <Compile Include="Interfaces\Polynoms\PolySimple.cs" />
     <Compile Include="KeyValuePairs\HashtableAndDictionary.cs" />
+    <Compile Include="Tests\FactoryTests.cs" />
     <Compile Include="Tests\HashtableAndDictionaryTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
