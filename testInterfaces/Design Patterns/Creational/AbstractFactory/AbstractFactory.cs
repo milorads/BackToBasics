@@ -194,6 +194,8 @@ namespace testInterfaces.Design_Patterns.Creational
     abstract class Carnivore
     {
         public abstract void Eat(Herbivore h);
+
+        public abstract string Eat(Herbivore h, bool test);
     }
 
     /// <summary>
@@ -212,6 +214,12 @@ namespace testInterfaces.Design_Patterns.Creational
         {
             // Eat Wildebeest
             Console.WriteLine(this.GetType().Name +
+              " eats " + h.GetType().Name);
+        }
+        public override string Eat(Herbivore h, bool test)
+        {
+            // Eat Wildebeest
+            return (this.GetType().Name +
               " eats " + h.GetType().Name);
         }
     }
@@ -234,10 +242,17 @@ namespace testInterfaces.Design_Patterns.Creational
             Console.WriteLine(this.GetType().Name +
               " eats " + h.GetType().Name);
         }
+
+        public override string Eat(Herbivore h, bool tesat)
+        {
+            // Eat Bison
+            return (this.GetType().Name +
+              " eats " + h.GetType().Name);
+        }
     }
 
     /// <summary>
-    /// The 'Client' class 
+    /// The 'Client' class
     /// </summary>
     class AnimalWorld
     {
@@ -254,6 +269,11 @@ namespace testInterfaces.Design_Patterns.Creational
         public void RunFoodChain()
         {
             _carnivore.Eat(_herbivore);
+        }
+
+        public string RunFoodChain(bool test)
+        {
+            return _carnivore.Eat(_herbivore, test);
         }
     }
     #endregion

@@ -11,7 +11,7 @@ namespace testInterfaces.Tests
     class FactoryTests
     {
         [Test]
-        public void ConcreteCreator()
+        public void TestConcreteCreator()
         {
             var creators = new Creator[2];
             creators[0] = new ConcreteCreatorA();
@@ -21,7 +21,7 @@ namespace testInterfaces.Tests
         }
 
         [Test]
-        public void DocumentFactory()
+        public void TestDocumentFactory()
         {
             var documents = new Document[2];
 

@@ -28,12 +28,12 @@ namespace testInterfaces.Tests
         {
             ContinentFactory africa = new AfricaFactory();
             var world = new AnimalWorld(africa);
-            world.RunFoodChain();
+            StringAssert.AreEqualIgnoringCase("Lion eats Wildebeest", world.RunFoodChain(true));
 
-            // Create and run the American animal world
             ContinentFactory america = new AmericaFactory();
             world = new AnimalWorld(america);
-            world.RunFoodChain();
-        }
+            StringAssert.AreEqualIgnoringCase("Wolf eats Bison", world.RunFoodChain(true));
+
+         }
     }
 }
