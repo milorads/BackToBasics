@@ -11,35 +11,28 @@ namespace testInterfaces.Tests
     class FactoryTests
     {
         [Test]
-        public void Test()
+        public void ConcreteCreator()
         {
-            //1st sample to be rewritten
             var creators = new Creator[2];
-
             creators[0] = new ConcreteCreatorA();
             creators[1] = new ConcreteCreatorB();
+            Assert.AreNotEqual(creators[0].FactoryMethod().GetType().Name, creators[1].FactoryMethod().GetType().Name);
+            Assert.AreSame(creators[0].FactoryMethod().GetType().BaseType, creators[1].FactoryMethod().GetType().BaseType);
+        }
 
-            // Iterate over creators and create products
-            foreach (var creator in creators)
-            {
-                var product = creator.FactoryMethod();
-                Console.WriteLine("Created {0}", product.GetType().Name);
-            }
-            //2nd sample to be rewritten
+        [Test]
+        public void DocumentFactory()
+        {
             var documents = new Document[2];
 
             documents[0] = new Resume();
             documents[1] = new Report();
 
-            // Display document pages
-            foreach (var document in documents)
-            {
-                Console.WriteLine("\n" + document.GetType().Name + "--");
-                foreach (var page in document.Pages)
-                {
-                    Console.WriteLine(" " + page.GetType().Name);
-                }
-            }
+            Assert.AreNotEqual(documents[0].GetType().Name, documents[1].GetType().Name);
+            Assert.AreSame(documents[0].GetType().BaseType, documents[1].GetType().BaseType);
+
+            Assert.AreEqual(documents[0].Pages.Count, 3);
+            Assert.AreEqual(documents[1].Pages.Count, 5);
         }
     }
 }
