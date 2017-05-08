@@ -60,6 +60,8 @@ namespace testInterfaces.Design_Patterns.Creational
     abstract class AbstractProductB
     {
         public abstract void Interact(AbstractProductA a);
+
+        public abstract string Interact(AbstractProductA a, bool test);
     }
 
 
@@ -80,6 +82,12 @@ namespace testInterfaces.Design_Patterns.Creational
             Console.WriteLine(this.GetType().Name +
               " interacts with " + a.GetType().Name);
         }
+
+        public override string Interact(AbstractProductA a, bool test)
+        {
+            return this.GetType().Name +
+              " interacts with " + a.GetType().Name;
+        }
     }
 
     /// <summary>
@@ -97,6 +105,12 @@ namespace testInterfaces.Design_Patterns.Creational
         public override void Interact(AbstractProductA a)
         {
             Console.WriteLine(this.GetType().Name +
+              " interacts with " + a.GetType().Name);
+        }
+
+        public override string Interact(AbstractProductA a, bool test)
+        {
+            return (this.GetType().Name +
               " interacts with " + a.GetType().Name);
         }
     }
@@ -119,6 +133,10 @@ namespace testInterfaces.Design_Patterns.Creational
         public void Run()
         {
             _abstractProductB.Interact(_abstractProductA);
+        }
+        public string Run(bool test)
+        {
+            return _abstractProductB.Interact(_abstractProductA, test);
         }
     }
     #endregion
