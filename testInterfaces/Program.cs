@@ -16,14 +16,14 @@ namespace testInterfaces
     {
         private static void Main(string[] args)
         {
-            //KeyValuePairsTester();
-            //InterfacesTester();
+            //KeyValuePairsTester();//+
+            //InterfacesTester();//+
 
             //-Design patterns
             //--Creational
-            //SingletonTester();
-            //FactoryTester();
-            //AbstractFactoryTester();
+            //SingletonTester();//+
+            //FactoryTester();//+
+            //AbstractFactoryTester();//+
             //PrototypeTester();
             //BuilderTester();
             //--Structural
