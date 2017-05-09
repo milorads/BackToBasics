@@ -94,6 +94,11 @@ namespace testInterfaces.Design_Patterns.Creational
             foreach (var part in _parts)
                 Console.WriteLine(part);
         }
+
+        public List<string> Show(bool test)
+        {
+            return _parts;
+        }
     }
     #endregion
 

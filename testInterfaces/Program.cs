@@ -24,22 +24,23 @@ namespace testInterfaces
             //SingletonTester();//+
             //FactoryTester();//+
             //AbstractFactoryTester();//+
-            //PrototypeTester();
-            //BuilderTester();
+            //PrototypeTester();//+
+            //BuilderTester();//~
             //--Structural
-            //FacadeTester();
-            //ProxyTester();
-            //CompositeTester();
-            //AdapterTester();
-            //BridgeTester();
-            //DecoratorTester();
-            //FlyweightTester();
+            //FacadeTester();//!
+            //ProxyTester();//!
+            //CompositeTester();//!
+            //AdapterTester();//!
+            //BridgeTester();//!
+            //DecoratorTester();//!
+            //FlyweightTester();//!
             //--Behavioral
-            //IteratorTester();
-            //ObserverTester();
-            //CommandTester();
-            //StrategyTester();
-            //StateTester();
+            //IteratorTester();//!
+            //ObserverTester();//!
+            //CommandTester();//!
+            //StrategyTester();//!
+            //StateTester();//!
+            //todo: add behavioral patterns
 
             Console.Read();
         }

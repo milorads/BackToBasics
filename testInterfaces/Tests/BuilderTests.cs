@@ -14,17 +14,27 @@ namespace testInterfaces.Tests
         public void TestBuilder()
         {
             var director = new Director();
+            var partsAb = new List<string> {"PartA", "PartB"};
+            var partsXy = new List<string> { "PartX", "PartY" };
 
             Builder b1 = new ConcreteBuilder1();
             Builder b2 = new ConcreteBuilder2();
 
             director.Construct(b1);
             var p1 = b1.GetResult();
-            p1.Show();
+            var list = p1.Show(true);
+            foreach (var pt in partsAb)
+            {
+                Assert.Contains(pt,list);
+            }
 
             director.Construct(b2);
             var p2 = b2.GetResult();
-            p2.Show();
+            var list2 = p2.Show(true);
+            foreach (var pt in partsXy)
+            {
+                Assert.Contains(pt, list2);
+            }
         }
 
         [Test]
