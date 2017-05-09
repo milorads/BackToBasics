@@ -40,23 +40,31 @@ namespace testInterfaces.Tests
         [Test]
         public void TestCarBuilder()
         {
-            #region sample 2
-            VehicleBuilder builder;
-
             var shop = new Shop();
 
-            builder = new ScooterBuilder();
+            VehicleBuilder builder = new ScooterBuilder();
             shop.Construct(builder);
-            builder.Vehicle.Show();
+            var scooter = builder.Vehicle.Show(true);
+            Assert.AreEqual(scooter["frame"], "Scooter Frame");
+            Assert.AreEqual(scooter["engine"], "50 cc");
+            Assert.AreEqual(scooter["wheels"], "2");
+            Assert.AreEqual(scooter["doors"], "0");
 
             builder = new CarBuilder();
             shop.Construct(builder);
-            builder.Vehicle.Show();
+            var car = builder.Vehicle.Show(true);
+            Assert.AreEqual(car["frame"], "Car Frame");
+            Assert.AreEqual(car["engine"], "2500 cc");
+            Assert.AreEqual(car["wheels"], "4");
+            Assert.AreEqual(car["doors"], "4");
 
             builder = new MotorCycleBuilder();
             shop.Construct(builder);
-            builder.Vehicle.Show();
-            #endregion
+            var motor = builder.Vehicle.Show(true);
+            Assert.AreEqual(motor["frame"], "MotorCycle Frame");
+            Assert.AreEqual(motor["engine"], "500 cc");
+            Assert.AreEqual(motor["wheels"], "2");
+            Assert.AreEqual(motor["doors"], "0");
         }
     }
 }

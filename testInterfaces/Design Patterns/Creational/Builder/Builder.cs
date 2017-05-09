@@ -263,6 +263,11 @@ namespace testInterfaces.Design_Patterns.Creational
             Console.WriteLine(" #Wheels: {0}", _parts["wheels"]);
             Console.WriteLine(" #Doors : {0}", _parts["doors"]);
         }
-    } 
+
+        public Dictionary<string, string> Show(bool test)
+        {
+            return _parts;
+        }
+    }
     #endregion
 }
