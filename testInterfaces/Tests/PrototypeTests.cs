@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,13 +45,14 @@ namespace testInterfaces.Tests
             var color3 = colormanager["flame"].Clone() as Color;
             Assert.AreEqual(typeof(Color), colormanager["flame"].GetType());
 
-            var r = ((Color)colormanager["flame"])._red;
-            var g = ((Color)colormanager["flame"])._green;
-            var b = ((Color)colormanager["flame"])._blue;
+            var r = ((Color)colormanager["flame"]).Red;
+            var g = ((Color)colormanager["flame"]).Green;
+            var b = ((Color)colormanager["flame"]).Blue;
 
-            Assert.AreEqual(color3._red, r);
-            Assert.AreEqual(color3._green, g);
-            Assert.AreEqual(color3._blue, b);
+            Debug.Assert(color3 != null, "color3 != null");
+            Assert.AreEqual(color3.Red, r);
+            Assert.AreEqual(color3.Green, g);
+            Assert.AreEqual(color3.Blue, b);
         }
     }
 }

@@ -80,16 +80,16 @@ namespace testInterfaces.Design_Patterns.Creational
     /// </summary>
     class Color : ColorPrototype
     {
-        public int _red;
-        public int _green;
-        public int _blue;
+        public int Red;
+        public int Green;
+        public int Blue;
 
         // Constructor
         public Color(int red, int green, int blue)
         {
-            this._red = red;
-            this._green = green;
-            this._blue = blue;
+            this.Red = red;
+            this.Green = green;
+            this.Blue = blue;
         }
 
         // Create a shallow copy
@@ -97,7 +97,7 @@ namespace testInterfaces.Design_Patterns.Creational
         {
             Console.WriteLine(
               "Cloning color RGB: {0,3},{1,3},{2,3}",
-              _red, _green, _blue);
+              Red, Green, Blue);
 
             return this.MemberwiseClone() as ColorPrototype;
         }
