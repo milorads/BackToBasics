@@ -30,7 +30,7 @@ namespace testInterfaces.Design_Patterns.Creational
     }
 
     /// <summary>
-    /// A 'ConcretePrototype' class 
+    /// A 'ConcretePrototype' class
     /// </summary>
     class ConcretePrototype1 : Prototype
     {
@@ -48,7 +48,7 @@ namespace testInterfaces.Design_Patterns.Creational
     }
 
     /// <summary>
-    /// A 'ConcretePrototype' class 
+    /// A 'ConcretePrototype' class
     /// </summary>
     class ConcretePrototype2 : Prototype
     {
@@ -80,9 +80,9 @@ namespace testInterfaces.Design_Patterns.Creational
     /// </summary>
     class Color : ColorPrototype
     {
-        private int _red;
-        private int _green;
-        private int _blue;
+        public int _red;
+        public int _green;
+        public int _blue;
 
         // Constructor
         public Color(int red, int green, int blue)
@@ -117,6 +117,17 @@ namespace testInterfaces.Design_Patterns.Creational
             get { return _colors[key]; }
             set { _colors.Add(key, value); }
         }
-    } 
+
+        public string[] getKeys()
+        {
+            var outStr = new string[_colors.Count];
+            var i = 0;
+            foreach (var color in _colors)
+            {
+                outStr[i++] = color.Key;
+            }
+            return outStr;
+        }
+    }
     #endregion
 }
