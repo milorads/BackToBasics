@@ -16,6 +16,10 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             Console.WriteLine(" SubSystemOne Method");
         }
+        public string MethodOne(bool test)
+        {
+            return "SubSystemOne Method";
+        }
     }
 
     /// <summary>
@@ -26,6 +30,10 @@ namespace testInterfaces.Design_Patterns.Structural
         public void MethodTwo()
         {
             Console.WriteLine(" SubSystemTwo Method");
+        }
+        public string MethodTwo(bool test)
+        {
+            return "SubSystemTwo Method";
         }
     }
 
@@ -38,6 +46,10 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             Console.WriteLine(" SubSystemThree Method");
         }
+        public string MethodThree(bool test)
+        {
+            return "SubSystemThree Method";
+        }
     }
 
     /// <summary>
@@ -48,6 +60,10 @@ namespace testInterfaces.Design_Patterns.Structural
         public void MethodFour()
         {
             Console.WriteLine(" SubSystemFour Method");
+        }
+        public string MethodFour(bool test)
+        {
+            return "SubSystemFour Method";
         }
     }
 
@@ -77,11 +93,34 @@ namespace testInterfaces.Design_Patterns.Structural
             _four.MethodFour();
         }
 
+        public List<string> MethodA(bool test)
+        {
+            var listOfStrings = new List<string>
+            {
+                "MethodA",
+                _one.MethodOne(true),
+                _two.MethodTwo(true),
+                _four.MethodFour(true)
+            };
+            return listOfStrings;
+        }
+
         public void MethodB()
         {
             Console.WriteLine("\nMethodB() ---- ");
             _two.MethodTwo();
             _three.MethodThree();
+        }
+        public List<string> MethodB(bool test)
+        {
+
+            var listOfStrings = new List<string>
+            {
+                "MethodB",
+                _two.MethodTwo(true),
+                _three.MethodThree(true)
+            };
+            return listOfStrings;
         }
     }
     #endregion
