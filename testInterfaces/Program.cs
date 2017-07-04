@@ -25,7 +25,7 @@ namespace testInterfaces
             //FactoryTester();//+
             //AbstractFactoryTester();//+
             //PrototypeTester();//+
-            //BuilderTester();//~
+            //BuilderTester();//+
             //--Structural
             //FacadeTester();//!
             //ProxyTester();//!
