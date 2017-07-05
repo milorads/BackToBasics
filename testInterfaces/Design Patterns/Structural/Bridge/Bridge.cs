@@ -24,6 +24,11 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             implementor.Operation();
         }
+
+        public virtual string Operation(bool test)
+        {
+            return implementor.Operation(test);
+        }
     }
 
     /// <summary>
@@ -32,6 +37,7 @@ namespace testInterfaces.Design_Patterns.Structural
     abstract class Implementor
     {
         public abstract void Operation();
+        public abstract string Operation(bool test);
     }
 
     /// <summary>
@@ -54,6 +60,11 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             Console.WriteLine("ConcreteImplementorA Operation");
         }
+
+        public override string Operation(bool test)
+        {
+            return "ConcreteImplementorA Operation";
+        }
     }
 
     /// <summary>
@@ -64,6 +75,10 @@ namespace testInterfaces.Design_Patterns.Structural
         public override void Operation()
         {
             Console.WriteLine("ConcreteImplementorB Operation");
+        }
+        public override string Operation(bool test)
+        {
+            return "ConcreteImplementorB Operation";
         }
     }
     #endregion
@@ -85,8 +100,8 @@ namespace testInterfaces.Design_Patterns.Structural
         // Property
         public DataObject Data
         {
-            set { _dataObject = value; }
-            get { return _dataObject; }
+            set => _dataObject = value;
+            get => _dataObject;
         }
 
         public virtual void Next()
@@ -114,10 +129,20 @@ namespace testInterfaces.Design_Patterns.Structural
             _dataObject.ShowRecord();
         }
 
+        public virtual string Show(bool test)
+        {
+            return _dataObject.ShowRecord(test);
+        }
+
         public virtual void ShowAll()
         {
             Console.WriteLine("Customer Group: " + group);
             _dataObject.ShowAllRecords();
+        }
+
+        public virtual List<string> GetAll()
+        {
+            return _dataObject.GetAllRecords();
         }
     }
 
@@ -140,6 +165,11 @@ namespace testInterfaces.Design_Patterns.Structural
             base.ShowAll();
             Console.WriteLine("------------------------");
         }
+
+        public override List<string> GetAll()
+        {
+            return base.GetAll();
+        }
     }
 
     /// <summary>
@@ -152,7 +182,9 @@ namespace testInterfaces.Design_Patterns.Structural
         public abstract void AddRecord(string name);
         public abstract void DeleteRecord(string name);
         public abstract void ShowRecord();
+        public abstract string ShowRecord(bool test);
         public abstract void ShowAllRecords();
+        public abstract List<string> GetAllRecords();
     }
 
     /// <summary>
@@ -204,12 +236,22 @@ namespace testInterfaces.Design_Patterns.Structural
             Console.WriteLine(_customers[_current]);
         }
 
+        public override string ShowRecord(bool test)
+        {
+            return _customers[_current];
+        }
+
         public override void ShowAllRecords()
         {
             foreach (var customer in _customers)
             {
                 Console.WriteLine(" " + customer);
             }
+        }
+
+        public override List<string> GetAllRecords()
+        {
+            return _customers;
         }
     }
     #endregion

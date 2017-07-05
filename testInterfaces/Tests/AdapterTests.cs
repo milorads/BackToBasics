@@ -30,13 +30,11 @@ namespace testInterfaces.Tests
             Compound benzene = new RichCompound("Benzene");
             benzene.Display();
             var benzeneProperty = benzene.Display(true).Split('|');
-            Assert.True(benzeneProperty[0].Equals("100") && benzeneProperty[1].Equals("0") && benzeneProperty[2].Equals("18.01") && benzeneProperty[3].Equals("H2O"));
+            Assert.True(benzeneProperty[0].Equals("80.1") && benzeneProperty[1].Equals("5.5") && benzeneProperty[2].Equals("78.1134") && benzeneProperty[3].Equals("C6H6"));
             Compound ethanol = new RichCompound("Ethanol");
             ethanol.Display();
             var ethanolProperty = ethanol.Display(true).Split('|');
-            Assert.True(ethanolProperty[0].Equals("100") && ethanolProperty[1].Equals("0") && ethanolProperty[2].Equals("18.01") && ethanolProperty[3].Equals("H2O"));
-
-            var d = "";
+            Assert.True(ethanolProperty[0].Equals("78.3") && ethanolProperty[1].Equals("-114.1") && ethanolProperty[2].Equals("46.0688") && ethanolProperty[3].Equals("C2H5OH"));
         }
     }
 }
