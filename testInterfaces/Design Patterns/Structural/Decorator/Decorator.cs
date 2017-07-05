@@ -13,6 +13,7 @@ namespace testInterfaces.Design_Patterns.Structural
     abstract class DecoratorComponent
     {
         public abstract void Operation();
+        public abstract string Operation(bool test);
     }
 
     /// <summary>
@@ -23,6 +24,11 @@ namespace testInterfaces.Design_Patterns.Structural
         public override void Operation()
         {
             Console.WriteLine("ConcreteComponent.Operation()");
+        }
+
+        public override string Operation(bool test)
+        {
+            return "ConcreteComponent.Operation()";
         }
     }
 
@@ -45,6 +51,11 @@ namespace testInterfaces.Design_Patterns.Structural
                 component.Operation();
             }
         }
+
+        public override string Operation(bool test)
+        {
+            return component?.Operation(test);
+        }
     }
 
     /// <summary>
@@ -56,6 +67,10 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             base.Operation();
             Console.WriteLine("ConcreteDecoratorA.Operation()");
+        }
+        public override string Operation(bool test)
+        {
+            return "ConcreteDecoratorA.Operation()" + base.Operation(test);
         }
     }
 
@@ -69,6 +84,12 @@ namespace testInterfaces.Design_Patterns.Structural
             base.Operation();
             AddedBehavior();
             Console.WriteLine("ConcreteDecoratorB.Operation()");
+        }
+
+        public override string Operation(bool test)
+        {
+            AddedBehavior();
+            return "ConcreteDecoratorB.Operation()"+ base.Operation(test);
         }
 
         void AddedBehavior()
@@ -93,6 +114,7 @@ namespace testInterfaces.Design_Patterns.Structural
         }
 
         public abstract void Display();
+        public abstract List<string> Display(bool test);
     }
 
     /// <summary>
@@ -117,6 +139,10 @@ namespace testInterfaces.Design_Patterns.Structural
             Console.WriteLine(" Author: {0}", _author);
             Console.WriteLine(" Title: {0}", _title);
             Console.WriteLine(" # Copies: {0}", NumCopies);
+        }
+        public override List<string> Display(bool test)
+        {
+            return new List<string>(){_author,_title,NumCopies.ToString()};
         }
     }
 
@@ -146,6 +172,11 @@ namespace testInterfaces.Design_Patterns.Structural
             Console.WriteLine(" Title: {0}", _title);
             Console.WriteLine(" # Copies: {0}", NumCopies);
             Console.WriteLine(" Playtime: {0}\n", _playTime);
+        }
+
+        public override List<string> Display(bool test)
+        {
+            return new List<string>(){_director,_title,NumCopies.ToString(),_playTime.ToString()};
         }
     }
 
@@ -201,6 +232,11 @@ namespace testInterfaces.Design_Patterns.Structural
             {
                 Console.WriteLine(" borrower: " + borrower);
             }
+        }
+
+        public override List<string> Display(bool test)
+        {
+            return borrowers;
         }
     }
     #endregion

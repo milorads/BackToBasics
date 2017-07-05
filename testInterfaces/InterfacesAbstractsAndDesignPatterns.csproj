@@ -78,6 +78,7 @@
     <Compile Include="Tests\BridgeTests.cs" />
     <Compile Include="Tests\BuilderTests.cs" />
     <Compile Include="Tests\CompositeTests.cs" />
+    <Compile Include="Tests\DecoratorTests.cs" />
     <Compile Include="Tests\FacadeTests.cs" />
     <Compile Include="Tests\FactoryTests.cs" />
     <Compile Include="Tests\HashtableAndDictionaryTests.cs" />

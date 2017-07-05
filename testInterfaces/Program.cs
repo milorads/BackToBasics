@@ -31,7 +31,7 @@ namespace testInterfaces
             //ProxyTester();//+
             //CompositeTester();//+
             //AdapterTester();//+
-            //BridgeTester();//!
+            //BridgeTester();//+
             //DecoratorTester();//!
             //FlyweightTester();//!
             //--Behavioral
