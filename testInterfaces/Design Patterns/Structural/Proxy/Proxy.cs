@@ -13,6 +13,7 @@ namespace testInterfaces.Design_Patterns.Structural
     abstract class Subject
     {
         public abstract void Request();
+        public abstract string Request(bool test);
     }
 
     /// <summary>
@@ -23,6 +24,11 @@ namespace testInterfaces.Design_Patterns.Structural
         public override void Request()
         {
             Console.WriteLine("Called RealSubject.Request()");
+        }
+
+        public override string Request(bool test)
+        {
+            return "Called RealSubject.Request()";
         }
     }
 
@@ -42,6 +48,16 @@ namespace testInterfaces.Design_Patterns.Structural
             }
 
             _realSubject.Request();
+        }
+
+        public override string Request(bool test)
+        {
+            if (_realSubject == null)
+            {
+                _realSubject = new RealSubject();
+            }
+
+             return _realSubject.Request(true);
         }
     }
     #endregion

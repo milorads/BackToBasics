@@ -12,7 +12,7 @@ using testInterfaces.KeyValuePairs;
 
 namespace testInterfaces
 {
-    class Program : ProgramExtender
+    internal class Program : ProgramExtender
     {
         private static void Main(string[] args)
         {
@@ -27,8 +27,8 @@ namespace testInterfaces
             //PrototypeTester();//+
             //BuilderTester();//+
             //--Structural
-            //FacadeTester();//!
-            //ProxyTester();//!
+            //FacadeTester();//+
+            //ProxyTester();//+
             //CompositeTester();//!
             //AdapterTester();//!
             //BridgeTester();//!
