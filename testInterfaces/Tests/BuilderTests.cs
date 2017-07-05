@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
-using testInterfaces.Design_Patterns.Creational;
 
-namespace testInterfaces.Tests
+namespace testInterfaces.Design_Patterns.Creational
 {
     class BuilderTests
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using testInterfaces.Design_Patterns.Structural;
 
-namespace testInterfaces.Tests
+namespace testInterfaces.Design_Patterns.Behavioral
 {
     class FacadeTests
     {

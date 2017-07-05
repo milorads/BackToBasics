@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using testInterfaces.Design_Patterns.Creational;
+﻿using NUnit.Framework;
 
-namespace testInterfaces.Tests
+namespace testInterfaces.Design_Patterns.Creational
 {
     class FactoryTests
     {

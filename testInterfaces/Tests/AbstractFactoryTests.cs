@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using testInterfaces.Design_Patterns.Creational;
 
-namespace testInterfaces.Tests
+namespace testInterfaces.Design_Patterns.Creational
 {
     class AbstractFactoryTests
     {

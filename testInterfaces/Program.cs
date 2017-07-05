@@ -32,7 +32,7 @@ namespace testInterfaces
             //CompositeTester();//+
             //AdapterTester();//+
             //BridgeTester();//+
-            //DecoratorTester();//!
+            //DecoratorTester();//+
             //FlyweightTester();//!
             //--Behavioral
             //IteratorTester();//!
@@ -468,7 +468,7 @@ namespace testInterfaces
             fu.Operation(--extrinsicstate);
             #endregion
 
-            #region sample2
+            #region sample 2
             // Build a document with text
             var document = "AAZZBBZB";
             var chars = document.ToCharArray();
