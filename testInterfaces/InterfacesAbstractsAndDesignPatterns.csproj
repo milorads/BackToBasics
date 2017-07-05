@@ -75,6 +75,7 @@
     <Compile Include="KeyValuePairs\HashtableAndDictionary.cs" />
     <Compile Include="Tests\AbstractFactoryTests.cs" />
     <Compile Include="Tests\BuilderTests.cs" />
+    <Compile Include="Tests\CompositeTests.cs" />
     <Compile Include="Tests\FacadeTests.cs" />
     <Compile Include="Tests\FactoryTests.cs" />
     <Compile Include="Tests\HashtableAndDictionaryTests.cs" />

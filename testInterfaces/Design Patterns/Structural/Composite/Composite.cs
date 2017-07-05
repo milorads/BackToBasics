@@ -23,6 +23,9 @@ namespace testInterfaces.Design_Patterns.Structural
         public abstract void Add(Component c);
         public abstract void Remove(Component c);
         public abstract void Display(int depth);
+
+        public abstract Tuple<string, List<Component>> Display(int depth, bool test);
+        public abstract string GetName();
     }
 
     /// <summary>
@@ -58,6 +61,16 @@ namespace testInterfaces.Design_Patterns.Structural
                 component.Display(depth + 2);
             }
         }
+
+        public override Tuple<string, List<Component>> Display(int depth, bool test)
+        {
+            return new Tuple<string, List<Component>>(name,_children);
+        }
+
+        public override string GetName()
+        {
+            return name;
+        }
     }
 
     /// <summary>
@@ -84,6 +97,16 @@ namespace testInterfaces.Design_Patterns.Structural
         public override void Display(int depth)
         {
             Console.WriteLine(new String('-', depth) + name);
+        }
+
+        public override Tuple<string, List<Component>> Display(int depth, bool test)
+        {
+            return new Tuple<string, List<Component>>(name, null);
+        }
+
+        public override string GetName()
+        {
+            return name;
         }
     }
     #endregion
