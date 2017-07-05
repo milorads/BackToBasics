@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Polynomial;
-using testInterfaces.Interfaces;
 
 namespace testInterfaces.Interfaces
 {
