@@ -35,9 +35,8 @@ namespace testInterfaces.Tests
             Assert.True(root.Display(1, true).Item2.Contains(comp));
             root.Add(new Leaf("Leaf C"));
             Assert.False(root.Display(1, true).Item2.Contains(new Leaf("Leaf C")));
-            var test2 = root.Display(1, true).Item2.FirstOrDefault(t => t.GetName() == "Leaf C");
             Assert.True(root.Display(1,true).Item2.Contains(root.Display(1, true).Item2.FirstOrDefault(t => t.GetName() == "Leaf C")));
-            // Add and remove a leaf
+
             var leaf = new Leaf("Leaf D");
             root.Add(leaf);
             Assert.True(root.Display(1, true).Item2.Contains(leaf));
@@ -48,32 +47,40 @@ namespace testInterfaces.Tests
         [Test]
         public static void TestCompositeElement()
         {
-            var root = new Composite("root");
-            var comp = new Composite("Composite X");
-            comp.Add(new Leaf("Leaf XA"));
-            comp.Add(new Leaf("Leaf XB"));
-            // Create a tree structure
-            var rootImplementation =
-                new CompositeElement("Picture");
-            rootImplementation.Add(new PrimitiveElement("Red Line"));
-            rootImplementation.Add(new PrimitiveElement("Blue Circle"));
-            rootImplementation.Add(new PrimitiveElement("Green Box"));
+            var rootImpl = new CompositeElement("Picture");
+            var redLine = new PrimitiveElement("Red Line");
+            rootImpl.Add(redLine);
+            var blueCircle = new PrimitiveElement("Blue Circle");
+            rootImpl.Add(blueCircle);
+            var greenBox = new PrimitiveElement("Green Box");
+            rootImpl.Add(greenBox);
 
-            // Create a branch
-            var compImplementation =
-                new CompositeElement("Two Circles");
-            compImplementation.Add(new PrimitiveElement("Black Circle"));
-            compImplementation.Add(new PrimitiveElement("White Circle"));
-            root.Add(comp);
+            var compImpl = new CompositeElement("Two Circles");
+            var blackCircle = new PrimitiveElement("Black Circle");
+            compImpl.Add(blackCircle);
+            var whiteCircle = new PrimitiveElement("White Circle");
+            compImpl.Add(whiteCircle);
+            rootImpl.Add(compImpl);
+            var a = rootImpl;
+            var b = "";
+            foreach (var element in rootImpl.Display(1,true).Item2)
+            {
+                if (element.GetType() == typeof(PrimitiveElement))
+                {
+                    Assert.True(element.Equals(redLine) || element.Equals(blueCircle) || element.Equals(greenBox));
+                }
+                else if (element.GetType() == typeof(CompositeElement))
+                {
+                    foreach (var el2 in element.Display(1,true).Item2)
+                    {
+                        Assert.True(el2.Equals(blackCircle) || el2.Equals(whiteCircle));
+                    }
 
-            // Add and remove a PrimitiveElement
-            var pe =
-                new PrimitiveElement("Yellow Line");
-            rootImplementation.Add(pe);
-            rootImplementation.Remove(pe);
-
-            // Recursively display nodes
-            root.Display(1);
+                }
+            }
+            var pe = new PrimitiveElement("Yellow Line");
+            StringAssert.AreEqualIgnoringCase(rootImpl.Add(pe, true),"");
+            StringAssert.AreEqualIgnoringCase(rootImpl.Remove(pe, true),"");
         }
     }
 }

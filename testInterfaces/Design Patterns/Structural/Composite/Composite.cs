@@ -126,8 +126,12 @@ namespace testInterfaces.Design_Patterns.Structural
         }
 
         public abstract void Add(DrawingElement d);
+        public abstract string Add(DrawingElement d, bool test);
         public abstract void Remove(DrawingElement d);
+        public abstract string Remove(DrawingElement d, bool test);
         public abstract void Display(int indent);
+
+        public abstract Tuple<string, List<DrawingElement>> Display(int indent, bool test);
     }
 
     /// <summary>
@@ -147,16 +151,32 @@ namespace testInterfaces.Design_Patterns.Structural
               "Cannot add to a PrimitiveElement");
         }
 
+        public override string Add(DrawingElement d, bool test)
+        {
+            return "Cannot add to a PrimitiveElement";
+        }
+
+
         public override void Remove(DrawingElement c)
         {
             Console.WriteLine(
               "Cannot remove from a PrimitiveElement");
         }
 
+        public override string Remove(DrawingElement d, bool test)
+        {
+            return "Cannot remove from a PrimitiveElement";
+        }
+
         public override void Display(int indent)
         {
             Console.WriteLine(
               new String('-', indent) + " " + _name);
+        }
+
+        public override Tuple<string, List<DrawingElement>> Display(int indent, bool test)
+        {
+            return new Tuple<string, List<DrawingElement>>(_name, null);
         }
     }
 
@@ -179,9 +199,21 @@ namespace testInterfaces.Design_Patterns.Structural
             elements.Add(d);
         }
 
+        public override string Add(DrawingElement d, bool test)
+        {
+            Add(d);
+            return "";
+        }
+
         public override void Remove(DrawingElement d)
         {
             elements.Remove(d);
+        }
+
+        public override string Remove(DrawingElement d, bool test)
+        {
+            Remove(d);
+            return "";
         }
 
         public override void Display(int indent)
@@ -194,6 +226,11 @@ namespace testInterfaces.Design_Patterns.Structural
             {
                 d.Display(indent + 2);
             }
+        }
+
+        public override Tuple<string, List<DrawingElement>> Display(int indent, bool test)
+        {
+           return new Tuple<string, List<DrawingElement>>(_name,elements);
         }
     }
     #endregion

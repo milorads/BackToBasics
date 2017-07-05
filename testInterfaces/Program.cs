@@ -333,27 +333,24 @@ namespace testInterfaces
 
             #region sample 2
             // Create a tree structure
-            var rootImplementation =
-              new CompositeElement("Picture");
-            rootImplementation.Add(new PrimitiveElement("Red Line"));
-            rootImplementation.Add(new PrimitiveElement("Blue Circle"));
-            rootImplementation.Add(new PrimitiveElement("Green Box"));
+            var rootImpl = new CompositeElement("Picture");
+            rootImpl.Add(new PrimitiveElement("Red Line"));
+            rootImpl.Add(new PrimitiveElement("Blue Circle"));
+            rootImpl.Add(new PrimitiveElement("Green Box"));
 
             // Create a branch
-            var compImplementation =
-              new CompositeElement("Two Circles");
-            compImplementation.Add(new PrimitiveElement("Black Circle"));
-            compImplementation.Add(new PrimitiveElement("White Circle"));
-            root.Add(comp);
+            var compImpl = new CompositeElement("Two Circles");
+            compImpl.Add(new PrimitiveElement("Black Circle"));
+            compImpl.Add(new PrimitiveElement("White Circle"));
+            rootImpl.Add(compImpl);
 
             // Add and remove a PrimitiveElement
-            var pe =
-              new PrimitiveElement("Yellow Line");
-            rootImplementation.Add(pe);
-            rootImplementation.Remove(pe);
+            var pe = new PrimitiveElement("Yellow Line");
+            rootImpl.Add(pe);
+            rootImpl.Remove(pe);
 
             // Recursively display nodes
-            root.Display(1);
+            rootImpl.Display(1);
             #endregion
         }
 
