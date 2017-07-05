@@ -35,7 +35,7 @@ namespace testInterfaces
             //DecoratorTester();//+
             //FlyweightTester();//!
             //--Behavioral
-            //IteratorTester();//!
+            //IteratorTester();//+
             //ObserverTester();//!
             //CommandTester();//!
             //StrategyTester();//!
