@@ -170,14 +170,13 @@ namespace testInterfaces.Design_Patterns.Behavioral
     /// </summary>
     class ImplementedIterator : IAbstractIterator
     {
-        private Collection _collection;
+        private readonly Collection _collection;
         private int _current = 0;
-        private int _step = 1;
 
         // Constructor
         public ImplementedIterator(Collection collection)
         {
-            this._collection = collection;
+            _collection = collection;
         }
 
         // Gets first item
@@ -190,31 +189,20 @@ namespace testInterfaces.Design_Patterns.Behavioral
         // Gets next item
         public Item Next()
         {
-            _current += _step;
+            _current += Step;
             if (!IsDone)
                 return _collection[_current] as Item;
-            else
-                return null;
+            return null;
         }
 
         // Gets or sets stepsize
-        public int Step
-        {
-            get { return _step; }
-            set { _step = value; }
-        }
+        public int Step { get; set; } = 1;
 
         // Gets current iterator item
-        public Item CurrentItem
-        {
-            get { return _collection[_current] as Item; }
-        }
+        public Item CurrentItem => _collection[_current] as Item;
 
         // Gets whether iteration is complete
-        public bool IsDone
-        {
-            get { return _current >= _collection.Count; }
-        }
+        public bool IsDone => _current >= _collection.Count;
     }
     #endregion
 }

@@ -511,7 +511,8 @@ namespace testInterfaces
             #endregion
 
             #region sample 2
-            var collection = new Collection();
+            // Build a collection
+            Collection collection = new Collection();
             collection[0] = new Item("Item 0");
             collection[1] = new Item("Item 1");
             collection[2] = new Item("Item 2");
@@ -530,11 +531,14 @@ namespace testInterfaces
 
             Console.WriteLine("Iterating over collection:");
 
-            for (var implementedItem = iterator.First();
-                !iterator.IsDone; item = iterator.Next())
+            for (Item item2 = iterator.First();
+                !iterator.IsDone; item2 = iterator.Next())
             {
-                Console.WriteLine(implementedItem.Name);
+                Console.WriteLine(item2.Name);
             }
+
+            // Wait for user
+            Console.ReadKey();
             #endregion
         }
 
