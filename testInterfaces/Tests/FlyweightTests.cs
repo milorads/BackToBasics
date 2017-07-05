@@ -17,39 +17,35 @@ namespace testInterfaces.Design_Patterns.Behavioral
 
             var factory = new FlyweightFactory();
 
-            // Work with different flyweight instances
             var fx = factory.GetFlyweight("X");
-            fx.Operation(--extrinsicstate);
+            StringAssert.AreEqualIgnoringCase(fx.Operation(--extrinsicstate, true), "ConcreteFlyweight: "+extrinsicstate);
 
             var fy = factory.GetFlyweight("Y");
-            fy.Operation(--extrinsicstate);
+            StringAssert.AreEqualIgnoringCase(fy.Operation(--extrinsicstate, true), "ConcreteFlyweight: " + extrinsicstate);
 
             var fz = factory.GetFlyweight("Z");
-            fz.Operation(--extrinsicstate);
+            StringAssert.AreEqualIgnoringCase(fz.Operation(--extrinsicstate, true), "ConcreteFlyweight: " + extrinsicstate);
 
             var fu = new
                 UnsharedConcreteFlyweight();
 
-            fu.Operation(--extrinsicstate);
+            StringAssert.AreEqualIgnoringCase(fu.Operation(--extrinsicstate, true), "UnsharedConcreteFlyweight: " + extrinsicstate);
         }
         [Test]
         public static void TestCharacterFactory()
         {
-            // Build a document with text
             var document = "AAZZBBZB";
             var chars = document.ToCharArray();
 
             var factoryImplementation = new CharacterFactory();
 
-            // extrinsic state
             var pointSize = 10;
 
-            // For each character use a flyweight object
             foreach (var c in chars)
             {
                 pointSize++;
                 var character = factoryImplementation.GetCharacter(c);
-                character.Display(pointSize);
+                StringAssert.AreEqualIgnoringCase(character.Display(pointSize, true),c.ToString()+pointSize.ToString());
             }
         }
     }

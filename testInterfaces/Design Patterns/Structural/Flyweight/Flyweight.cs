@@ -35,6 +35,7 @@ namespace testInterfaces.Design_Patterns.Structural
     abstract class Flyweight
     {
         public abstract void Operation(int extrinsicstate);
+        public abstract string Operation(int extrinsicstate, bool test);
     }
 
     /// <summary>
@@ -45,6 +46,11 @@ namespace testInterfaces.Design_Patterns.Structural
         public override void Operation(int extrinsicstate)
         {
             Console.WriteLine("ConcreteFlyweight: " + extrinsicstate);
+        }
+
+        public override string Operation(int extrinsicstate, bool test)
+        {
+            return "ConcreteFlyweight: " + extrinsicstate;
         }
     }
 
@@ -57,6 +63,11 @@ namespace testInterfaces.Design_Patterns.Structural
         {
             Console.WriteLine("UnsharedConcreteFlyweight: " +
               extrinsicstate);
+        }
+
+        public override string Operation(int extrinsicstate, bool test)
+        {
+            return "UnsharedConcreteFlyweight: " + extrinsicstate;
         }
     }
     #endregion
@@ -106,6 +117,11 @@ namespace testInterfaces.Design_Patterns.Structural
         protected int pointSize;
 
         public abstract void Display(int pointSize);
+        public string Display(int pointSize, bool test)
+        {
+            this.pointSize = pointSize;
+            return this.symbol.ToString() + this.pointSize.ToString();
+        }
     }
 
     /// <summary>
