@@ -29,8 +29,8 @@ namespace testInterfaces
             //--Structural
             //FacadeTester();//+
             //ProxyTester();//+
-            //CompositeTester();//!
-            //AdapterTester();//!
+            //CompositeTester();//+
+            //AdapterTester();//+
             //BridgeTester();//!
             //DecoratorTester();//!
             //FlyweightTester();//!

@@ -74,6 +74,7 @@
     <Compile Include="Interfaces\Polynoms\PolySimple.cs" />
     <Compile Include="KeyValuePairs\HashtableAndDictionary.cs" />
     <Compile Include="Tests\AbstractFactoryTests.cs" />
+    <Compile Include="Tests\AdapterTests.cs" />
     <Compile Include="Tests\BuilderTests.cs" />
     <Compile Include="Tests\CompositeTests.cs" />
     <Compile Include="Tests\FacadeTests.cs" />
