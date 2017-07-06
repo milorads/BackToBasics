@@ -83,6 +83,7 @@
     <Compile Include="Tests\AdapterTests.cs" />
     <Compile Include="Tests\BridgeTests.cs" />
     <Compile Include="Tests\BuilderTests.cs" />
+    <Compile Include="Tests\ChainOfResponsibilityTests.cs" />
     <Compile Include="Tests\CommandTests.cs" />
     <Compile Include="Tests\CompositeTests.cs" />
     <Compile Include="Tests\DecoratorTests.cs" />
@@ -93,14 +94,19 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\InterfaceTests.cs" />
+    <Compile Include="Tests\InterpreterTests.cs" />
     <Compile Include="Tests\IteratorTests.cs" />
+    <Compile Include="Tests\MediatorTests.cs" />
+    <Compile Include="Tests\MementoTests.cs" />
     <Compile Include="Tests\ObserverTests.cs" />
     <Compile Include="Tests\PrototypeTests.cs" />
     <Compile Include="Tests\ProxyTests.cs" />
     <Compile Include="Tests\SingletonTests.cs" />
     <Compile Include="Tests\StateTests.cs" />
     <Compile Include="Tests\StrategyTests.cs" />
+    <Compile Include="Tests\TemplateMethodTests.cs" />
     <Compile Include="Tests\TestHelper.cs" />
+    <Compile Include="Tests\VisitorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -108,16 +114,28 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibilityAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibilityUML.gif" />
     <Content Include="Design Patterns\Behavioral\Command\CommandAbout.txt" />
     <Content Include="Design Patterns\Behavioral\Command\CommandUML.gif" />
+    <Content Include="Design Patterns\Behavioral\Interpreter\InterpreterAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Interpreter\InterpreterUML.gif" />
     <Content Include="Design Patterns\Behavioral\Iterator\IteratorUML.gif" />
     <Content Include="Design Patterns\Behavioral\Iterator\IteratorAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Mediator\MediatorAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Mediator\MediatorUML.gif" />
+    <Content Include="Design Patterns\Behavioral\Memento\MementoAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Memento\MementoUML.gif" />
     <Content Include="Design Patterns\Behavioral\Observer\ObserverUML.gif" />
     <Content Include="Design Patterns\Behavioral\Observer\ObserverAbout.txt" />
     <Content Include="Design Patterns\Behavioral\State\StateAbout.txt" />
     <Content Include="Design Patterns\Behavioral\State\StateUML.gif" />
     <Content Include="Design Patterns\Behavioral\Strategy\StrategyAbout.txt" />
     <Content Include="Design Patterns\Behavioral\Strategy\StrategyUML.gif" />
+    <Content Include="Design Patterns\Behavioral\TemplateMethod\TemplateMethodAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\TemplateMethod\TemplateMethodUML.gif" />
+    <Content Include="Design Patterns\Behavioral\Visitor\VisitorAbout.txt" />
+    <Content Include="Design Patterns\Behavioral\Visitor\VisitorUML.gif" />
     <Content Include="Design Patterns\Creational\AbstractFactory\AbstractFactoryUML.gif" />
     <Content Include="Design Patterns\Creational\AbstractFactory\AbstratFactoryAbout.txt" />
     <Content Include="Design Patterns\Creational\Builder\BuilderAbout.txt" />
