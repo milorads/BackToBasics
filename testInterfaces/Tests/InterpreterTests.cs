@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
 
-namespace testInterfaces.Tests
+namespace testInterfaces.Design_Patterns.Behavioral
 {
     class InterpreterTests
     {
+        [Test]
+        static void ta()
+        {
+        }
+        [Test]
+        static void tb()
+        {
+        }
     }
 }
