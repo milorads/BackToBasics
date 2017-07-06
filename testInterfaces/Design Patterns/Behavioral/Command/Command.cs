@@ -21,6 +21,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
         }
 
         public abstract void Execute();
+        public abstract string Execute(bool test);
     }
 
     /// <summary>
@@ -38,6 +39,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             receiver.Action();
         }
+        public override string Execute(bool test)
+        {
+            return receiver.Action(test);
+        }
     }
 
     /// <summary>
@@ -48,6 +53,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public void Action()
         {
             Console.WriteLine("Called Receiver.Action()");
+        }
+
+        public string Action(bool test)
+        {
+            return "Called Receiver.Action()";
         }
     }
 
@@ -67,6 +77,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             _command.Execute();
         }
+
+        public string ExecuteCommand(bool test)
+        {
+            return _command.Execute(test);
+        }
     }
     #endregion
 
@@ -77,7 +92,9 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class Command
     {
         public abstract void Execute();
+        public abstract int Execute(bool test);
         public abstract void UnExecute();
+        public abstract int UnExecute(bool test);
     }
 
     /// <summary>
@@ -116,10 +133,20 @@ namespace testInterfaces.Design_Patterns.Behavioral
             _calculator.Operation(_operator, _operand);
         }
 
+        public override int Execute(bool test)
+        {
+            return _calculator.Operation(_operator, _operand, test);
+        }
+
         // Unexecute last command
         public override void UnExecute()
         {
             _calculator.Operation(Undo(_operator), _operand);
+        }
+
+        public override int UnExecute(bool test)
+        {
+           return _calculator.Operation(Undo(_operator), _operand, test);
         }
 
         // Returns opposite operator for given operator
@@ -158,6 +185,17 @@ namespace testInterfaces.Design_Patterns.Behavioral
               "Current value = {0,3} (following {1} {2})",
               _curr, @operator, operand);
         }
+        public int Operation(char @operator, int operand, bool test)
+        {
+            switch (@operator)
+            {
+                case '+': _curr += operand; break;
+                case '-': _curr -= operand; break;
+                case '*': _curr *= operand; break;
+                case '/': _curr /= operand; break;
+            }
+            return _curr;
+        }
     }
 
     /// <summary>
@@ -184,6 +222,21 @@ namespace testInterfaces.Design_Patterns.Behavioral
             }
         }
 
+        public List<int> Redo(int levels, bool test)
+        {
+            var @out = new List<int>();
+            // Perform redo operations
+            for (int i = 0; i < levels; i++)
+            {
+                if (_current < _commands.Count - 1)
+                {
+                    Command command = _commands[_current++];
+                    @out.Add(command.Execute(true));
+                }
+            }
+            return @out;
+        }
+
         public void Undo(int levels)
         {
             Console.WriteLine("\n---- Undo {0} levels ", levels);
@@ -197,17 +250,42 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 }
             }
         }
+        public List<int> Undo(int levels, bool test)
+        {
+            var @out = new List<int>();
+            // Perform undo operations
+            for (int i = 0; i < levels; i++)
+            {
+                if (_current > 0)
+                {
+                    Command command = _commands[--_current] as Command;
+                    @out.Add(command.UnExecute(true));
+                }
+            }
+            return @out;
+        }
 
         public void Compute(char @operator, int operand)
         {
+                // Create command operation and execute it
+                Command command = new CalculatorCommand(_calculator, @operator, operand);
+                command.Execute();
+
+                // Add command to undo list
+                _commands.Add(command);
+                _current++;
+
+        }
+        public int Compute(char @operator, int operand, bool test)
+        {
             // Create command operation and execute it
-            Command command = new CalculatorCommand(
-              _calculator, @operator, operand);
-            command.Execute();
+            Command command = new CalculatorCommand(_calculator, @operator, operand);
+            var result =command.Execute(true);
 
             // Add command to undo list
             _commands.Add(command);
             _current++;
+            return result;
         }
     }
     #endregion

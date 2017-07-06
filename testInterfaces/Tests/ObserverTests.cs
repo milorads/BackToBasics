@@ -1,8 +1,7 @@
-﻿
-using System;
-using System.IO;
+﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using testInterfaces.Tests;
 using static System.String;
 
 namespace testInterfaces.Design_Patterns.Behavioral
@@ -31,7 +30,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
             var ibm = new IBM("IBM", 120.00);
             ibm.Attach(new Investor("Sorros"));
             ibm.Attach(new Investor("Berkshire"));
-            using (var consoleOutput = new ConsoleOutput())
+            using (var consoleOutput = new TestHelper.ConsoleOutput())
             {
                 ibm.Price = 120.10;
                 ibm.Price = 121.00;
@@ -49,7 +48,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
 
 
             ibm.Attach(new Investor("Another"));
-            using (var consoleOutput = new ConsoleOutput())
+            using (var consoleOutput = new TestHelper.ConsoleOutput())
             {
                 ibm.Price = 99.99;
                 var consoleLogLines = consoleOutput.GetOuput().Split(Environment.NewLine.ToCharArray()).ToList();
@@ -57,30 +56,6 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 var lastLine = consoleLogLines.LastOrDefault();
                 if (lastLine == null) Assert.Fail();
                 Assert.True(lastLine.Contains("IBM") && lastLine.Contains("99.99") && lastLine.Contains("Another"));
-            }
-        }
-
-        public class ConsoleOutput : IDisposable
-        {
-            private StringWriter stringWriter;
-            private TextWriter originalOutput;
-
-            public ConsoleOutput()
-            {
-                stringWriter = new StringWriter();
-                originalOutput = Console.Out;
-                Console.SetOut(stringWriter);
-            }
-
-            public string GetOuput()
-            {
-                return stringWriter.ToString();
-            }
-
-            public void Dispose()
-            {
-                Console.SetOut(originalOutput);
-                stringWriter.Dispose();
             }
         }
     }

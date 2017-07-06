@@ -94,6 +94,7 @@
     <Compile Include="Tests\SingletonTests.cs" />
     <Compile Include="Tests\StateTests.cs" />
     <Compile Include="Tests\StrategyTests.cs" />
+    <Compile Include="Tests\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

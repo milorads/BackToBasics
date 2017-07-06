@@ -33,10 +33,10 @@ namespace testInterfaces
             //AdapterTester();//+
             //BridgeTester();//+
             //DecoratorTester();//+
-            //FlyweightTester();//!
+            //FlyweightTester();//+
             //--Behavioral
             //IteratorTester();//+
-            //ObserverTester();//!
+            //ObserverTester();//+
             //CommandTester();//!
             //StrategyTester();//!
             //StateTester();//!
