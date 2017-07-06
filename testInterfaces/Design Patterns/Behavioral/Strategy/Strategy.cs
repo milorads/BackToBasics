@@ -13,6 +13,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class Strategy
     {
         public abstract void AlgorithmInterface();
+        public abstract string AlgorithmInterface(bool test);
     }
 
     /// <summary>
@@ -24,6 +25,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             Console.WriteLine(
               "Called ConcreteStrategyA.AlgorithmInterface()");
+        }
+
+        public override string AlgorithmInterface(bool test)
+        {
+            return "Called ConcreteStrategyA.AlgorithmInterface()";
         }
     }
 
@@ -37,6 +43,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             Console.WriteLine(
               "Called ConcreteStrategyB.AlgorithmInterface()");
         }
+
+        public override string AlgorithmInterface(bool test)
+        {
+            return "Called ConcreteStrategyB.AlgorithmInterface()";
+        }
     }
 
     /// <summary>
@@ -48,6 +59,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             Console.WriteLine(
               "Called ConcreteStrategyC.AlgorithmInterface()");
+        }
+
+        public override string AlgorithmInterface(bool test)
+        {
+            return "Called ConcreteStrategyC.AlgorithmInterface()";
         }
     }
 
@@ -68,6 +84,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             _strategy.AlgorithmInterface();
         }
+
+        public string ContextInterface(bool test)
+        {
+            return _strategy.AlgorithmInterface(true);
+        }
     }
     #endregion
 
@@ -78,6 +99,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class SortStrategy
     {
         public abstract void Sort(List<string> list);
+        public abstract string Sort(List<string> list, bool test);
     }
 
     /// <summary>
@@ -89,6 +111,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             list.Sort(); // Default is Quicksort
             Console.WriteLine("QuickSorted list ");
+        }
+
+        public override string Sort(List<string> list, bool test)
+        {
+            return "QuickSorted list";
         }
     }
 
@@ -102,6 +129,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             //list.ShellSort(); not-implemented
             Console.WriteLine("ShellSorted list ");
         }
+
+        public override string Sort(List<string> list, bool test)
+        {
+            return "ShellSorted list";
+        }
     }
 
     /// <summary>
@@ -113,6 +145,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             //list.MergeSort(); not-implemented
             Console.WriteLine("MergeSorted list ");
+        }
+
+        public override string Sort(List<string> list, bool test)
+        {
+            return "MergeSorted list";
         }
     }
 
@@ -144,6 +181,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 Console.WriteLine(" " + name);
             }
             Console.WriteLine();
+        }
+        public string Sort(bool test)
+        {
+            return _sortstrategy.Sort(_list, test);
         }
     }
     #endregion

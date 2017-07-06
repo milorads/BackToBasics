@@ -37,7 +37,7 @@ namespace testInterfaces
             //--Behavioral
             //IteratorTester();//+
             //ObserverTester();//+
-            //CommandTester();//!
+            //CommandTester();//+
             //StrategyTester();//!
             //StateTester();//!
             //todo: add behavioral patterns
