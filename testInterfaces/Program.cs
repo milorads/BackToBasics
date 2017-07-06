@@ -14,6 +14,7 @@ namespace testInterfaces
         private static void Main(string[] args)
         {
             //KeyValuePairsTester();//+
+
             //InterfacesTester();//+
 
             //-Design patterns
@@ -43,8 +44,6 @@ namespace testInterfaces
             //VisitorTester();// -
             //InterpreterTester();// -
             //MementoTester();// -
-
-
             Console.Read();
         }
 
@@ -702,7 +701,7 @@ namespace testInterfaces
 
         }
 
-        static void MementoTester()
+        private static void MementoTester()
         {
 
         }
