@@ -13,6 +13,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class SampleState
     {
         public abstract void Handle(StateContext context);
+        public abstract string Handle(StateContext context, bool test);
     }
 
     /// <summary>
@@ -24,6 +25,12 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             context.State = new ConcreteStateB();
         }
+
+        public override string Handle(StateContext context, bool test)
+        {
+            context.State = new ConcreteStateB();
+            return typeof(ConcreteStateB).ToString();
+        }
     }
 
     /// <summary>
@@ -34,6 +41,12 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public override void Handle(StateContext context)
         {
             context.State = new ConcreteStateA();
+        }
+
+        public override string Handle(StateContext context, bool test)
+        {
+            context.State = new ConcreteStateA();
+            return typeof(ConcreteStateA).ToString();
         }
     }
 
@@ -66,6 +79,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             _state.Handle(this);
         }
+        public string Request(bool test)
+        {
+            return _state.Handle(this, test);
+        }
     }
     #endregion
 
@@ -96,8 +113,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         }
 
         public abstract void Deposit(double amount);
+        public abstract string Deposit(double amount, bool test);
         public abstract void Withdraw(double amount);
+        public abstract string Withdraw(double amount, bool test);
         public abstract void PayInterest();
+        public abstract string PayInterest(bool test);
     }
 
 
@@ -133,6 +153,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             balance += amount;
             StateChangeCheck();
         }
+        public override string Deposit(double amount, bool test)
+        {
+            balance += amount;
+            return StateChangeCheck(true);
+        }
 
         public override void Withdraw(double amount)
         {
@@ -140,9 +165,27 @@ namespace testInterfaces.Design_Patterns.Behavioral
             Console.WriteLine("No funds available for withdrawal!");
         }
 
+        public override string Withdraw(double amount, bool test)
+        {
+            if (balance - amount <= lowerLimit)
+            {
+                return "No funds available for withdrawal!";
+            }
+            else
+            {
+                amount = amount - _serviceFee;
+                return balance.ToString();
+            }
+        }
+
         public override void PayInterest()
         {
             // No interest is paid
+        }
+
+        public override string PayInterest(bool test)
+        {
+            return "";
         }
 
         private void StateChangeCheck()
@@ -151,6 +194,15 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 account.State = new SilverState(this);
             }
+        }
+
+        private string StateChangeCheck(bool test)
+        {
+            if (balance > upperLimit)
+            {
+                account.State = new SilverState(this);
+            }
+            return account.State.ToString();
         }
     }
 
@@ -190,16 +242,34 @@ namespace testInterfaces.Design_Patterns.Behavioral
             StateChangeCheck();
         }
 
+        public override string Deposit(double amount, bool test)
+        {
+            balance += amount;
+            return StateChangeCheck(test);
+        }
+
         public override void Withdraw(double amount)
         {
             balance -= amount;
             StateChangeCheck();
         }
 
+        public override string Withdraw(double amount, bool test)
+        {
+            balance -= amount;
+            return StateChangeCheck(true);
+        }
+
         public override void PayInterest()
         {
             balance += interest * balance;
             StateChangeCheck();
+        }
+
+        public override string PayInterest(bool test)
+        {
+            balance += interest * balance;
+            return StateChangeCheck(true);
         }
 
         private void StateChangeCheck()
@@ -212,6 +282,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 account.State = new GoldState(this);
             }
+        }
+        private string StateChangeCheck(bool test)
+        {
+            if (balance < lowerLimit)
+            {
+                account.State = new RedState(this);
+            }
+            else if (balance > upperLimit)
+            {
+                account.State = new GoldState(this);
+            }
+            return account.State.ToString();
         }
     }
 
@@ -250,16 +332,34 @@ namespace testInterfaces.Design_Patterns.Behavioral
             StateChangeCheck();
         }
 
+        public override string Deposit(double amount, bool test)
+        {
+            balance += amount;
+            return StateChangeCheck(test);
+        }
+
         public override void Withdraw(double amount)
         {
             balance -= amount;
             StateChangeCheck();
         }
 
+        public override string Withdraw(double amount, bool test)
+        {
+            balance -= amount;
+            return StateChangeCheck(true);
+        }
+
         public override void PayInterest()
         {
             balance += interest * balance;
             StateChangeCheck();
+        }
+
+        public override string PayInterest(bool test)
+        {
+            balance += interest * balance;
+            return StateChangeCheck(true);
         }
 
         private void StateChangeCheck()
@@ -272,6 +372,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 account.State = new SilverState(this);
             }
+        }
+        private string StateChangeCheck(bool test)
+        {
+            if (balance < 0.0)
+            {
+                account.State = new RedState(this);
+            }
+            else if (balance < lowerLimit)
+            {
+                account.State = new SilverState(this);
+            }
+            return account.State.ToString();
         }
     }
 
@@ -312,6 +424,12 @@ namespace testInterfaces.Design_Patterns.Behavioral
               this.State.GetType().Name);
             Console.WriteLine("");
         }
+        public Dictionary<string,string> Deposit(double amount, bool test)
+        {
+            _state.Deposit(amount, test);
+            return new Dictionary<string, string>(){{"deposit",amount.ToString()},{"balance", this.Balance.ToString()},{"state", this.State.GetType().Name}};
+
+        }
 
         public void Withdraw(double amount)
         {
@@ -322,6 +440,13 @@ namespace testInterfaces.Design_Patterns.Behavioral
               this.State.GetType().Name);
         }
 
+        public Dictionary<string, string> Withdraw(double amount, bool test)
+        {
+            _state.Withdraw(amount, test);
+            return new Dictionary<string, string>() { { "withdraw", amount.ToString() }, { "balance", this.Balance.ToString() }, { "state", this.State.GetType().Name } };
+
+        }
+
         public void PayInterest()
         {
             _state.PayInterest();
@@ -329,6 +454,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             Console.WriteLine(" Balance = {0:C}", this.Balance);
             Console.WriteLine(" Status = {0}\n",
               this.State.GetType().Name);
+        }
+        public Dictionary<string, string> PayInterest(bool test)
+        {
+            return new Dictionary<string, string>() { { "interest", _state.PayInterest(true) }, { "balance", this.Balance.ToString() }, { "state", this.State.GetType().Name } };
+
         }
     }
     #endregion

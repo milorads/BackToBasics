@@ -38,8 +38,8 @@ namespace testInterfaces
             //IteratorTester();//+
             //ObserverTester();//+
             //CommandTester();//+
-            //StrategyTester();//!
-            //StateTester();//!
+            //StrategyTester();//+
+            //StateTester();//+
             //todo: add behavioral patterns
 
             Console.Read();
