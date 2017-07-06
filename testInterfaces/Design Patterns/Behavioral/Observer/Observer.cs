@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace testInterfaces.Design_Patterns.Behavioral
 {
@@ -31,6 +29,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 o.Update();
             }
         }
+
+        public Dictionary<string, string> Notify(bool test)
+        {
+            return _observers.Select(o => o.Update(true).FirstOrDefault()).ToDictionary(updDict => updDict.Key, updDict => updDict.Value);
+        }
     }
 
     /// <summary>
@@ -43,8 +46,8 @@ namespace testInterfaces.Design_Patterns.Behavioral
         // Gets or sets subject state
         public string SubjectState
         {
-            get { return _subjectState; }
-            set { _subjectState = value; }
+            get => _subjectState;
+            set => _subjectState = value;
         }
     }
 
@@ -54,6 +57,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class Observer
     {
         public abstract void Update();
+        public abstract Dictionary<string, string> Update(bool test);
     }
 
     /// <summary>
@@ -78,6 +82,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             _observerState = _subject.SubjectState;
             Console.WriteLine("Observer {0}'s new state is {1}",
               _name, _observerState);
+        }
+
+        public override Dictionary<string, string> Update(bool test)
+        {
+            return new Dictionary<string, string> { { _name, _subject.SubjectState } };
         }
 
         // Gets or sets subject
@@ -183,8 +192,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
 
         public void Update(Stock stock)
         {
-            Console.WriteLine("Notified {0} of {1}'s " +
-              "change to {2:C}", _name, stock.Symbol, stock.Price);
+            Console.WriteLine("Notified {0} of {1}'s change to {2:C}", _name, stock.Symbol, stock.Price);
         }
 
         // Gets or sets the stock

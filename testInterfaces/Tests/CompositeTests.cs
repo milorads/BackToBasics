@@ -57,8 +57,6 @@ namespace testInterfaces.Design_Patterns.Behavioral
             var whiteCircle = new PrimitiveElement("White Circle");
             compImpl.Add(whiteCircle);
             rootImpl.Add(compImpl);
-            var a = rootImpl;
-            var b = "";
             foreach (var element in rootImpl.Display(1,true).Item2)
             {
                 if (element.GetType() == typeof(PrimitiveElement))
