@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Polynomial;
 using testInterfaces.Design_Patterns.Behavioral;
 using testInterfaces.Design_Patterns.Creational;
@@ -40,12 +37,20 @@ namespace testInterfaces
             //CommandTester();//+
             //StrategyTester();//+
             //StateTester();//+
-            //todo: add behavioral patterns
+            //TemplateMethodTester();// -
+            //MediatorTester();// -
+            //ChainOfResponsibilityTester();// -
+            //VisitorTester();// -
+            //InterpreterTester();// -
+            //MementoTester();// -
+
 
             Console.Read();
         }
 
-        public static void InterfacesTester() {
+        public static void InterfacesTester()
+        {
+            #region sample
             var p = new Program();
             p.MethodToImplement();
             p.ParentInterfaceMethod();
@@ -85,12 +90,15 @@ namespace testInterfaces
             var t = new testVirtual();
             t.Foo();
             p.Foo();
+            #endregion
         }
 
         static void KeyValuePairsTester()
         {
+            #region sample
             HashtableAndDictionary.Dictionary();
             HashtableAndDictionary.Hashtable();
+            #endregion
         }
 
         static void SingletonTester()
@@ -248,13 +256,12 @@ namespace testInterfaces
             #endregion
 
             #region sample 2
-            VehicleBuilder builder;
 
             // Create shop with vehicle builders
             var shop = new Shop();
 
             // Construct and display vehicles
-            builder = new ScooterBuilder();
+            VehicleBuilder builder = new ScooterBuilder();
             shop.Construct(builder);
             builder.Vehicle.Show();
 
@@ -380,9 +387,9 @@ namespace testInterfaces
         static void BridgeTester()
         {
             #region sample 1
-            Abstraction ab = new RefinedAbstraction();
+
+            var ab = new RefinedAbstraction {Implementor = new ConcreteImplementorA()};
             // Set implementation and call
-            ab.Implementor = new ConcreteImplementorA();
             ab.Operation();
 
             // Change implemention and call
@@ -391,10 +398,10 @@ namespace testInterfaces
             #endregion
 
             #region sample 2
-            var customers = new Customers("Chicago");
+
+            var customers = new Customers("Chicago") {Data = new CustomersData()};
 
             // Set ConcreteImplementor
-            customers.Data = new CustomersData();
 
             // Exercise the bridge
             customers.Show();
@@ -470,7 +477,7 @@ namespace testInterfaces
 
             #region sample 2
             // Build a document with text
-            var document = "AAZZBBZB";
+            const string document = "AAZZBBZB";
             var chars = document.ToCharArray();
 
             var factoryImplementation = new CharacterFactory();
@@ -491,11 +498,14 @@ namespace testInterfaces
         static void IteratorTester()
         {
             #region sample 1
-            var a = new ConcreteAggregate();
-            a[0] = "Item A";
-            a[1] = "Item B";
-            a[2] = "Item C";
-            a[3] = "Item D";
+
+            var a = new ConcreteAggregate
+            {
+                [0] = "Item A",
+                [1] = "Item B",
+                [2] = "Item C",
+                [3] = "Item D"
+            };
 
             // Create Iterator and provide aggregate
             var i = a.CreateIterator();
@@ -512,16 +522,18 @@ namespace testInterfaces
 
             #region sample 2
             // Build a collection
-            Collection collection = new Collection();
-            collection[0] = new Item("Item 0");
-            collection[1] = new Item("Item 1");
-            collection[2] = new Item("Item 2");
-            collection[3] = new Item("Item 3");
-            collection[4] = new Item("Item 4");
-            collection[5] = new Item("Item 5");
-            collection[6] = new Item("Item 6");
-            collection[7] = new Item("Item 7");
-            collection[8] = new Item("Item 8");
+            var collection = new Collection
+            {
+                [0] = new Item("Item 0"),
+                [1] = new Item("Item 1"),
+                [2] = new Item("Item 2"),
+                [3] = new Item("Item 3"),
+                [4] = new Item("Item 4"),
+                [5] = new Item("Item 5"),
+                [6] = new Item("Item 6"),
+                [7] = new Item("Item 7"),
+                [8] = new Item("Item 8")
+            };
 
             // Create iterator
             var iterator = collection.CreateIterator();
@@ -575,9 +587,9 @@ namespace testInterfaces
         {
             #region sample 1
             // Create receiver, command, and invoker
-            Receiver receiver = new Receiver();
-            SampleCommand command = new SampleConcreteCommand(receiver);
-            Invoker invoker = new Invoker();
+            var receiver = new Receiver();
+            var command = new SampleConcreteCommand(receiver);
+            var invoker = new Invoker();
 
             // Set and execute command
             invoker.SetCommand(command);
@@ -586,7 +598,7 @@ namespace testInterfaces
 
             #region sample 2
             // Create user and let her compute
-            User user = new User();
+            var user = new User();
 
             // User presses calculator buttons
             user.Compute('+', 100);
@@ -605,10 +617,9 @@ namespace testInterfaces
         static void StrategyTester()
         {
             #region sample 1
-            Context context;
 
             // Three contexts following different strategies
-            context = new Context(new ConcreteStrategyA());
+            var context = new Context(new ConcreteStrategyA());
             context.ContextInterface();
 
             context = new Context(new ConcreteStrategyB());
@@ -620,7 +631,7 @@ namespace testInterfaces
 
             #region sample 2
             // Two contexts following different strategies
-            SortedList studentRecords = new SortedList();
+            var studentRecords = new SortedList();
 
             studentRecords.Add("Samual");
             studentRecords.Add("Jimmy");
@@ -643,7 +654,7 @@ namespace testInterfaces
         {
             #region sample 1
             // Setup context in a state
-            StateContext c = new StateContext(new ConcreteStateA());
+            var c = new StateContext(new ConcreteStateA());
 
             // Issue requests, which toggles state
             c.Request();
@@ -654,7 +665,7 @@ namespace testInterfaces
 
             #region sample 2
             // Open a new account
-            Account account = new Account("Jim Johnson");
+            var account = new Account("Jim Johnson");
 
             // Apply financial transactions
             account.Deposit(500.0);
@@ -666,5 +677,34 @@ namespace testInterfaces
             #endregion
         }
 
+        static void TemplateMethodTester()
+        {
+
+        }
+
+        static void MediatorTester()
+        {
+
+        }
+
+        static void ChainOfResponsibilityTester()
+        {
+
+        }
+
+        static void VisitorTester()
+        {
+
+        }
+
+        static void InterpreterTester()
+        {
+
+        }
+
+        static void MementoTester()
+        {
+
+        }
     }
 }

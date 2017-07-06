@@ -49,11 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Design Patterns\Behavioral\Command\Command.cs" />
+    <Compile Include="Design Patterns\Behavioral\Interpreter\Interpreter.cs" />
     <Compile Include="Design Patterns\Behavioral\Iterator\Iterator.cs" />
+    <Compile Include="Design Patterns\Behavioral\Mediator\Mediator.cs" />
+    <Compile Include="Design Patterns\Behavioral\Memento\Memento.cs" />
     <Compile Include="Design Patterns\Behavioral\Observer\Observer.cs" />
     <Compile Include="Design Patterns\Behavioral\State\State.cs" />
     <Compile Include="Design Patterns\Behavioral\Strategy\Strategy.cs" />
+    <Compile Include="Design Patterns\Behavioral\TemplateMethod\TemplateMethod.cs" />
+    <Compile Include="Design Patterns\Behavioral\Visitor\Visitor.cs" />
     <Compile Include="Design Patterns\Creational\AbstractFactory\AbstractFactory.cs" />
     <Compile Include="Design Patterns\Creational\Builder\Builder.cs" />
     <Compile Include="Design Patterns\Creational\Factory\Factory.cs" />
