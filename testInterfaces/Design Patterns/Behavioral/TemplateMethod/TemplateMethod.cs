@@ -14,14 +14,19 @@ namespace testInterfaces.Design_Patterns.Behavioral
     public abstract class AbstractClassTemplate
     {
         public abstract void PrimitiveOperation1();
+        public abstract string PrimitiveOperation1(bool test);
         public abstract void PrimitiveOperation2();
-
+        public abstract string PrimitiveOperation2(bool test);
         // The "Template method"
         public void TemplateMethod()
         {
             PrimitiveOperation1();
             PrimitiveOperation2();
             Console.WriteLine("");
+        }
+        public string TemplateMethod(bool test)
+        {
+            return PrimitiveOperation1(true) + PrimitiveOperation2(true);
         }
     }
 
@@ -34,9 +39,20 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             Console.WriteLine("ConcreteClassA.PrimitiveOperation1()");
         }
+
+        public override string PrimitiveOperation1(bool test)
+        {
+            return "ConcreteClassA.PrimitiveOperation1()";
+        }
+
         public override void PrimitiveOperation2()
         {
             Console.WriteLine("ConcreteClassA.PrimitiveOperation2()");
+        }
+
+        public override string PrimitiveOperation2(bool test)
+        {
+            return "ConcreteClassA.PrimitiveOperation2()";
         }
     }
 
@@ -49,9 +65,20 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             Console.WriteLine("ConcreteClassB.PrimitiveOperation1()");
         }
+
+        public override string PrimitiveOperation1(bool test)
+        {
+            return "ConcreteClassB.PrimitiveOperation1()";
+        }
+
         public override void PrimitiveOperation2()
         {
             Console.WriteLine("ConcreteClassB.PrimitiveOperation2()");
+        }
+
+        public override string PrimitiveOperation2(bool test)
+        {
+            return "ConcreteClassB.PrimitiveOperation2()";
         }
     }
     #endregion
@@ -70,10 +97,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             // Switched to sqlite
             //connectionString ="provider=Microsoft.JET.OLEDB.4.0; data source=..\\..\\..\\db1.sqlite";
-            if (!File.Exists("db1.sqlite"))
+            if (!File.Exists("templateMethodDB.sqlite"))
             {
-                SQLiteConnection.CreateFile("db1.sqlite");
-                m_dbConnection = new SQLiteConnection("Data Source=db1.sqlite;Version=3;");
+                SQLiteConnection.CreateFile("templateMethodDB.sqlite");
+                m_dbConnection = new SQLiteConnection("Data Source=templateMethodDB.sqlite;Version=3;");
                 m_dbConnection.Open();
                 var sql = "create table Categories (CategoryName varchar(20))";
                 var sql2 = "create table Products (ProductName varchar(20))";
@@ -82,21 +109,27 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 command.ExecuteNonQuery();
                 command2.ExecuteNonQuery();
                 var sqlLines = "INSERT INTO Categories (CategoryName) VALUES ('testCat1'),('testCat2'),('testCat3');";
-                var sqlLines2 = "INSERT INTO Products (ProductName) VALUES ('testProd1'),('testProd2'),('testProd2');";
+                var sqlLines2 = "INSERT INTO Products (ProductName) VALUES ('testProd1'),('testProd2'),('testProd3');";
                 var lcommand = new SQLiteCommand(sqlLines, m_dbConnection);
                 var lcommand2 = new SQLiteCommand(sqlLines2, m_dbConnection);
                 lcommand.ExecuteNonQuery();
                 lcommand2.ExecuteNonQuery();
             }
-            m_dbConnection = new SQLiteConnection("Data Source=db1.sqlite;Version=3;");
+            m_dbConnection = new SQLiteConnection("Data Source=templateMethodDB.sqlite;Version=3;");
         }
 
         public abstract void Select();
+        public abstract DataSet returnDS(bool test);
         public abstract void Process();
 
         public virtual void Disconnect()
         {
             connectionString = "";
+        }
+        public virtual void Disconnect(bool test)
+        {
+            m_dbConnection.Close();
+            GC.Collect();
         }
 
         // The 'Template Method'
@@ -106,6 +139,15 @@ namespace testInterfaces.Design_Patterns.Behavioral
             Select();
             Process();
             Disconnect();
+        }
+
+        public DataSet Run(bool test)
+        {
+            Connect();
+            Select();
+            //Process();
+            Disconnect(test);
+            return dataSet;
         }
     }
 
@@ -120,6 +162,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             dataSet = new DataSet();
             var dap = new SQLiteDataAdapter(sql, m_dbConnection);
             dap.Fill(dataSet, "Categories");
+        }
+
+        public override DataSet returnDS(bool test)
+        {
+            return dataSet;
         }
 
         public override void Process()
@@ -145,6 +192,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             dataSet = new DataSet();
             var dap = new SQLiteDataAdapter(sql, m_dbConnection);
             dap.Fill(dataSet, "Products");
+        }
+
+        public override DataSet returnDS(bool test)
+        {
+            return dataSet;
         }
 
         public override void Process()
