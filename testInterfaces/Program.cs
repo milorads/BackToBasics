@@ -58,8 +58,7 @@ namespace testInterfaces
             // call second main from polynomys/driver
             Driver.MainPolynoms();
             // use animal interface
-            var dogs = new List<Dog>();
-            dogs.Add(new Dog("Somedog"));
+            var dogs = new List<Dog> {new Dog("Somedog")};
             var puppy = new Dog("littleOne");
             dogs.Add(puppy);
             dogs.Add(new Dog("aDog"));
@@ -678,7 +677,22 @@ namespace testInterfaces
 
         static void TemplateMethodTester()
         {
+            #region sample 1
+            AbstractClassTemplate aA = new ConcreteClassA();
+            aA.TemplateMethod();
 
+            AbstractClassTemplate aB = new ConcreteClassB();
+            aB.TemplateMethod();
+
+            #endregion
+
+            #region sample 2
+            DataAccessObject daoCategories = new Categories();
+            daoCategories.Run();
+
+            DataAccessObject daoProducts = new Products();
+            daoProducts.Run();
+            #endregion
         }
 
         static void MediatorTester()
