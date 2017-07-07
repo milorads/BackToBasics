@@ -38,7 +38,7 @@ namespace testInterfaces
             //CommandTester();//+
             //StrategyTester();//+
             //StateTester();//+
-            //TemplateMethodTester();// -
+            TemplateMethodTester();//t+
             //MediatorTester();// -
             //ChainOfResponsibilityTester();// -
             //VisitorTester();// -

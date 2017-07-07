@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Data.SQLite;
+using System.IO;
 
 namespace testInterfaces.Design_Patterns.Behavioral
 {
@@ -61,13 +64,31 @@ namespace testInterfaces.Design_Patterns.Behavioral
     {
         protected string connectionString;
         protected DataSet dataSet;
+        protected SQLiteConnection m_dbConnection;
 
         public virtual void Connect()
         {
-            // Make sure mdb is available to app
-            connectionString =
-                "provider=Microsoft.JET.OLEDB.4.0; " +
-                "data source=..\\..\\..\\db1.mdb";
+            // Switched to sqlite
+            //connectionString ="provider=Microsoft.JET.OLEDB.4.0; data source=..\\..\\..\\db1.sqlite";
+            if (!File.Exists("db1.sqlite"))
+            {
+                SQLiteConnection.CreateFile("db1.sqlite");
+                m_dbConnection = new SQLiteConnection("Data Source=db1.sqlite;Version=3;");
+                m_dbConnection.Open();
+                var sql = "create table Categories (CategoryName varchar(20))";
+                var sql2 = "create table Products (ProductName varchar(20))";
+                var command = new SQLiteCommand(sql, m_dbConnection);
+                var command2 = new SQLiteCommand(sql2, m_dbConnection);
+                command.ExecuteNonQuery();
+                command2.ExecuteNonQuery();
+                var sqlLines = "INSERT INTO Categories (CategoryName) VALUES ('testCat1'),('testCat2'),('testCat3');";
+                var sqlLines2 = "INSERT INTO Products (ProductName) VALUES ('testProd1'),('testProd2'),('testProd2');";
+                var lcommand = new SQLiteCommand(sqlLines, m_dbConnection);
+                var lcommand2 = new SQLiteCommand(sqlLines2, m_dbConnection);
+                lcommand.ExecuteNonQuery();
+                lcommand2.ExecuteNonQuery();
+            }
+            m_dbConnection = new SQLiteConnection("Data Source=db1.sqlite;Version=3;");
         }
 
         public abstract void Select();
@@ -95,12 +116,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
     {
         public override void Select()
         {
-            string sql = "select CategoryName from Categories";
-            OleDbDataAdapter dataAdapter = new OleDbDataAdapter(
-                sql, connectionString);
-
+            const string sql = "select CategoryName from Categories";
             dataSet = new DataSet();
-            dataAdapter.Fill(dataSet, "Categories");
+            var dap = new SQLiteDataAdapter(sql, m_dbConnection);
+            dap.Fill(dataSet, "Categories");
         }
 
         public override void Process()
@@ -122,12 +141,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
     {
         public override void Select()
         {
-            string sql = "select ProductName from Products";
-            OleDbDataAdapter dataAdapter = new OleDbDataAdapter(
-                sql, connectionString);
-
+            const string sql = "select ProductName from Products";
             dataSet = new DataSet();
-            dataAdapter.Fill(dataSet, "Products");
+            var dap = new SQLiteDataAdapter(sql, m_dbConnection);
+            dap.Fill(dataSet, "Products");
         }
 
         public override void Process()
