@@ -12,6 +12,8 @@ namespace testInterfaces.Design_Patterns.Behavioral
     {
         public abstract void Send(string message,
             Colleague colleague);
+
+        public abstract Colleague Send(Colleague col);
     }
 
     /// <summary>
@@ -44,6 +46,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 _colleague1.Notify(message);
             }
         }
+
+        public override Colleague Send(Colleague colleague)
+        {
+            if (colleague == _colleague1)
+            {
+                return _colleague2;
+            }
+            else
+            {
+                return _colleague1;
+            }
+        }
     }
 
     /// <summary>
@@ -57,6 +71,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public Colleague(Mediator mediator)
         {
             this.mediator = mediator;
+        }
+        public Colleague Send(Colleague col)
+        {
+            return mediator.Send(col);
         }
     }
 
