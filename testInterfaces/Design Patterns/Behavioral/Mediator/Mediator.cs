@@ -134,6 +134,8 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public abstract void Register(Participant participant);
         public abstract void Send(
             string from, string to, string message);
+        public abstract Dictionary<string,string> Send(
+            string from, string to, string message, bool test, string fromPart);
     }
 
     /// <summary>
@@ -154,6 +156,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             participant.Chatroom = this;
         }
 
+        public Dictionary<string, Participant> GetParticipants()
+        {
+            return _participants;
+        }
+
         public override void Send(
             string from, string to, string message)
         {
@@ -163,6 +170,24 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 participant.Receive(from, message);
             }
+        }
+
+        public override Dictionary<string, string> Send(
+            string from, string to, string message, bool test, string fromPart)
+        {
+            var dict = new Dictionary<string,string>();
+            Participant participant = _participants[to];
+            dict.Add("from", fromPart);
+            var fromDict = new Dictionary<string, string>();
+            if (participant != null)
+            {
+                fromDict = participant.Receive(from, message, true);
+            }
+            foreach (var val in fromDict)
+            {
+                dict.Add(val.Key,val.Value);
+            }
+            return dict;
         }
     }
 
@@ -199,12 +224,24 @@ namespace testInterfaces.Design_Patterns.Behavioral
             _chatroom.Send(_name, to, message);
         }
 
+        public Dictionary<string,string> Send(string to, string message, bool test)
+        {
+            var from = this.Name;
+            return _chatroom.Send(_name, to, message, test, from);
+        }
+
         // Receives message from given participant
         public virtual void Receive(
             string from, string message)
         {
             Console.WriteLine("{0} to {1}: '{2}'",
                 from, Name, message);
+        }
+
+        public virtual Dictionary<string,string> Receive(
+            string from, string message, bool test)
+        {
+            return new Dictionary<string, string>(){{"to", Name},{"msg", message} };
         }
     }
 

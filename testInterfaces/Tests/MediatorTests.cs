@@ -7,7 +7,6 @@ namespace testInterfaces.Design_Patterns.Behavioral
         [Test]
         public static void TestMediator()
         {
-            #region sample 1
             ConcreteMediator m = new ConcreteMediator();
 
             ConcreteColleague1 c1 = new ConcreteColleague1(m);
@@ -18,14 +17,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
             var a = c1.Send(c2);
             Assert.AreEqual(c1.Send(c2), c1);
             Assert.AreEqual(c2.Send(c1), c2);
-            #endregion
-
-
         }
         [Test]
         public static void TestChatroom()
         {
-            #region sample 2
             Chatroom chatroom = new Chatroom();
 
             Participant George = new Beatle("George");
@@ -39,13 +34,30 @@ namespace testInterfaces.Design_Patterns.Behavioral
             chatroom.Register(Ringo);
             chatroom.Register(John);
             chatroom.Register(Yoko);
+            var participantsByName = chatroom.GetParticipants();
+            Assert.True(participantsByName.ContainsKey("George") && participantsByName.ContainsKey("Paul") &&
+                participantsByName.ContainsKey("Ringo") && participantsByName.ContainsKey("John") && participantsByName.ContainsKey("Yoko"));
 
-            Yoko.Send("John", "Hi John!");
-            Paul.Send("Ringo", "All you need is love");
-            Ringo.Send("George", "My sweet Lord");
-            Paul.Send("John", "Can't buy me love");
-            John.Send("Yoko", "My sweet love");
-            #endregion
+            var ytj = Yoko.Send("John", "Hi John!", true);
+            StringAssert.AreEqualIgnoringCase(ytj["from"], "Yoko");
+            StringAssert.AreEqualIgnoringCase(ytj["to"], "John");
+            StringAssert.AreEqualIgnoringCase(ytj["msg"], "Hi John!");
+            var ptr = Paul.Send("Ringo", "All you need is love", true);
+            StringAssert.AreEqualIgnoringCase(ptr["from"], "Paul");
+            StringAssert.AreEqualIgnoringCase(ptr["to"], "Ringo");
+            StringAssert.AreEqualIgnoringCase(ptr["msg"], "All you need is love");
+            var rtg = Ringo.Send("George", "My sweet Lord", true);
+            StringAssert.AreEqualIgnoringCase(rtg["from"], "Ringo");
+            StringAssert.AreEqualIgnoringCase(rtg["to"], "George");
+            StringAssert.AreEqualIgnoringCase(rtg["msg"], "My sweet Lord");
+            var ptj = Paul.Send("John", "Can't buy me love", true);
+            StringAssert.AreEqualIgnoringCase(ptj["from"], "Paul");
+            StringAssert.AreEqualIgnoringCase(ptj["to"], "John");
+            StringAssert.AreEqualIgnoringCase(ptj["msg"], "Can't buy me love");
+            var jty = John.Send("Yoko", "My sweet love", true);
+            StringAssert.AreEqualIgnoringCase(jty["from"], "John");
+            StringAssert.AreEqualIgnoringCase(jty["to"], "Yoko");
+            StringAssert.AreEqualIgnoringCase(jty["msg"], "My sweet love");
         }
     }
 }
