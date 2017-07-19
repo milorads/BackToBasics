@@ -7,14 +7,12 @@ namespace testInterfaces.Design_Patterns.Behavioral
         [Test]
         public static void TestChainOfResp()
         {
-            // Setup Chain of Responsibility
             Handler h1 = new ConcreteHandler1();
             Handler h2 = new ConcreteHandler2();
             Handler h3 = new ConcreteHandler3();
             h1.SetSuccessor(h2);
             h2.SetSuccessor(h3);
 
-            // Generate and process request
             int[] requests = { 2, 5, 14, 22, 18, 3, 27, 20 };
 
             foreach (int request in requests)
@@ -35,9 +33,8 @@ namespace testInterfaces.Design_Patterns.Behavioral
             }
         }
         [Test]
-        static void TestApprovals()
+        public static void TestApprovals()
         {
-            // Setup Chain of Responsibility
             Approver larry = new Director();
             Approver sam = new VicePresident();
             Approver tammy = new President();
@@ -45,15 +42,15 @@ namespace testInterfaces.Design_Patterns.Behavioral
             larry.SetSuccessor(sam);
             sam.SetSuccessor(tammy);
 
-            // Generate and process purchase requests
             Purchase p = new Purchase(2034, 350.00, "Assets");
-            larry.ProcessRequest(p);
-
+            var p1result = larry.ProcessRequest(p, true);
+            Assert.AreEqual(p1result, larry);
             p = new Purchase(2035, 32590.10, "Project X");
-            larry.ProcessRequest(p);
-
+            var p2result = larry.ProcessRequest(p, true);
+            Assert.AreEqual(p2result, tammy);
             p = new Purchase(2036, 122100.00, "Project Y");
-            larry.ProcessRequest(p);
+            var p3result = larry.ProcessRequest(p, true);
+            Assert.AreEqual(p3result, null);
         }
     }
 }

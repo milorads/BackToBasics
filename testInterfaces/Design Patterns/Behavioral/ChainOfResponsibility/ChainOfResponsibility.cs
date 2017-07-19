@@ -128,6 +128,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
         }
 
         public abstract void ProcessRequest(Purchase purchase);
+        public abstract Approver ProcessRequest(Purchase purchase, bool test);
     }
 
     /// <summary>
@@ -147,6 +148,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 successor.ProcessRequest(purchase);
             }
         }
+
+        public override Approver ProcessRequest(Purchase purchase, bool test)
+        {
+            return purchase.Amount < 10000.0 ? this : successor.ProcessRequest(purchase, test);
+        }
     }
 
     /// <summary>
@@ -165,6 +171,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 successor.ProcessRequest(purchase);
             }
+        }
+
+        public override Approver ProcessRequest(Purchase purchase, bool test)
+        {
+            return purchase.Amount < 25000.0 ? this : successor.ProcessRequest(purchase, test);
         }
     }
 
@@ -186,6 +197,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
                     "Request# {0} requires an executive meeting!",
                     purchase.Number);
             }
+        }
+
+        public override Approver ProcessRequest(Purchase purchase, bool test)
+        {
+            return purchase.Amount < 100000.0 ? this : null;
         }
     }
 
