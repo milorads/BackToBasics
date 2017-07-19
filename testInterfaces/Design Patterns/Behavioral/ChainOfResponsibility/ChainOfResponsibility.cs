@@ -17,6 +17,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
         }
 
         public abstract void HandleRequest(int request);
+        public abstract Handler HandleRequest(int request, bool test);
     }
 
     /// <summary>
@@ -34,6 +35,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
             else if (successor != null)
             {
                 successor.HandleRequest(request);
+            }
+        }
+
+        public override Handler HandleRequest(int request, bool test)
+        {
+            if (request >= 0 && request < 10)
+            {
+                return this;
+            }
+            else
+            {
+                return successor?.HandleRequest(request, test);
             }
         }
     }
@@ -55,6 +68,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 successor.HandleRequest(request);
             }
         }
+
+        public override Handler HandleRequest(int request, bool test)
+        {
+            if (request >= 10 && request < 20)
+            {
+                return this;
+            }
+            else
+            {
+                return successor?.HandleRequest(request, test);
+            }
+        }
     }
 
     /// <summary>
@@ -72,6 +97,18 @@ namespace testInterfaces.Design_Patterns.Behavioral
             else if (successor != null)
             {
                 successor.HandleRequest(request);
+            }
+        }
+
+        public override Handler HandleRequest(int request, bool test)
+        {
+            if (request >= 20 && request < 30)
+            {
+                return this;
+            }
+            else
+            {
+                return successor?.HandleRequest(request, test);
             }
         }
     }
