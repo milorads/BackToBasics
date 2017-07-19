@@ -39,8 +39,8 @@ namespace testInterfaces
             //StrategyTester();//+
             //StateTester();//+
             //TemplateMethodTester();//+
-            MediatorTester();// -
-            //ChainOfResponsibilityTester();// -
+            //MediatorTester();// +
+            ChainOfResponsibilityTester();// -
             //VisitorTester();// -
             //InterpreterTester();// -
             //MementoTester();// -
@@ -238,7 +238,7 @@ namespace testInterfaces
         static void BuilderTester()
         {
             #region sample 1
-            var director = new Director();
+            var director = new testInterfaces.Design_Patterns.Creational.Director();
 
             Builder b1 = new ConcreteBuilder1();
             Builder b2 = new ConcreteBuilder2();
@@ -738,7 +738,42 @@ namespace testInterfaces
 
         static void ChainOfResponsibilityTester()
         {
+            #region sample 1
+            // Setup Chain of Responsibility
+            testInterfaces.Design_Patterns.Behavioral.Handler h1 = new ConcreteHandler1();
+            Handler h2 = new ConcreteHandler2();
+            Handler h3 = new ConcreteHandler3();
+            h1.SetSuccessor(h2);
+            h2.SetSuccessor(h3);
 
+            // Generate and process request
+            int[] requests = { 2, 5, 14, 22, 18, 3, 27, 20 };
+
+            foreach (int request in requests)
+            {
+                h1.HandleRequest(request);
+            }
+            #endregion
+
+            #region sample 2
+            // Setup Chain of Responsibility
+            Approver larry = new testInterfaces.Design_Patterns.Behavioral.Director();
+            Approver sam = new VicePresident();
+            Approver tammy = new President();
+
+            larry.SetSuccessor(sam);
+            sam.SetSuccessor(tammy);
+
+            // Generate and process purchase requests
+            Purchase p = new Purchase(2034, 350.00, "Assets");
+            larry.ProcessRequest(p);
+
+            p = new Purchase(2035, 32590.10, "Project X");
+            larry.ProcessRequest(p);
+
+            p = new Purchase(2036, 122100.00, "Project Y");
+            larry.ProcessRequest(p);
+            #endregion
         }
 
         static void VisitorTester()
