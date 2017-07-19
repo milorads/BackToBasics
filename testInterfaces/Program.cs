@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Polynomial;
 using testInterfaces.Design_Patterns.Behavioral;
 using testInterfaces.Design_Patterns.Creational;
@@ -40,8 +42,8 @@ namespace testInterfaces
             //StateTester();//+
             //TemplateMethodTester();//+
             //MediatorTester();// +
-            ChainOfResponsibilityTester();// -
-            //VisitorTester();// -
+            //ChainOfResponsibilityTester();// +
+            VisitorTester();// -
             //InterpreterTester();// -
             //MementoTester();// -
             Console.Read();
@@ -778,7 +780,32 @@ namespace testInterfaces
 
         static void VisitorTester()
         {
+            #region sample 1
+            // Setup structure
+            ObjectStructure o = new ObjectStructure();
+            o.Attach(new ConcreteElementA());
+            o.Attach(new ConcreteElementB());
 
+            // Create visitor objects
+            ConcreteVisitor1 v1 = new ConcreteVisitor1();
+            ConcreteVisitor2 v2 = new ConcreteVisitor2();
+
+            // Structure accepting visitors
+            o.Accept(v1);
+            o.Accept(v2);
+            #endregion
+
+            #region sample 2
+            // Setup employee collection
+            EmployeeVs e = new EmployeeVs();
+            e.Attach(new ClerkV());
+            e.Attach(new DirectorV());
+            e.Attach(new PresidentV());
+
+            // Employees are 'visited'
+            e.Accept(new IncomeVisitor());
+            e.Accept(new VacationVisitor());
+            #endregion
         }
 
         static void InterpreterTester()
