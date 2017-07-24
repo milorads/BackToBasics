@@ -14,6 +14,14 @@ namespace testInterfaces.Design_Patterns.Behavioral
             ConcreteElementA concreteElementA);
         public abstract void VisitConcreteElementB(
             ConcreteElementB concreteElementB);
+        public virtual string VisitConcreteElementA(ConcreteElementA concreteElementA, bool test)
+        {
+            return $"{concreteElementA.GetType().Name} visited by {this.GetType().Name}";
+        }
+        public virtual string VisitConcreteElementB(ConcreteElementB concreteElementB, bool test)
+        {
+            return $"{concreteElementB.GetType().Name} visited by {this.GetType().Name}";
+        }
     }
 
     /// <summary>
@@ -62,6 +70,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class Element
     {
         public abstract void Accept(Visitor visitor);
+        public abstract string Accept(Visitor visitor, bool test);
     }
 
     /// <summary>
@@ -72,6 +81,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public override void Accept(Visitor visitor)
         {
             visitor.VisitConcreteElementA(this);
+        }
+
+        public override string Accept(Visitor visitor, bool test)
+        {
+            return visitor.VisitConcreteElementA(this, test);
         }
 
         public void OperationA()
@@ -92,6 +106,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public void OperationB()
         {
         }
+        public override string Accept(Visitor visitor, bool test)
+        {
+            return visitor.VisitConcreteElementB(this, test);
+        }
     }
 
     /// <summary>
@@ -105,10 +123,20 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             _elements.Add(element);
         }
+        public Element Attach(Element element, bool test)
+        {
+            _elements.Add(element);
+            return element;
+        }
 
         public void Detach(Element element)
         {
             _elements.Remove(element);
+        }
+        public Element Detach(Element element, bool test)
+        {
+            _elements.Remove(element);
+            return element;
         }
 
         public void Accept(Visitor visitor)
@@ -117,6 +145,15 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 element.Accept(visitor);
             }
+        }
+        public string Accept(Visitor visitor, bool test)
+        {
+            var outVal = "";
+            foreach (Element element in _elements)
+            {
+               outVal += element.Accept(visitor, test)+"\r\n";
+            }
+            return outVal;
         }
     }
     #endregion
