@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace testInterfaces.Design_Patterns.Behavioral
 {
@@ -148,12 +149,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
         }
         public string Accept(Visitor visitor, bool test)
         {
-            var outVal = "";
-            foreach (Element element in _elements)
-            {
-               outVal += element.Accept(visitor, test)+"\r\n";
-            }
-            return outVal;
+            return _elements.Aggregate("", (current, element) => current + (element.Accept(visitor, test) + "\r\n"));
         }
     }
     #endregion
@@ -165,6 +161,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     interface IVisitor
     {
         void Visit(ElementV element);
+        string Visit(ElementV element, bool test);
     }
 
     /// <summary>
@@ -181,6 +178,15 @@ namespace testInterfaces.Design_Patterns.Behavioral
             Console.WriteLine("{0} {1}'s new income: {2:C}",
                 employee.GetType().Name, employee.Name,
                 employee.Income);
+        }
+
+        public string Visit(ElementV element, bool test)
+        {
+            EmployeeV employee = element as EmployeeV;
+
+            // Provide 10% pay raise
+            employee.Income *= 1.10;
+            return ($"{employee.GetType().Name} {employee.Name}'s new income: {employee.Income:C}");
         }
     }
 
@@ -199,6 +205,14 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 employee.GetType().Name, employee.Name,
                 employee.VacationDays);
         }
+        public string Visit(ElementV element, bool test)
+        {
+            EmployeeV employee = element as EmployeeV;
+
+            // Provide 3 extra vacation days
+            employee.VacationDays += 3;
+            return $"{employee.GetType().Name} {employee.Name}'s new vacation days: {employee.VacationDays}";
+        }
     }
 
     /// <summary>
@@ -207,6 +221,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
     abstract class ElementV
     {
         public abstract void Accept(IVisitor visitor);
+        public abstract string Accept(IVisitor visitor, bool test);
     }
 
     /// <summary>
@@ -252,6 +267,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         {
             visitor.Visit(this);
         }
+
+        public override string Accept(IVisitor visitor, bool test)
+        {
+            return visitor.Visit(this, test);
+        }
     }
 
     /// <summary>
@@ -278,6 +298,16 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 e.Accept(visitor);
             }
             Console.WriteLine();
+        }
+
+        public string Accept(IVisitor visitor, bool test)
+        {
+            var outString = "";
+            foreach (EmployeeV e in _employees)
+            {
+                outString += e.Accept(visitor, true) + "\r\n";
+            }
+            return outString;
         }
     }
 

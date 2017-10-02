@@ -47,7 +47,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
         /// <summary>
         /// The 'Context' class
         /// </summary>
-        class InterpreterApplicatsionContext
+        class InterpreterApplicationContext
         {
             private string _input;
             private int _output;

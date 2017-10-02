@@ -30,8 +30,10 @@ namespace testInterfaces.Design_Patterns.Behavioral
             e.Attach(new DirectorV());
             e.Attach(new PresidentV());
 
-            e.Accept(new IncomeVisitor());
-            e.Accept(new VacationVisitor());
+            var firstAccept = e.Accept(new IncomeVisitor(), true);
+            StringAssert.AreEqualIgnoringCase("ClerkV Hank's new income: $27,500.00\r\nDirectorV Elly's new income: $38,500.00\r\nPresidentV Dick's new income: $49,500.00\r\n", firstAccept);
+            var secondAccept = e.Accept(new VacationVisitor(), true);
+            StringAssert.AreEqualIgnoringCase("ClerkV Hank's new vacation days: 17\r\nDirectorV Elly's new vacation days: 19\r\nPresidentV Dick's new vacation days: 24\r\n", secondAccept);
         }
     }
 }
