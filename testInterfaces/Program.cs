@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,6 +9,7 @@ using testInterfaces.Design_Patterns.Creational;
 using testInterfaces.Design_Patterns.Structural;
 using testInterfaces.Interfaces;
 using testInterfaces.KeyValuePairs;
+using SortedList = testInterfaces.Design_Patterns.Behavioral.SortedList;
 
 namespace testInterfaces
 {
@@ -810,12 +812,54 @@ namespace testInterfaces
 
         static void InterpreterTester()
         {
+            #region sample 1
+            InterpreterContext context = new InterpreterContext();
 
+            ArrayList list = new ArrayList
+            {
+                new TerminalExpression(),
+                new NonterminalExpression(),
+                new TerminalExpression(),
+                new TerminalExpression()
+            };
+
+            foreach (AbstractExpression exp in list)
+            {
+                exp.Interpret(context);
+            }
+            #endregion
+
+            #region sample 2
+            string roman = "MCMXXVIII";
+            InterpreterApplicationContext contextImplementation = new InterpreterApplicationContext(roman);
+
+            List<Expression> tree = new List<Expression>
+            {
+                new ThousandExpression(),
+                new HundredExpression(),
+                new TenExpression(),
+                new OneExpression()
+            };
+
+            foreach (Expression exp in tree)
+            {
+                exp.Interpret(contextImplementation);
+            }
+
+            Console.WriteLine("{0} = {1}",
+                roman, contextImplementation.Output);
+            #endregion
         }
 
         private static void MementoTester()
         {
+            #region sample 1
 
+            #endregion
+
+            #region sample 2
+
+            #endregion
         }
     }
 }
