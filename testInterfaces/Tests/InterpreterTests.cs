@@ -28,13 +28,9 @@ namespace testInterfaces.Design_Patterns.Behavioral
             }
         }
 
-        private bool Contains(string input)
+        private static bool Contains(string input)
         {
-            if (input.Contains("Called Terminal.Interpret()") || input.Contains("Called Nonterminal.Interpret()"))
-            {
-                return true;
-            }
-            return false;
+            return input.Contains("Called Terminal.Interpret()") || input.Contains("Called Nonterminal.Interpret()");
         }
 
         [Test]
@@ -56,8 +52,8 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 exp.Interpret(contextImplementation);
             }
 
-            Console.WriteLine("{0} = {1}",
-                roman, contextImplementation.Output);
+            StringAssert.AreEqualIgnoringCase(roman, "MCMXXVIII");
+            Assert.AreEqual(contextImplementation.Output, 1928);
         }
     }
 }

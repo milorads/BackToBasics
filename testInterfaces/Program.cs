@@ -46,8 +46,8 @@ namespace testInterfaces
             //MediatorTester();// +
             //ChainOfResponsibilityTester();// +
             //VisitorTester();// +
-            InterpreterTester();// -
-            //MementoTester();// -
+            //InterpreterTester();// +
+            MementoTester();// -
             Console.Read();
         }
 
