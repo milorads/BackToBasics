@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace testInterfaces.Design_Patterns.Behavioral
 {
@@ -47,14 +45,11 @@ namespace testInterfaces.Design_Patterns.Behavioral
         // Constructor
         public SampleMemento(string state)
         {
-            this._state = state;
+            _state = state;
         }
 
         // Gets or sets state
-        public string State
-        {
-            get { return _state; }
-        }
+        public string State => _state;
     }
 
     /// <summary>
@@ -127,9 +122,9 @@ namespace testInterfaces.Design_Patterns.Behavioral
         public void RestoreMemento(Memento memento)
         {
             Console.WriteLine("\nRestoring state --\n");
-            this.Name = memento.Name;
-            this.Phone = memento.Phone;
-            this.Budget = memento.Budget;
+            Name = memento.Name;
+            Phone = memento.Phone;
+            Budget = memento.Budget;
         }
     }
 
@@ -145,9 +140,9 @@ namespace testInterfaces.Design_Patterns.Behavioral
         // Constructor
         public Memento(string name, string phone, double budget)
         {
-            this._name = name;
-            this._phone = phone;
-            this._budget = budget;
+            _name = name;
+            _phone = phone;
+            _budget = budget;
         }
 
         // Gets or sets name
