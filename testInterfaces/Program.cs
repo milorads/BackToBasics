@@ -854,11 +854,24 @@ namespace testInterfaces
         private static void MementoTester()
         {
             #region sample 1
-
+            Originator o = new Originator {State = "On"};
+            Caretaker c = new Caretaker {Memento = o.CreateMemento()};
+            o.State = "Off";
+            o.SetMemento(c.Memento);
             #endregion
 
             #region sample 2
-
+            SalesProspect s = new SalesProspect
+            {
+                Name = "Noel van Halen",
+                Phone = "(412) 256-0990",
+                Budget = 25000.0
+            };
+            ProspectMemory m = new ProspectMemory {Memento = s.SaveMemento()};
+            s.Name = "Leo Welch";
+            s.Phone = "(310) 209-7111";
+            s.Budget = 1000000.0;
+            s.RestoreMemento(m.Memento);
             #endregion
         }
     }
