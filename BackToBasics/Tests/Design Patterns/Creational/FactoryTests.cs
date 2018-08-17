@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using BackToBasics.Topics.Design_Patterns.Creational.Factory;
+using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Creational
+namespace BackToBasics.Tests.Design_Patterns.Creational
 {
     class FactoryTests
     {

@@ -1,8 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.Mediator
 {
     #region Sample code
     /// <summary>

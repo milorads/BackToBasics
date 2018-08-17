@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace testInterfaces.Design_Patterns.Creational
+namespace BackToBasics.Topics.Design_Patterns.Creational.Builder
 {
     #region Structure code
     /// <summary>

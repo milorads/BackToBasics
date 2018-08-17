@@ -1,5 +1,5 @@
 ﻿//File:IPoly.cs
-namespace PolyInterface
+namespace BackToBasics.Topics.Paradigms.Interfaces.Polynoms
 {
     /// <summary>
     /// The interface that implementations will implement

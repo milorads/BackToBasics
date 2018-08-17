@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.IO;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.TemplateMethod
 {
     #region Sample code
     /// <summary>

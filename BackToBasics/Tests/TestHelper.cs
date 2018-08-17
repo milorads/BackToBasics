@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
-namespace testInterfaces.Tests
+namespace BackToBasics.Tests
 {
     class TestHelper
     {

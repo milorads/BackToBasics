@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using BackToBasics.Topics.Design_Patterns.Behavioral.Memento;
+using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
     [TestFixture]
     class MementoTests

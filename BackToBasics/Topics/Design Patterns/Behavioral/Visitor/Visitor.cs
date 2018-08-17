@@ -1,9 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.Visitor
 {
     #region Sample code
     /// <summary>

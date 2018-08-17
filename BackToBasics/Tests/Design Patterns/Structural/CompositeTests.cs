@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using BackToBasics.Topics.Design_Patterns.Structural.Composite;
 using NUnit.Framework;
-using testInterfaces.Design_Patterns.Structural;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Structural
 {
     class CompositeTests
     {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BackToBasics.Topics.Design_Patterns.Behavioral.Interpreter;
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
     [TestFixture]
     class InterpreterTests

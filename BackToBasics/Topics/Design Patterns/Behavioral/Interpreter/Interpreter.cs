@@ -1,8 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.Interpreter
 {
     #region Sample code
     /// <summary>

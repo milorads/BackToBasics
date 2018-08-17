@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
+using BackToBasics.Topics.Paradigms.Interfaces.Polynoms;
 using NUnit.Framework;
-using Polynomial;
 
-namespace testInterfaces.Interfaces
+namespace BackToBasics.Tests.Paradigms
 {
     [TestFixture]
     class InterfaceTests

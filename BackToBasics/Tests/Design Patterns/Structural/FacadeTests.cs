@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using BackToBasics.Topics.Design_Patterns.Structural.Facade;
 using NUnit.Framework;
-using testInterfaces.Design_Patterns.Structural;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Structural
 {
     class FacadeTests
     {

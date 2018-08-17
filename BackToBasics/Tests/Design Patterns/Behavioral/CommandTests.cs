@@ -1,9 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Command;
 using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
     class CommandTests
     {

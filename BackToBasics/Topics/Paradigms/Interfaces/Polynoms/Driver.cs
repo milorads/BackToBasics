@@ -1,13 +1,9 @@
-﻿//File:Driver.cs
-
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Polynomial
+namespace BackToBasics.Topics.Paradigms.Interfaces.Polynoms
 {
-    using System;
-    using System.Diagnostics;
-
     /// <summary>
     /// Driver class for the project
     /// </summary>

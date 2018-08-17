@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Polynomial;
-using testInterfaces.Design_Patterns.Behavioral;
-using testInterfaces.Design_Patterns.Creational;
-using testInterfaces.Design_Patterns.Structural;
-using testInterfaces.Interfaces;
-using testInterfaces.KeyValuePairs;
-using SortedList = testInterfaces.Design_Patterns.Behavioral.SortedList;
+using BackToBasics.Topics.Design_Patterns.Behavioral.ChainOfResponsibility;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Command;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Interpreter;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Iterator;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Mediator;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Memento;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Observer;
+using BackToBasics.Topics.Design_Patterns.Behavioral.State;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Strategy;
+using BackToBasics.Topics.Design_Patterns.Behavioral.TemplateMethod;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Visitor;
+using BackToBasics.Topics.Design_Patterns.Creational.AbstractFactory;
+using BackToBasics.Topics.Design_Patterns.Creational.Builder;
+using BackToBasics.Topics.Design_Patterns.Creational.Factory;
+using BackToBasics.Topics.Design_Patterns.Creational.Prototype;
+using BackToBasics.Topics.Design_Patterns.Creational.Singleton;
+using BackToBasics.Topics.Design_Patterns.Structural.Adapter;
+using BackToBasics.Topics.Design_Patterns.Structural.Bridge;
+using BackToBasics.Topics.Design_Patterns.Structural.Composite;
+using BackToBasics.Topics.Design_Patterns.Structural.Decorator;
+using BackToBasics.Topics.Design_Patterns.Structural.Facade;
+using BackToBasics.Topics.Design_Patterns.Structural.Flyweight;
+using BackToBasics.Topics.Design_Patterns.Structural.Proxy;
+using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
+using BackToBasics.Topics.Paradigms.Interfaces.Polynoms;
 using BackToBasics.Topics.Sorting;
+using testInterfaces.KeyValuePairs;
+using Director = BackToBasics.Topics.Design_Patterns.Behavioral.ChainOfResponsibility.Director;
+using SortedList = BackToBasics.Topics.Design_Patterns.Behavioral.Strategy.SortedList;
 
-namespace testInterfaces
+namespace BackToBasics
 {
     internal class Program : ProgramExtender
     {
@@ -246,7 +265,7 @@ namespace testInterfaces
         static void BuilderTester()
         {
             #region sample 1
-            var director = new testInterfaces.Design_Patterns.Creational.Director();
+            var director = new Topics.Design_Patterns.Creational.Builder.Director();
 
             Builder b1 = new ConcreteBuilder1();
             Builder b2 = new ConcreteBuilder2();
@@ -748,7 +767,7 @@ namespace testInterfaces
         {
             #region sample 1
             // Setup Chain of Responsibility
-            testInterfaces.Design_Patterns.Behavioral.Handler h1 = new ConcreteHandler1();
+            Handler h1 = new ConcreteHandler1();
             Handler h2 = new ConcreteHandler2();
             Handler h3 = new ConcreteHandler3();
             h1.SetSuccessor(h2);
@@ -765,7 +784,7 @@ namespace testInterfaces
 
             #region sample 2
             // Setup Chain of Responsibility
-            Approver larry = new testInterfaces.Design_Patterns.Behavioral.Director();
+            Approver larry = new Director();
             Approver sam = new VicePresident();
             Approver tammy = new President();
 

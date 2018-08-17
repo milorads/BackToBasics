@@ -1,9 +1,7 @@
 ﻿//File:Polynomial.cs
-namespace Polynomial
-{
-    using System;
-    using PolyInterface;
 
+namespace BackToBasics.Topics.Paradigms.Interfaces.Polynoms
+{
     /// <summary>
     /// The abstract class all implementations inherit from
     /// </summary>

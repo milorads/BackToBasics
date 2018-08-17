@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using BackToBasics.Topics.Design_Patterns.Creational.Builder;
 using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Creational
+namespace BackToBasics.Tests.Design_Patterns.Creational
 {
     class BuilderTests
     {

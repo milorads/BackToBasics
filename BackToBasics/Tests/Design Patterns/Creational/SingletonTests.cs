@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using BackToBasics.Topics.Design_Patterns.Creational.Singleton;
 using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Creational
+namespace BackToBasics.Tests.Design_Patterns.Creational
 {
     class SingletonTests
     {

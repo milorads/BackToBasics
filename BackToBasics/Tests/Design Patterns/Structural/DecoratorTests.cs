@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using testInterfaces.Design_Patterns.Structural;
+﻿using BackToBasics.Topics.Design_Patterns.Structural.Decorator;
+using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Structural
 {
     class DecoratorTests
     {

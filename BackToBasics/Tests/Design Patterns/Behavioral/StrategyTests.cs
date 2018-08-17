@@ -1,7 +1,7 @@
-﻿
+﻿using BackToBasics.Topics.Design_Patterns.Behavioral.Strategy;
 using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
     class StrategyTests
     {

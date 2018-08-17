@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
+using BackToBasics.Topics.Design_Patterns.Creational.Prototype;
 using NUnit.Framework;
 
-namespace testInterfaces.Design_Patterns.Creational
+namespace BackToBasics.Tests.Design_Patterns.Creational
 {
     class PrototypeTests
     {

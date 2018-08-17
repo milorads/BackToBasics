@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using testInterfaces.KeyValuePairs;
 
-namespace testInterfaces.KeyValuePairs
+namespace BackToBasics.Tests.Data_Structures
 {
     [TestFixture]
     public class HashtableAndDictionaryTests

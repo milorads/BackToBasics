@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
+using BackToBasics.Topics.Design_Patterns.Behavioral.Observer;
 using NUnit.Framework;
-using testInterfaces.Tests;
-using static System.String;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
     class ObserverTests
     {
@@ -37,7 +36,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
                 ibm.Price = 120.50;
                 ibm.Price = 120.75;
                 var consoleLogLines = consoleOutput.GetOuput().Split(Environment.NewLine.ToCharArray()).ToList();
-                consoleLogLines.RemoveAll(IsNullOrEmpty);
+                consoleLogLines.RemoveAll(String.IsNullOrEmpty);
                 foreach (var line in consoleLogLines)
                 {
                     Assert.True(line.Contains("IBM") && (line.Contains("Sorros") || line.Contains("Berkshire")) &&
@@ -52,7 +51,7 @@ namespace testInterfaces.Design_Patterns.Behavioral
             {
                 ibm.Price = 99.99;
                 var consoleLogLines = consoleOutput.GetOuput().Split(Environment.NewLine.ToCharArray()).ToList();
-                consoleLogLines.RemoveAll(IsNullOrEmpty);
+                consoleLogLines.RemoveAll(String.IsNullOrEmpty);
                 var lastLine = consoleLogLines.LastOrDefault();
                 if (lastLine == null) Assert.Fail();
                 Assert.True(lastLine.Contains("IBM") && lastLine.Contains("99.99") && lastLine.Contains("Another"));

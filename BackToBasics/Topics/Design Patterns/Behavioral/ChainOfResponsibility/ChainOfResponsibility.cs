@@ -1,7 +1,6 @@
-﻿
-using System;
+﻿using System;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.ChainOfResponsibility
 {
     #region Structure code
     /// <summary>

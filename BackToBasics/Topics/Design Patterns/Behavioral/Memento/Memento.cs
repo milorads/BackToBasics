@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace testInterfaces.Design_Patterns.Behavioral
+namespace BackToBasics.Topics.Design_Patterns.Behavioral.Memento
 {
     #region Sample Code
     /// <summary>
