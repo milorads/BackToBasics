@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A884A0D-344C-4BEF-A913-A7330AFF58B9}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BackToBasics</RootNamespace>
+    <AssemblyName>BackToBasics</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Interpreter\Interpreter.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Iterator\Iterator.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Mediator\Mediator.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Memento\Memento.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Observer\Observer.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\State\State.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Strategy\Strategy.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\TemplateMethod\TemplateMethod.cs" />
+    <Compile Include="Topics\Design Patterns\Behavioral\Visitor\Visitor.cs" />
+    <Compile Include="Topics\Design Patterns\Creational\AbstractFactory\AbstractFactory.cs" />
+    <Compile Include="Topics\Design Patterns\Creational\Builder\Builder.cs" />
+    <Compile Include="Topics\Design Patterns\Creational\Factory\Factory.cs" />
+    <Compile Include="Topics\Design Patterns\Creational\Prototype\Prototype.cs" />
+    <Compile Include="Topics\Design Patterns\Creational\Singleton\Singleton.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Adapter\Adapter.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Bridge\Bridge.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Composite\Composite.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Decorator\Decorator.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Facade\Facade.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Flyweight\Flyweight.cs" />
+    <Compile Include="Topics\Design Patterns\Structural\Proxy\Proxy.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\InterfaceTry\TryingInterfaces.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\Polynoms\Counter.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\Polynoms\Driver.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\Polynoms\IPoly.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\Polynoms\Polynomial.cs" />
+    <Compile Include="Topics\Paradigms\Interfaces\Polynoms\PolySimple.cs" />
+    <Compile Include="Topics\DataStructures\KeyValuePairs\HashtableAndDictionary.cs" />
+    <Compile Include="Tests\AbstractFactoryTests.cs" />
+    <Compile Include="Tests\AdapterTests.cs" />
+    <Compile Include="Tests\BridgeTests.cs" />
+    <Compile Include="Tests\BuilderTests.cs" />
+    <Compile Include="Tests\ChainOfResponsibilityTests.cs" />
+    <Compile Include="Tests\CommandTests.cs" />
+    <Compile Include="Tests\CompositeTests.cs" />
+    <Compile Include="Tests\DecoratorTests.cs" />
+    <Compile Include="Tests\FacadeTests.cs" />
+    <Compile Include="Tests\FactoryTests.cs" />
+    <Compile Include="Tests\FlyweightTests.cs" />
+    <Compile Include="Tests\HashtableAndDictionaryTests.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\InterfaceTests.cs" />
+    <Compile Include="Tests\InterpreterTests.cs" />
+    <Compile Include="Tests\IteratorTests.cs" />
+    <Compile Include="Tests\MediatorTests.cs" />
+    <Compile Include="Tests\MementoTests.cs" />
+    <Compile Include="Tests\ObserverTests.cs" />
+    <Compile Include="Tests\PrototypeTests.cs" />
+    <Compile Include="Tests\ProxyTests.cs" />
+    <Compile Include="Tests\SingletonTests.cs" />
+    <Compile Include="Tests\StateTests.cs" />
+    <Compile Include="Tests\StrategyTests.cs" />
+    <Compile Include="Tests\TemplateMethodTests.cs" />
+    <Compile Include="Tests\TestHelper.cs" />
+    <Compile Include="Tests\VisitorTests.cs" />
+    <Compile Include="Topics\Sorting\BubbleSort.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Topics\ComplexityTheory\" />
+    <Folder Include="Topics\Concurrency\" />
+    <Folder Include="Topics\Searching\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibilityAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibilityUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Command\CommandAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Command\CommandUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Interpreter\InterpreterAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Interpreter\InterpreterUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Iterator\IteratorUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Iterator\IteratorAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Mediator\MediatorAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Mediator\MediatorUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Memento\MementoAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Memento\MementoUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Observer\ObserverUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Observer\ObserverAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\State\StateAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\State\StateUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Strategy\StrategyAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Strategy\StrategyUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\TemplateMethod\TemplateMethodAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\TemplateMethod\TemplateMethodUML.gif" />
+    <Content Include="Topics\Design Patterns\Behavioral\Visitor\VisitorAbout.txt" />
+    <Content Include="Topics\Design Patterns\Behavioral\Visitor\VisitorUML.gif" />
+    <Content Include="Topics\Design Patterns\Creational\AbstractFactory\AbstractFactoryUML.gif" />
+    <Content Include="Topics\Design Patterns\Creational\AbstractFactory\AbstratFactoryAbout.txt" />
+    <Content Include="Topics\Design Patterns\Creational\Builder\BuilderAbout.txt" />
+    <Content Include="Topics\Design Patterns\Creational\Builder\BuilderUML.gif" />
+    <Content Include="Topics\Design Patterns\Creational\Factory\FactoryAbout.txt" />
+    <Content Include="Topics\Design Patterns\Creational\Factory\FactoryUML.gif" />
+    <Content Include="Topics\Design Patterns\Creational\Prototype\PrototypeAbout.txt" />
+    <Content Include="Topics\Design Patterns\Creational\Prototype\PrototypeUML.gif" />
+    <Content Include="Topics\Design Patterns\Creational\Singleton\SingletonAbout.txt" />
+    <Content Include="Topics\Design Patterns\Creational\Singleton\SingletonUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Adapter\AdapterAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Adapter\AdapterUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Bridge\BridgeAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Bridge\BridgeUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Composite\CompositeAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Composite\CompositeUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Decorator\DecoratorAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Decorator\DecoratorUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Facade\FacadeAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Facade\FacadeUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Flyweight\FlyweightAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Flyweight\FlyweightUML.gif" />
+    <Content Include="Topics\Design Patterns\Structural\Proxy\ProxyAbout.txt" />
+    <Content Include="Topics\Design Patterns\Structural\Proxy\ProxyUML.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.1\lib\net451\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.10.1\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.1\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.1\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net451\System.Data.SQLite.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

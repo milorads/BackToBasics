@@ -1,6 +1,5 @@
-﻿namespace Polynomial
+﻿namespace BackToBasics.Topics.Paradigms.Interfaces.Polynoms
 {
-    using System;
     /// <summary>
     /// The simplest polynomial implementation
     /// </summary>
@@ -8,7 +7,7 @@
     /// This implementation loops through the coefficients and evaluates each
     /// term of the polynomial.
     /// </description>
-    class PolySimple : Polynomial
+    class PolySimple : BackToBasics.Topics.Paradigms.Interfaces.Polynoms.Polynomial
     {
         public PolySimple(params double[] coefficients) : base(coefficients)
         {

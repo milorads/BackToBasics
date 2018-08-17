@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace testInterfaces.Interfaces
+namespace BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry
 {
 
     class ProgramExtender : testVirtual, IMyInterface, IMultipleInheritance, Ijedan, Idva //absClass,IMyInterface, IMultipleInheritance,Ijedan,Idva

@@ -10,6 +10,7 @@ using testInterfaces.Design_Patterns.Structural;
 using testInterfaces.Interfaces;
 using testInterfaces.KeyValuePairs;
 using SortedList = testInterfaces.Design_Patterns.Behavioral.SortedList;
+using BackToBasics.Topics.Sorting;
 
 namespace testInterfaces
 {
@@ -47,7 +48,10 @@ namespace testInterfaces
             //ChainOfResponsibilityTester();// +
             //VisitorTester();// +
             //InterpreterTester();// +
-            MementoTester();// -
+            //MementoTester();// -
+
+            int[] arr = {6,5,3,1,8,7,2,4};
+            BubbleSort.DoSort(arr);
             Console.Read();
         }
 
