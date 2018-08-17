@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BackToBasics.Topics.Data_Structures.KeyValuePairs;
 using BackToBasics.Topics.Design_Patterns.Behavioral.ChainOfResponsibility;
 using BackToBasics.Topics.Design_Patterns.Behavioral.Command;
 using BackToBasics.Topics.Design_Patterns.Behavioral.Interpreter;
@@ -27,7 +28,6 @@ using BackToBasics.Topics.Design_Patterns.Structural.Proxy;
 using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
 using BackToBasics.Topics.Paradigms.Interfaces.Polynoms;
 using BackToBasics.Topics.Sorting;
-using testInterfaces.KeyValuePairs;
 using Director = BackToBasics.Topics.Design_Patterns.Behavioral.ChainOfResponsibility.Director;
 using SortedList = BackToBasics.Topics.Design_Patterns.Behavioral.Strategy.SortedList;
 
@@ -69,8 +69,8 @@ namespace BackToBasics
             //InterpreterTester();// +
             //MementoTester();// -
 
-            int[] arr = {6,5,3,1,8,7,2,4};
-            BubbleSort.DoSort(arr);
+            BubbleSort.DoSort(new[] { 6, 5, 3, 1, 8, 7, 2, 4 });
+            SelectionSort.DoSort(new[] { 6, 5, 3, 1, 8, 7, 2, 4 });
             Console.Read();
         }
 

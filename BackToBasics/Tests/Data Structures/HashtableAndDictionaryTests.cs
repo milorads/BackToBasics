@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using testInterfaces.KeyValuePairs;
+﻿using BackToBasics.Topics.Data_Structures.KeyValuePairs;
+using NUnit.Framework;
 
 namespace BackToBasics.Tests.Data_Structures
 {
