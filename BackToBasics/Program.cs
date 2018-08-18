@@ -68,9 +68,13 @@ namespace BackToBasics
             //VisitorTester();// +
             //InterpreterTester();// +
             //MementoTester();// -
-
-            BubbleSort.DoSort(new[] { 6, 5, 3, 1, 8, 7, 2, 4 });
-            SelectionSort.DoSort(new[] { 6, 5, 3, 1, 8, 7, 2, 4 });
+            var arr = new[] {6, 5, 3, 1, 8, 7, 2, 4};
+            ISort sortingAlgorithm = new BubbleSort();
+            sortingAlgorithm.DoSort(arr);
+            sortingAlgorithm = new SelectionSort();
+            sortingAlgorithm.DoSort(arr);
+            sortingAlgorithm = new InsertionSort();
+            sortingAlgorithm.DoSort(arr);
             Console.Read();
         }
 

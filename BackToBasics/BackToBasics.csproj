@@ -95,6 +95,8 @@
     <Compile Include="Tests\TestHelper.cs" />
     <Compile Include="Tests\Design Patterns\Behavioral\VisitorTests.cs" />
     <Compile Include="Topics\Sorting\BubbleSort.cs" />
+    <Compile Include="Topics\Sorting\InsertionSort.cs" />
+    <Compile Include="Topics\Sorting\ISort.cs" />
     <Compile Include="Topics\Sorting\SelectionSort.cs" />
   </ItemGroup>
   <ItemGroup>

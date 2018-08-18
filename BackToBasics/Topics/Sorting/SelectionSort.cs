@@ -1,8 +1,8 @@
 ﻿namespace BackToBasics.Topics.Sorting
 {
-    public class SelectionSort
+    public class SelectionSort : ISort
     {
-        public static int[] DoSort(int[] array)
+        private int[] DoSort(int[] array)
         {
             for (int j = 0; j < array.Length-1; j++)
             {
@@ -21,6 +21,11 @@
             }
 
             return array;
+        }
+
+        int[] ISort.DoSort(int[] array)
+        {
+            return DoSort(array);
         }
     }
 }

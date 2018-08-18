@@ -1,8 +1,8 @@
 ﻿namespace BackToBasics.Topics.Sorting
 {
-    public class BubbleSort
+    public class BubbleSort : ISort
     {
-        public static int[] DoSort(int[] array)
+        private int[] DoSort(int[] array)
         {
             var swap = true;
             while (swap)
@@ -20,6 +20,11 @@
                 }
             }
             return array;
+        }
+
+        int[] ISort.DoSort(int[] array)
+        {
+            return DoSort(array);
         }
     }
 }
