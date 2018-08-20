@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Caller.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Interpreter\Interpreter.cs" />

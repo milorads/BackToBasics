@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BackToBasics.Helpers;
 using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
 using BackToBasics.Topics.Paradigms.Interfaces.Polynoms;
 using NUnit.Framework;
@@ -14,7 +15,7 @@ namespace BackToBasics.Tests.Paradigms
         {
             try
             {
-                Program.InterfacesTester();
+                Caller.CallInterfaces();
                 Assert.IsTrue(true);
             }
             catch
