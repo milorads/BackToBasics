@@ -68,14 +68,20 @@ namespace BackToBasics
             //VisitorTester();// +
             //InterpreterTester();// +
             //MementoTester();// -
-            var arr = new[] {6, 5, 3, 1, 8, 7, 2, 4};
             ISort sortingAlgorithm = new BubbleSort();
-            sortingAlgorithm.DoSort(arr);
+            sortingAlgorithm.DoSort(GetUnsortedArray());
             sortingAlgorithm = new SelectionSort();
-            sortingAlgorithm.DoSort(arr);
+            sortingAlgorithm.DoSort(GetUnsortedArray());
             sortingAlgorithm = new InsertionSort();
-            sortingAlgorithm.DoSort(arr);
+            sortingAlgorithm.DoSort(GetUnsortedArray());
+            sortingAlgorithm = new Topics.Sorting.ShellSort();
+            sortingAlgorithm.DoSort(GetUnsortedArray());
             Console.Read();
+        }
+
+        public static int[] GetUnsortedArray()
+        {
+            return new[] {6, 5, 3, 1, 8, 7, 2, 4};
         }
 
         public static void InterfacesTester()
@@ -671,7 +677,7 @@ namespace BackToBasics
             studentRecords.SetSortStrategy(new QuickSort());
             studentRecords.Sort();
 
-            studentRecords.SetSortStrategy(new ShellSort());
+            studentRecords.SetSortStrategy(new Topics.Design_Patterns.Behavioral.Strategy.ShellSort());
             studentRecords.Sort();
 
             studentRecords.SetSortStrategy(new MergeSort());
