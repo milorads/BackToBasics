@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\Caller.cs" />
+    <Compile Include="Helpers\TimSortHelper.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Interpreter\Interpreter.cs" />
@@ -98,9 +99,11 @@
     <Compile Include="Topics\Sorting\BubbleSort.cs" />
     <Compile Include="Topics\Sorting\InsertionSort.cs" />
     <Compile Include="Topics\Sorting\ISort.cs" />
+    <Compile Include="Topics\Sorting\MergeSort.cs" />
     <Compile Include="Topics\Sorting\QuickSort.cs" />
     <Compile Include="Topics\Sorting\SelectionSort.cs" />
     <Compile Include="Topics\Sorting\ShellSort.cs" />
+    <Compile Include="Topics\Sorting\TimSort.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
