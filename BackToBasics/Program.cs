@@ -28,8 +28,8 @@ namespace BackToBasics
             sortingAlgorithm.DoSort(GetUnsortedArray());
             sortingAlgorithm = new QuickSort();
             sortingAlgorithm.DoSort(GetUnsortedArray());
-            //sortingAlgorithm = new MergeSort();
-            //sortingAlgorithm.DoSort(GetUnsortedArray());
+            sortingAlgorithm = new MergeSort();
+            sortingAlgorithm.DoSort(GetUnsortedArray());
             Console.Read();
         }
 
