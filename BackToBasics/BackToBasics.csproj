@@ -98,6 +98,7 @@
     <Compile Include="Topics\Sorting\BubbleSort.cs" />
     <Compile Include="Topics\Sorting\InsertionSort.cs" />
     <Compile Include="Topics\Sorting\ISort.cs" />
+    <Compile Include="Topics\Sorting\QuickSort.cs" />
     <Compile Include="Topics\Sorting\SelectionSort.cs" />
     <Compile Include="Topics\Sorting\ShellSort.cs" />
   </ItemGroup>
