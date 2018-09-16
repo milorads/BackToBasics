@@ -2,6 +2,7 @@
 using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
 using BackToBasics.Topics.Sorting;
 using System;
+using System.Collections.Generic;
 
 namespace BackToBasics
 {
@@ -18,20 +19,17 @@ namespace BackToBasics
             Caller.CallStructural();
 
             //todo: move to caller once written
-            ISort sortingAlgorithm = new BubbleSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new SelectionSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new InsertionSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new ShellSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new QuickSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new MergeSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
-            sortingAlgorithm = new Topics.Sorting.TimSort();
-            sortingAlgorithm.DoSort(GetUnsortedArray());
+            var sortingAlgorithms = new List<ISort>
+            {
+                new BubbleSort(), new SelectionSort(),
+                new InsertionSort(), new ShellSort(),
+                new QuickSort(), new MergeSort(),
+                new Topics.Sorting.TimSort(),
+            };
+            foreach (var sortingAlgorithm in sortingAlgorithms)
+            {
+                sortingAlgorithm.DoSort(GetUnsortedArray());
+            }
             Console.Read();
         }
 
