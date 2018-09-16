@@ -27,7 +27,7 @@ namespace BackToBasics
                 new Topics.Sorting.TimSort(), new HeapSort(),
                 /*new TreeSort(),*/ new BucketSort(),
                 new RadixSort(), new CountingSort(),
-
+                new BogoSort(), /*new CubeSort()*/
 
             };
             foreach (var sortingAlgorithm in sortingAlgorithms)
