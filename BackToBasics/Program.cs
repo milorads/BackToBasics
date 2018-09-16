@@ -26,7 +26,8 @@ namespace BackToBasics
                 new QuickSort(), new MergeSort(),
                 new Topics.Sorting.TimSort(), new HeapSort(),
                 /*new TreeSort(),*/ new BucketSort(),
-                new RadixSort(), 
+                new RadixSort(), new CountingSort(),
+
 
             };
             foreach (var sortingAlgorithm in sortingAlgorithms)
