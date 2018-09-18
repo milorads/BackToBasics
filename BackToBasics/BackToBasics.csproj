@@ -36,8 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BinaryTreeNode.cs" />
     <Compile Include="Helpers\Caller.cs" />
     <Compile Include="Helpers\TimSortHelper.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\CoalescedHashing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\CuckooHashing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\DoubleHashing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\DynamicResizing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\HopscotchHashing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\LinearProbing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\OpenAddressing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\RobinHoodHashing.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\SeparateChaining.cs" />
+    <Compile Include="Topics\Data Structures\Hashtables\Insertion\TwoChoiceHasing.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Interpreter\Interpreter.cs" />
@@ -96,6 +107,12 @@
     <Compile Include="Tests\Design Patterns\Behavioral\TemplateMethodTests.cs" />
     <Compile Include="Tests\TestHelper.cs" />
     <Compile Include="Tests\Design Patterns\Behavioral\VisitorTests.cs" />
+    <Compile Include="Topics\Searching\BinarySearch.cs" />
+    <Compile Include="Topics\Searching\BreadthFirstSearch.cs" />
+    <Compile Include="Topics\Searching\DepthFirstSearch.cs" />
+    <Compile Include="Topics\Searching\InterpolationSearch.cs" />
+    <Compile Include="Topics\Searching\JumpSearch.cs" />
+    <Compile Include="Topics\Searching\LinearSearch.cs" />
     <Compile Include="Topics\Sorting\BubbleSort.cs" />
     <Compile Include="Topics\Sorting\InsertionSort.cs" />
     <Compile Include="Topics\Sorting\ISort.cs" />
@@ -112,7 +129,6 @@
   <ItemGroup>
     <Folder Include="Topics\ComplexityTheory\" />
     <Folder Include="Topics\Concurrency\" />
-    <Folder Include="Topics\Searching\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibilityAbout.txt" />
