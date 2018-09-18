@@ -3,6 +3,7 @@ using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
 using BackToBasics.Topics.Sorting;
 using System;
 using System.Collections.Generic;
+using BackToBasics.Topics.Searching;
 
 namespace BackToBasics
 {
@@ -34,12 +35,58 @@ namespace BackToBasics
             {
                 sortingAlgorithm.DoSort(GetUnsortedArray());
             }
+
+            //todo: move to caller at some point
+            new DepthFirstSearch(GetTreeNode()).Search(8);
+
             Console.Read();
         }
 
         public static int[] GetUnsortedArray()
         {
+            //todo rework to randomize
             return new[] {6, 5, 3, 1, 8, 7, 2, 4};
+        }
+
+        public static BinaryTreeNode GetTreeNode()
+        {
+            //todo rework to randomize, accept number of elements
+            return new BinaryTreeNode()
+            {
+                Data = 6,
+                Left = new BinaryTreeNode()
+                {
+                    Data = 5,
+                    Right = new BinaryTreeNode()
+                    {
+                        Data = 1,
+                        Right = new BinaryTreeNode() { Data = 2, Right = null, Left = null },
+                        Left = null
+                    },
+                    Left = new BinaryTreeNode()
+                    {
+                        Data = 8,
+                        Right = null,
+                        Left = new BinaryTreeNode() { Data = 18, Right = null,Left = null}
+                    }
+                },
+                Right = new BinaryTreeNode()
+                {
+                    Data = 3,
+                    Right = new BinaryTreeNode()
+                    {
+                        Data = 17,
+                        Right = new BinaryTreeNode() { Data = 33, Right = new BinaryTreeNode() { Data =2, Right = null, Left = null }, Left = null },
+                        Left = null
+                    },
+                    Left = new BinaryTreeNode()
+                    {
+                        Data = 90,
+                        Right = null,
+                        Left = new BinaryTreeNode() { Data = 8, Right = null, Left = new BinaryTreeNode() { Data = 78, Right = null, Left = null } }
+                    }
+                }
+            };
         }
     }
 }

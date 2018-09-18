@@ -1,14 +1,8 @@
 ﻿using System.Collections;
+using BackToBasics.Helpers;
 
 namespace BackToBasics.Topics.Searching
 {
-    public class BinaryTreeNode
-    {
-        public BinaryTreeNode Left { get; set; }
-        public BinaryTreeNode Right { get; set; }
-        public int Data { get; set; }
-    }
-
     public class DepthFirstSearch
     {
         private Stack _searchStack;
