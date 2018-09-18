@@ -1,7 +1,7 @@
 ﻿using BackToBasics.Topics.Design_Patterns.Behavioral.Interpreter;
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace BackToBasics.Tests.Design_Patterns.Behavioral
 {
