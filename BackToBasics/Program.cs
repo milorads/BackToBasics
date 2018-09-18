@@ -39,6 +39,8 @@ namespace BackToBasics
             //todo: move to caller at some point
             new DepthFirstSearch(GetTreeNode()).DoSearch(8);
             new BreadthFirstSearch(GetTreeNode()).DoSearch(8);
+            new LinearSearch().DoSearch(GetUnsortedArray(),8);
+
 
             Console.Read();
         }
@@ -47,6 +49,13 @@ namespace BackToBasics
         {
             //todo rework to randomize
             return new[] {6, 5, 3, 1, 8, 7, 2, 4};
+        }
+
+        public static int[] GetSortedArray()
+        {
+            ISort i;
+            i = new BubbleSort();
+            return i.DoSort(GetUnsortedArray());
         }
 
         public static BinaryTreeNode GetTreeNode()
