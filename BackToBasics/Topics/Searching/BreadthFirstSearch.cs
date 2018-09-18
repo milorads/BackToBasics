@@ -14,7 +14,7 @@ namespace BackToBasics.Topics.Searching
             _searchQueue = new Queue();
             _root = rootNode;
         }
-        public bool Search(int data)
+        public bool DoSearch(int data)
         {
             BinaryTreeNode _current;
             _searchQueue.Enqueue(_root);

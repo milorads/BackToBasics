@@ -12,7 +12,7 @@ namespace BackToBasics.Topics.Searching
             _root = rootNode;
             _searchStack = new Stack();
         }
-        public bool Search(int data)
+        public bool DoSearch(int data)
         {
             BinaryTreeNode _current;
             _searchStack.Push(_root);

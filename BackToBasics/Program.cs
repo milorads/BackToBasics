@@ -37,8 +37,8 @@ namespace BackToBasics
             }
 
             //todo: move to caller at some point
-            new DepthFirstSearch(GetTreeNode()).Search(8);
-            new BreadthFirstSearch(GetTreeNode()).Search(8);
+            new DepthFirstSearch(GetTreeNode()).DoSearch(8);
+            new BreadthFirstSearch(GetTreeNode()).DoSearch(8);
 
             Console.Read();
         }
