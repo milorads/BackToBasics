@@ -913,9 +913,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -940,7 +938,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -951,7 +948,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -968,7 +964,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -1023,7 +1018,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -1105,16 +1099,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -1130,7 +1119,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -1138,7 +1126,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -1173,7 +1160,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -1214,7 +1200,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -1229,7 +1214,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -1256,7 +1240,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -1298,7 +1281,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -1314,7 +1296,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -1335,7 +1316,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -1380,7 +1360,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -1404,7 +1383,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -1446,7 +1424,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -1456,8 +1433,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -1476,7 +1451,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -1522,7 +1496,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -1546,7 +1519,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -1588,7 +1560,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -1600,8 +1571,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -1685,9 +1654,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -1712,7 +1679,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -1723,7 +1689,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -1740,7 +1705,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -1795,7 +1759,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -1877,16 +1840,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -1902,7 +1860,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -1910,7 +1867,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -1945,7 +1901,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -1986,7 +1941,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -2001,7 +1955,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -2028,7 +1981,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -2070,7 +2022,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -2086,7 +2037,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -2107,7 +2057,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -2152,7 +2101,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -2176,7 +2124,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -2218,7 +2165,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -2228,8 +2174,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -2248,7 +2192,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -2294,7 +2237,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -2318,7 +2260,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -2360,7 +2301,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -2372,8 +2312,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -2457,9 +2395,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -2484,7 +2420,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -2495,7 +2430,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -2512,7 +2446,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -2567,7 +2500,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -2649,16 +2581,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -2674,7 +2601,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -2682,7 +2608,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -2717,7 +2642,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -2758,7 +2682,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -2773,7 +2696,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -2800,7 +2722,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -2842,7 +2763,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -2858,7 +2778,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -2879,7 +2798,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -2924,7 +2842,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -2948,7 +2865,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -2990,7 +2906,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -3000,8 +2915,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -3020,7 +2933,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -3066,7 +2978,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -3090,7 +3001,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -3132,7 +3042,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -3144,8 +3053,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -3229,9 +3136,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -3256,7 +3161,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -3267,7 +3171,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -3284,7 +3187,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -3339,7 +3241,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -3421,16 +3322,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -3446,7 +3342,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -3454,7 +3349,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -3489,7 +3383,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -3530,7 +3423,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -3545,7 +3437,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -3572,7 +3463,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -3614,7 +3504,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -3630,7 +3519,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -3651,7 +3539,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -3696,7 +3583,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -3720,7 +3606,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -3762,7 +3647,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -3772,8 +3656,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -3792,7 +3674,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -3838,7 +3719,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -3862,7 +3742,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -3904,7 +3783,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -3916,8 +3794,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -4001,9 +3877,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -4028,7 +3902,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -4039,7 +3912,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -4056,7 +3928,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -4111,7 +3982,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -4193,16 +4063,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -4218,7 +4083,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -4226,7 +4090,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -4261,7 +4124,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -4302,7 +4164,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -4317,7 +4178,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -4344,7 +4204,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -4386,7 +4245,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -4402,7 +4260,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -4423,7 +4280,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -4468,7 +4324,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -4492,7 +4347,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -4534,7 +4388,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -4544,8 +4397,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -4564,7 +4415,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -4610,7 +4460,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -4634,7 +4483,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -4676,7 +4524,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -4688,8 +4535,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -4773,9 +4618,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -4800,7 +4643,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -4811,7 +4653,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -4828,7 +4669,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -4883,7 +4723,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -4965,16 +4804,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -4990,7 +4824,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -4998,7 +4831,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -5033,7 +4865,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -5074,7 +4905,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -5089,7 +4919,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -5116,7 +4945,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -5158,7 +4986,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -5174,7 +5001,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -5195,7 +5021,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -5240,7 +5065,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -5264,7 +5088,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -5306,7 +5129,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -5316,8 +5138,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -5336,7 +5156,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -5382,7 +5201,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -5406,7 +5224,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -5448,7 +5265,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -5460,8 +5276,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -5545,9 +5359,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -5572,7 +5384,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -5583,7 +5394,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -5600,7 +5410,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -5655,7 +5464,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -5737,16 +5545,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -5762,7 +5565,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -5770,7 +5572,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -5805,7 +5606,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -5846,7 +5646,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -5861,7 +5660,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -5888,7 +5686,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -5930,7 +5727,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -5946,7 +5742,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -5967,7 +5762,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -6012,7 +5806,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -6036,7 +5829,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -6078,7 +5870,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -6088,8 +5879,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -6108,7 +5897,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -6154,7 +5942,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -6178,7 +5965,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -6220,7 +6006,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -6232,8 +6017,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -6317,9 +6100,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -6344,7 +6125,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -6355,7 +6135,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -6372,7 +6151,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -6427,7 +6205,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -6509,16 +6286,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -6534,7 +6306,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -6542,7 +6313,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -6577,7 +6347,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -6618,7 +6387,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -6633,7 +6401,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -6660,7 +6427,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -6702,7 +6468,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -6718,7 +6483,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -6739,7 +6503,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -6784,7 +6547,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -6808,7 +6570,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -6850,7 +6611,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -6860,8 +6620,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -6880,7 +6638,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -6926,7 +6683,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -6950,7 +6706,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -6992,7 +6747,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -7004,8 +6758,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -7089,9 +6841,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -7116,7 +6866,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -7127,7 +6876,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -7144,7 +6892,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -7199,7 +6946,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -7281,16 +7027,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -7306,7 +7047,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -7314,7 +7054,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -7349,7 +7088,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -7390,7 +7128,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -7405,7 +7142,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -7432,7 +7168,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -7474,7 +7209,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -7490,7 +7224,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -7511,7 +7244,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -7556,7 +7288,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -7580,7 +7311,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -7622,7 +7352,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -7632,8 +7361,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -7652,7 +7379,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -7698,7 +7424,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -7722,7 +7447,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -7764,7 +7488,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -7776,8 +7499,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -7861,9 +7582,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -7888,7 +7607,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -7899,7 +7617,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -7916,7 +7633,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -7971,7 +7687,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -8053,16 +7768,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -8078,7 +7788,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -8086,7 +7795,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -8121,7 +7829,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -8162,7 +7869,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -8177,7 +7883,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -8204,7 +7909,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -8246,7 +7950,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -8262,7 +7965,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -8283,7 +7985,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -8328,7 +8029,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -8352,7 +8052,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -8394,7 +8093,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -8404,8 +8102,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -8424,7 +8120,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -8470,7 +8165,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -8494,7 +8188,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -8536,7 +8229,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -8548,8 +8240,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -8633,9 +8323,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -8660,7 +8348,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -8671,7 +8358,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -8688,7 +8374,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -8743,7 +8428,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -8825,16 +8509,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -8850,7 +8529,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -8858,7 +8536,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -8893,7 +8570,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -8934,7 +8610,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -8949,7 +8624,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -8976,7 +8650,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -9018,7 +8691,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -9034,7 +8706,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -9055,7 +8726,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -9100,7 +8770,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -9124,7 +8793,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -9166,7 +8834,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -9176,8 +8843,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -9196,7 +8861,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -9242,7 +8906,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -9266,7 +8929,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -9308,7 +8970,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -9320,8 +8981,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -9405,9 +9064,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -9432,7 +9089,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -9443,7 +9099,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -9460,7 +9115,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -9515,7 +9169,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -9597,16 +9250,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -9622,7 +9270,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -9630,7 +9277,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -9665,7 +9311,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -9706,7 +9351,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -9721,7 +9365,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -9748,7 +9391,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -9790,7 +9432,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -9806,7 +9447,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -9827,7 +9467,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -9872,7 +9511,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -9896,7 +9534,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -9938,7 +9575,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -9948,8 +9584,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -9968,7 +9602,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -10014,7 +9647,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -10038,7 +9670,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -10080,7 +9711,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -10092,8 +9722,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -10177,9 +9805,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -10204,7 +9830,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -10215,7 +9840,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -10232,7 +9856,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -10287,7 +9910,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -10369,16 +9991,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -10394,7 +10011,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -10402,7 +10018,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -10437,7 +10052,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -10478,7 +10092,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -10493,7 +10106,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -10520,7 +10132,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -10562,7 +10173,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -10578,7 +10188,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -10599,7 +10208,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -10644,7 +10252,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -10668,7 +10275,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -10710,7 +10316,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -10720,8 +10325,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -10740,7 +10343,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -10786,7 +10388,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -10810,7 +10411,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -10852,7 +10452,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -10864,8 +10463,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -10949,9 +10546,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -10976,7 +10571,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -10987,7 +10581,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -11004,7 +10597,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -11059,7 +10651,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -11141,16 +10732,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -11166,7 +10752,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -11174,7 +10759,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -11209,7 +10793,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -11250,7 +10833,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -11265,7 +10847,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -11292,7 +10873,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -11334,7 +10914,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -11350,7 +10929,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -11371,7 +10949,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -11416,7 +10993,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2] < m[cursor1]) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -11440,7 +11016,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -11482,7 +11057,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -11492,8 +11066,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -11512,7 +11084,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -11558,7 +11129,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2] < a[cursor1]) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -11582,7 +11152,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -11624,7 +11193,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -11636,8 +11204,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -11721,9 +11287,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -11748,7 +11312,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -11759,7 +11322,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -11776,7 +11338,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -11831,7 +11392,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -11913,16 +11473,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -11938,7 +11493,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -11946,7 +11500,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -11981,7 +11534,6 @@ namespace TimSort
             var a = array;
 #endif
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -12022,7 +11574,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -12037,7 +11588,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -12064,7 +11614,6 @@ namespace TimSort
             var a = array;
 #endif
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -12106,7 +11655,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -12122,7 +11670,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -12143,7 +11690,6 @@ namespace TimSort
 #endif
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -12188,7 +11734,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2].CompareTo(m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -12212,7 +11757,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -12254,7 +11798,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -12264,8 +11807,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -12284,7 +11825,6 @@ namespace TimSort
 #endif
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -12330,7 +11870,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2].CompareTo(a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -12354,7 +11893,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -12396,7 +11934,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -12408,8 +11945,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -12495,9 +12030,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -12516,7 +12049,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -12527,7 +12059,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -12544,7 +12075,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -12593,7 +12123,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -12622,17 +12151,12 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var comparer = _comparer;
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -12648,7 +12172,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0, comparer);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -12656,7 +12179,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1, comparer);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -12685,7 +12207,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -12726,7 +12247,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -12741,7 +12261,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -12762,7 +12281,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -12804,7 +12322,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -12820,7 +12337,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -12838,7 +12354,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -12879,7 +12394,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (comparer(a[cursor2], m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -12903,7 +12417,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0, comparer);
                         if (count1 != 0)
                         {
@@ -12945,7 +12458,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -12955,8 +12467,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -12972,7 +12482,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -13014,7 +12523,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (comparer(m[cursor2], a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -13038,7 +12546,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1, comparer);
                         if (count1 != 0)
                         {
@@ -13080,7 +12587,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -13092,8 +12598,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -13179,9 +12683,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -13200,7 +12702,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -13211,7 +12712,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -13228,7 +12728,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -13277,7 +12776,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -13368,17 +12866,12 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var comparer = _comparer;
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -13394,7 +12887,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0, comparer);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -13402,7 +12894,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1, comparer);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -13431,7 +12922,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -13472,7 +12962,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -13487,7 +12976,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -13508,7 +12996,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -13550,7 +13037,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -13566,7 +13052,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -13584,7 +13069,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -13625,7 +13109,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (comparer(a[cursor2], m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -13649,7 +13132,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = AnyArrayTimSort<T>.GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0, comparer);
                         if (count1 != 0)
                         {
@@ -13691,7 +13173,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -13701,8 +13182,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     IndexedCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -13718,7 +13197,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -13760,7 +13238,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (comparer(m[cursor2], a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -13784,7 +13261,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1, comparer);
                         if (count1 != 0)
                         {
@@ -13826,7 +13302,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     IndexedCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -13838,8 +13313,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -13925,9 +13398,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -13946,7 +13417,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -13957,7 +13427,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -13974,7 +13443,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -14023,7 +13491,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -14114,17 +13581,12 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var comparer = _comparer;
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -14140,7 +13602,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0, comparer);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -14148,7 +13609,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1, comparer);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -14177,7 +13637,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -14218,7 +13677,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -14233,7 +13691,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -14254,7 +13711,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -14296,7 +13752,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -14312,7 +13767,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -14330,7 +13784,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -14371,7 +13824,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (comparer(a[cursor2], m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -14395,7 +13847,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = AnyArrayTimSort<T>.GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0, comparer);
                         if (count1 != 0)
                         {
@@ -14437,7 +13888,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -14447,8 +13897,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     IndexedCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -14464,7 +13912,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -14506,7 +13953,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (comparer(m[cursor2], a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -14530,7 +13976,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1, comparer);
                         if (count1 != 0)
                         {
@@ -14572,7 +14017,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     IndexedCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -14584,8 +14028,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -14670,9 +14112,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -14690,7 +14130,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -14701,7 +14140,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -14718,7 +14156,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -14766,7 +14203,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -14795,16 +14231,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -14820,7 +14251,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -14828,7 +14258,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -14856,7 +14285,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -14897,7 +14325,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -14912,7 +14339,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -14932,7 +14358,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -14974,7 +14399,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -14990,7 +14414,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -15008,7 +14431,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -15048,7 +14470,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2].CompareTo(m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -15072,7 +14493,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -15114,7 +14534,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -15124,8 +14543,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     ArrayCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -15141,7 +14558,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -15182,7 +14598,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2].CompareTo(a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -15206,7 +14621,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -15248,7 +14662,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     ArrayCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -15260,8 +14673,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     ArrayCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -15346,9 +14757,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -15366,7 +14775,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -15377,7 +14785,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -15394,7 +14801,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -15442,7 +14848,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -15533,16 +14938,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -15558,7 +14958,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -15566,7 +14965,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -15594,7 +14992,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -15635,7 +15032,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -15650,7 +15046,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -15670,7 +15065,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -15712,7 +15106,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -15728,7 +15121,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -15746,7 +15138,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -15786,7 +15177,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2].CompareTo(m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -15810,7 +15200,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = ComparableArrayTimSort<T>.GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -15852,7 +15241,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -15862,8 +15250,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     IndexedCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -15879,7 +15265,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -15920,7 +15305,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2].CompareTo(a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -15944,7 +15328,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -15986,7 +15369,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     IndexedCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -15998,8 +15380,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -16084,9 +15464,7 @@ namespace TimSort
             } while (width != 0);
 
             // Merge all remaining runs to complete sort
-            Debug.Assert(lo == hi);
             sorter.MergeForceCollapse();
-            Debug.Assert(sorter._stackSize == 1);
         }
 
         /// <summary>
@@ -16104,7 +15482,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo <= start && start <= hi);
 
                 if (start == lo) start++;
 
@@ -16115,7 +15492,6 @@ namespace TimSort
                     // Set left (and right) to the index where a[start] (pivot) belongs
                     var left = lo;
                     var right = start;
-                    Debug.Assert(left <= right);
 
                     // Invariants:
                     // * pivot >= all in [lo, left).
@@ -16132,7 +15508,6 @@ namespace TimSort
                             left = mid + 1;
                         }
                     }
-                    Debug.Assert(left == right);
 
                     // The invariants still hold: pivot >= all in [lo, left) and
                     // pivot < all in [left, start), so pivot belongs at left.  Note
@@ -16180,7 +15555,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(lo < hi);
                 var runHi = lo + 1;
                 if (runHi == hi) return 1;
 
@@ -16271,16 +15645,11 @@ namespace TimSort
         /// <param name="runIndex">Stack index of the first of the two runs to merge.</param>
         protected override void MergeAt(int runIndex)
         {
-            Debug.Assert(_stackSize >= 2);
-            Debug.Assert(runIndex >= 0);
-            Debug.Assert(runIndex == _stackSize - 2 || runIndex == _stackSize - 3);
 
             var base1 = _runBase[runIndex];
             var len1 = _runLength[runIndex];
             var base2 = _runBase[runIndex + 1];
             var len2 = _runLength[runIndex + 1];
-            Debug.Assert(len1 > 0 && len2 > 0);
-            Debug.Assert(base1 + len1 == base2);
 
             // Record the length of the combined runs; if i is the 3rd-last
             // run now, also slide over the last run (which isn't involved
@@ -16296,7 +15665,6 @@ namespace TimSort
             // Find where the first element of run2 goes in run1. Prior elements
             // in run1 can be ignored (because they're already in place).
             var k = GallopRight(_array[base2], _array, base1, len1, 0);
-            Debug.Assert(k >= 0);
             base1 += k;
             len1 -= k;
             if (len1 == 0) return;
@@ -16304,7 +15672,6 @@ namespace TimSort
             // Find where the last element of run1 goes in run2. Subsequent elements
             // in run2 can be ignored (because they're already in place).
             len2 = GallopLeft(_array[base1 + len1 - 1], _array, base2, len2, len2 - 1);
-            Debug.Assert(len2 >= 0);
             if (len2 == 0) return;
 
             // Merge remaining runs, using tmp array with min(len1, len2) elements
@@ -16332,7 +15699,6 @@ namespace TimSort
         {
             var a = array;
             { // fixed (...)
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
                 var lastOfs = 0;
                 var ofs = 1;
 
@@ -16373,7 +15739,6 @@ namespace TimSort
                     lastOfs = hint - ofs;
                     ofs = hint - tmp;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[base+lastOfs] < key <= a[base+ofs], so key belongs somewhere
                 // to the right of lastOfs but no farther right than ofs.  Do a binary
@@ -16388,7 +15753,6 @@ namespace TimSort
                     else
                         ofs = m; // key <= a[base + m]
                 }
-                Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -16408,7 +15772,6 @@ namespace TimSort
         {
             var a = array;
             {
-                Debug.Assert(length > 0 && hint >= 0 && hint < length);
 
                 var ofs = 1;
                 var lastOfs = 0;
@@ -16450,7 +15813,6 @@ namespace TimSort
                     lastOfs += hint;
                     ofs += hint;
                 }
-                Debug.Assert(-1 <= lastOfs && lastOfs < ofs && ofs <= length);
 
                 // Now a[b + lastOfs] <= key < a[b + ofs], so key belongs somewhere to
                 // the right of lastOfs but no farther right than ofs.  Do a binary
@@ -16466,7 +15828,6 @@ namespace TimSort
                         lastOfs = m + 1; // a[b + m] <= key
                 }
 
-                Debug.Assert(lastOfs == ofs); // so a[b + ofs - 1] <= key < a[b + ofs]
                 return ofs;
             } // fixed (...)
         }
@@ -16484,7 +15845,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeLo(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy first run into temp array
             var array = _array;
@@ -16524,7 +15884,6 @@ namespace TimSort
                     // winning consistently.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         if (a[cursor2].CompareTo(m[cursor1]) < 0) // c(a[cursor2], m[cursor1]) < 0
                         {
                             a[dest++] = a[cursor2++];
@@ -16548,7 +15907,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 1 && len2 > 0);
                         count1 = ComparableArrayTimSort<T>.GallopRight(a[cursor2], mergeBuffer, cursor1, len1, 0);
                         if (count1 != 0)
                         {
@@ -16590,7 +15948,6 @@ namespace TimSort
 
                 if (len1 == 1)
                 {
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(a, cursor2, dest, len2);
                     a[dest + len2] = m[cursor1]; //  Last elt of run 1 to end of merge
                 }
@@ -16600,8 +15957,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len2 == 0);
-                    Debug.Assert(len1 > 1);
                     IndexedCopyRange(m, cursor1, a, dest, len1);
                 }
             } // fixed (...)
@@ -16617,7 +15972,6 @@ namespace TimSort
         /// <param name="len2">length of second run to be merged (must be &gt; 0).</param>
         private void MergeHi(int base1, int len1, int base2, int len2)
         {
-            Debug.Assert(len1 > 0 && len2 > 0 && base1 + len1 == base2);
 
             // Copy second run into temp array
             var array = _array; // For performance
@@ -16658,7 +16012,6 @@ namespace TimSort
                     // Do the straightforward thing until (if ever) one run appears to win consistently.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         if (m[cursor2].CompareTo(a[cursor1]) < 0) // c(m[cursor2], a[cursor1]) < 0
                         {
                             a[dest--] = a[cursor1--];
@@ -16682,7 +16035,6 @@ namespace TimSort
                     // neither run appears to be winning consistently anymore.
                     do
                     {
-                        Debug.Assert(len1 > 0 && len2 > 1);
                         count1 = len1 - GallopRight(m[cursor2], array, base1, len1, len1 - 1);
                         if (count1 != 0)
                         {
@@ -16724,7 +16076,6 @@ namespace TimSort
 
                 if (len2 == 1)
                 {
-                    Debug.Assert(len1 > 0);
                     dest -= len1;
                     cursor1 -= len1;
                     IndexedCopyRange(a, cursor1 + 1, dest + 1, len1);
@@ -16736,8 +16087,6 @@ namespace TimSort
                 }
                 else
                 {
-                    Debug.Assert(len1 == 0);
-                    Debug.Assert(len2 > 0);
                     IndexedCopyRange(m, 0, a, dest - (len2 - 1), len2);
                 }
             } // fixed (...)
@@ -16880,7 +16229,6 @@ namespace TimSort
         /// <returns>the length of the minimum run to be merged.</returns>
         protected static int GetMinimumRunLength(int n)
         {
-            Debug.Assert(n >= 0);
             int r = 0; // Becomes 1 if any 1 bits are shifted off
             while (n >= MIN_MERGE)
             {

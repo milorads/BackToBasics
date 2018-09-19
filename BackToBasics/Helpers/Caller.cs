@@ -463,8 +463,6 @@ namespace BackToBasics.Helpers
 
             d2.Operation();
 
-            // Wait for user
-            Console.ReadKey();
             #endregion
 
 
@@ -584,8 +582,6 @@ namespace BackToBasics.Helpers
                 Console.WriteLine(item2.Name);
             }
 
-            // Wait for user
-            Console.ReadKey();
             #endregion
         }
 

@@ -4,6 +4,7 @@ using BackToBasics.Topics.Sorting;
 using System;
 using System.Collections.Generic;
 using BackToBasics.Topics.Searching;
+using Array = BackToBasics.Topics.Data_Structures.Array;
 
 namespace BackToBasics
 {
@@ -40,8 +41,17 @@ namespace BackToBasics
             new DepthFirstSearch(GetTreeNode()).DoSearch(8);
             new BreadthFirstSearch(GetTreeNode()).DoSearch(8);
             new LinearSearch().DoSearch(GetUnsortedArray(),8);
+            new BinarySearch().DoSearch(GetUnsortedArray(), 8);
+            new ExponentialSearch().DoSearch(GetUnsortedArray(), 8);
+            new JumpSearch().DoSearch(GetUnsortedArray(), 8);
+            new FibonacciSeearch().DoSearch(GetUnsortedArray(), 8);
+            new InterpolationSearch().DoSearch(GetUnsortedArray(), 8);
 
+            new Array().DoIterateOneDimensionArray();
+            new Array().DoIterateArrayOfArray();
+            new Array().DoIterateTwoDimensionArray();
 
+            Console.WriteLine("---DONE---");
             Console.Read();
         }
 

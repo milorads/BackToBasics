@@ -6,7 +6,7 @@ namespace BackToBasics.Topics.Searching
     {
         public int DoSearch(int[] arr, int x)
         {
-            return Exponentialsearch(arr, arr.Length, x);
+            return Exponentialsearch(arr, arr.Length -1, x);
         }
 
         // Returns position of first
