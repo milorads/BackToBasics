@@ -41,8 +41,11 @@
     <Compile Include="Helpers\DoubleLinkedItem.cs" />
     <Compile Include="Helpers\QueueNode.cs" />
     <Compile Include="Helpers\SingleLinkedItem.cs" />
+    <Compile Include="Helpers\SkipList.cs" />
     <Compile Include="Helpers\TimSortHelper.cs" />
+    <Compile Include="Helpers\Treap.cs" />
     <Compile Include="Topics\Data Structures\Array.cs" />
+    <Compile Include="Topics\Data Structures\BinarySearchTree.cs" />
     <Compile Include="Topics\Data Structures\DoubleLinkedList.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\CoalescedHashing.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\CuckooHashing.cs" />
