@@ -38,9 +38,12 @@
   <ItemGroup>
     <Compile Include="Helpers\BinaryTreeNode.cs" />
     <Compile Include="Helpers\Caller.cs" />
+    <Compile Include="Helpers\DoubleLinkedItem.cs" />
     <Compile Include="Helpers\QueueNode.cs" />
+    <Compile Include="Helpers\SingleLinkedItem.cs" />
     <Compile Include="Helpers\TimSortHelper.cs" />
     <Compile Include="Topics\Data Structures\Array.cs" />
+    <Compile Include="Topics\Data Structures\DoubleLinkedList.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\CoalescedHashing.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\CuckooHashing.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\DoubleHashing.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\SeparateChaining.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\TwoChoiceHasing.cs" />
     <Compile Include="Topics\Data Structures\Queue.cs" />
+    <Compile Include="Topics\Data Structures\SingleLinkedList.cs" />
     <Compile Include="Topics\Data Structures\Stack.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
