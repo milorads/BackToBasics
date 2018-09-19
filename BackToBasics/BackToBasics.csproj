@@ -36,15 +36,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AvlNode.cs" />
+    <Compile Include="Helpers\AvlNodeEnumerator.cs" />
     <Compile Include="Helpers\BinaryTreeNode.cs" />
     <Compile Include="Helpers\Caller.cs" />
     <Compile Include="Helpers\DoubleLinkedItem.cs" />
+    <Compile Include="Topics\Data Structures\BitControl.cs" />
+    <Compile Include="Topics\Data Structures\KDTree.cs" />
     <Compile Include="Helpers\QueueNode.cs" />
     <Compile Include="Helpers\SingleLinkedItem.cs" />
     <Compile Include="Helpers\SkipList.cs" />
     <Compile Include="Helpers\TimSortHelper.cs" />
     <Compile Include="Helpers\Treap.cs" />
     <Compile Include="Topics\Data Structures\Array.cs" />
+    <Compile Include="Topics\Data Structures\AvlTree.cs" />
     <Compile Include="Topics\Data Structures\BinarySearchTree.cs" />
     <Compile Include="Topics\Data Structures\DoubleLinkedList.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\CoalescedHashing.cs" />
