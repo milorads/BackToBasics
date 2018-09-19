@@ -58,7 +58,9 @@
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\SeparateChaining.cs" />
     <Compile Include="Topics\Data Structures\Hashtables\Insertion\TwoChoiceHasing.cs" />
     <Compile Include="Topics\Data Structures\Queue.cs" />
+    <Compile Include="Topics\Data Structures\RedBlackTree.cs" />
     <Compile Include="Topics\Data Structures\SingleLinkedList.cs" />
+    <Compile Include="Topics\Data Structures\SplayTree.cs" />
     <Compile Include="Topics\Data Structures\Stack.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\ChainOfResponsibility\ChainOfResponsibility.cs" />
     <Compile Include="Topics\Design Patterns\Behavioral\Command\Command.cs" />
