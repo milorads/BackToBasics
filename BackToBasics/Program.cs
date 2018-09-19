@@ -3,6 +3,7 @@ using BackToBasics.Topics.Paradigms.Interfaces.InterfaceTry;
 using BackToBasics.Topics.Sorting;
 using System;
 using System.Collections.Generic;
+using BackToBasics.Topics.Data_Structures;
 using BackToBasics.Topics.Searching;
 using Array = BackToBasics.Topics.Data_Structures.Array;
 
@@ -50,6 +51,10 @@ namespace BackToBasics
             new Array().DoIterateOneDimensionArray();
             new Array().DoIterateArrayOfArray();
             new Array().DoIterateTwoDimensionArray();
+
+            new Stack().StackOperations();
+
+            new Queue().QueueOperations();
 
             Console.WriteLine("---DONE---");
             Console.Read();

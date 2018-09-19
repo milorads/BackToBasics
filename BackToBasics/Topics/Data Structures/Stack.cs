@@ -34,8 +34,8 @@ namespace BackToBasics.Topics.Data_Structures
             {
                 return 0;
             }
-
-            int value = _stack[top--];
+            var value = _stack[top];
+            _stack[top--] = 0;
             return value;
         }
 
@@ -59,10 +59,20 @@ namespace BackToBasics.Topics.Data_Structures
 
             for (int i = top; i >= 0; i--)
             {
-                stack.Add(stack[i]);
+                stack.Add(_stack[i]);
             }
 
-            return this._stack.ToArray();
+            return stack.ToArray();
+        }
+
+        public void StackOperations()
+        {
+            Push(3);
+            Push(5);
+            Peek();
+            var poppedValue = Pop();
+            var wholeStackInArray = ReturnStack();
+            Pop();
         }
     }
 }
